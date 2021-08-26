@@ -1,0 +1,14 @@
+.alarmLight {
+  animation: use_underline 1s linear infinite;
+  /* animation-iteration-count: 10; */
+}
+
+@keyframes use_underline {
+  from {
+    color: #ec7063;
+  }
+
+  to {
+    color: white;
+  }
+}

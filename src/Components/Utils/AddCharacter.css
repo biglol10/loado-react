@@ -1,0 +1,43 @@
+.classSelectModal {
+  width: 900px;
+  background-color: #384862;
+}
+
+.characterClassHeader {
+  width: 100px !important;
+}
+
+.characterClassContent {
+  width: 150px !important;
+  border-radius: 5px;
+}
+
+.characterClassContent:hover {
+  cursor: pointer;
+  background-color: dimgray;
+  /* background-color: darkseagreen; */
+}
+
+.itemHeader {
+  display: flex;
+  color: white !important;
+  margin-left: 15px !important;
+}
+
+.itemHeaderRest {
+  display: flex;
+  color: white !important;
+}
+
+.itemHeaderAttribute1 {
+  margin-right: 40px;
+}
+
+.itemHeaderAttribute2 {
+  margin-right: 40px;
+  margin-top: 7px;
+}
+
+.charNameInput > input {
+  color: white !important;
+}

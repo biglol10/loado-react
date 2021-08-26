@@ -1,0 +1,11 @@
+.iconButton {
+  cursor: pointer;
+}
+
+.thisItemNotChanged {
+  border-top: 0.05rem inset ivory;
+}
+
+.thisItemChanged {
+  border: 0.05rem inset red;
+}
