@@ -69,7 +69,7 @@ function CharacterToDoRow({ limit, type }) {
   const axiosConfig = {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${cookie.get("token")}`,
+      Authorization: `Bearer ${cookie.get("loadoUserToken")}`,
     },
   };
 
@@ -207,7 +207,7 @@ function CharacterToDoRow({ limit, type }) {
 
   // if no user cookie then redirect to login page
   useEffect(() => {
-    let loginCookie = cookie.get("token");
+    let loginCookie = cookie.get("loadoUserToken");
     !loginCookie && history.push("/login");
   }, []);
 

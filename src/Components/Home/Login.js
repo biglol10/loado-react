@@ -45,7 +45,7 @@ function Login() {
       .then((response) => {
         if (response.data.success) {
           const token = response.data.token;
-          cookie.set("token", token);
+          cookie.set("loadoUserToken", token);
           const userCookie = {
             userId: user.id,
             userName: response.data.userName,

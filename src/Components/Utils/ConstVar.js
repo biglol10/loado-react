@@ -1,3 +1,3 @@
-const backendUrl = "https://loado-backend.herokuapp.com";
+const backendUrl = "https://loado-app.herokuapp.com";
 
 export default backendUrl;
