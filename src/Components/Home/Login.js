@@ -83,7 +83,7 @@ function Login() {
                 placeholder="ID"
                 name="id"
                 onChange={handleChange}
-                value={cookie.get("loginId")}
+                value={user.id}
               />
               <Form.Input
                 fluid

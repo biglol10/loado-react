@@ -94,11 +94,15 @@ function CharacterToDoRow({ limit, type }) {
       .then((response) => {
         setUserTodoData(response.data.data);
         const totalLength = response.data.totalLength;
-        const totalPage =
-          totalLength / limit - Math.floor(totalLength / limit) > 0
-            ? Math.floor(totalLength / limit) + 1
-            : Math.floor(totalLength / limit);
-        setPagination(totalPage);
+        if (totalLength) {
+          const totalPage =
+            totalLength / limit - Math.floor(totalLength / limit) > 0
+              ? Math.floor(totalLength / limit) + 1
+              : Math.floor(totalLength / limit);
+          setPagination(totalPage);
+        } else {
+          setPagination(1);
+        }
         setLoading(false);
       })
       .catch((err) => {
