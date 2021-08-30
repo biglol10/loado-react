@@ -302,6 +302,9 @@ function CharacterToDoRow({ limit, type }) {
                         viewPage={viewPage}
                         alarmCharacter={item.alarmCharacter}
                         limit={limit}
+                        dontChange={item.dontChange}
+                        userTodoData={userTodoData}
+                        setUserTodoData={setUserTodoData}
                       />
                     ))}
                   </Grid.Row>

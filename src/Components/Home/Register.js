@@ -13,12 +13,13 @@ import cookie from "js-cookie";
 import { Link, useHistory } from "react-router-dom";
 import backendUrl from "../Utils/ConstVar";
 
-function Login() {
+function Register() {
   const history = useHistory();
-  const [loginMessage, setLoginMessage] = useState("로그인이 필요합니다");
+  const [loginMessage, setLoginMessage] = useState("회원가입");
   const [user, setUser] = useState({
-    id: cookie.get("loginId") ? cookie.get("loginId") : "",
+    id: "",
     password: "",
+    name: "",
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,10 +36,11 @@ function Login() {
     e.preventDefault();
     axios
       .post(
-        `${backendUrl}/loado/api/users/login`,
+        `${backendUrl}/loado/api/users/register`,
         {
           userId: user.id,
           password: user.password,
+          name: user.name,
         },
         axiosConfig
       )
@@ -55,9 +57,6 @@ function Login() {
         }
       })
       .catch((err) => {
-        // console.log(err.request);
-        // console.log(err.response);
-        // console.log(err.message);
         setLoginMessage(err.response.data.error);
       });
   };
@@ -94,22 +93,26 @@ function Login() {
                 name="password"
                 onChange={handleChange}
               />
+              <Form.Input
+                fluid
+                icon="quote left"
+                iconPosition="left"
+                placeholder="이름"
+                name="name"
+                onChange={handleChange}
+                value={user.name}
+              />
 
               <Button color="teal" fluid size="large" type="submit">
-                로그인
+                가입
               </Button>
             </Segment>
           </Form>
-          <Message>
-            계정이 없으신가요?{" "}
-            <a href="#" onClick={() => history.push("/register")}>
-              가입
-            </a>
-          </Message>
+          <Message>비밀번호를 잊어버리시면 복구가 불가능합니다</Message>
         </Grid.Column>
       </Grid>
     </>
   );
 }
 
-export default Login;
+export default Register;

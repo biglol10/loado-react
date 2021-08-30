@@ -16,8 +16,15 @@ function CharacterAvatar({
   viewPage,
   alarmCharacter,
   limit,
+  dontChange,
+  userTodoData,
+  setUserTodoData,
 }) {
   const [deleteIcon, showDeleteIcon] = useState(false);
+
+  const [showDontChange, setShowDontChange] = useState(false);
+
+  const [dontChangeState, setDontChangeState] = useState(dontChange);
 
   const [alarmState, setAlarmState] = useState("");
 
@@ -49,6 +56,29 @@ function CharacterAvatar({
     showDeleteIcon(false);
   };
 
+  const dontChangeCharacter = (id) => {
+    const indexValue = userTodoData.findIndex((anItem) => {
+      return anItem._id === id;
+    });
+    let newArr = [...userTodoData];
+    newArr[indexValue].dontChange = !dontChange;
+    newArr[indexValue]["attributeChanged"] = true;
+    setDontChangeState(!dontChangeState);
+    setUserTodoData(newArr);
+    showDeleteIcon(false);
+  };
+
+  useEffect(() => {
+    let element = document.getElementById(`${itemId}_${characterName}`);
+    const rightclickEvent = element.addEventListener("contextmenu", (event) => {
+      event.preventDefault();
+      setShowDontChange(!showDontChange);
+    });
+    return () => {
+      element.removeEventListener("contextmenu", rightclickEvent);
+    };
+  }, []);
+
   return (
     <>
       <Grid.Column>
@@ -61,6 +91,8 @@ function CharacterAvatar({
         <span
           onClick={() => showDeleteIcon(!deleteIcon)}
           className={alarmCharacter ? "alarmLight" : ""}
+          id={`${itemId}_${characterName}`}
+          data-options={itemId}
         >
           {characterName}
         </span>
@@ -82,6 +114,23 @@ function CharacterAvatar({
               />
             }
             content={`'${characterName}'에 대한 정보를 삭제하시겠습니까?`}
+          />
+        )}
+        {showDontChange && (
+          <Popup
+            trigger={
+              <Icon
+                name={dontChangeState ? "bell" : "bell slash"}
+                color="yellow"
+                style={{ cursor: "pointer", marginLeft: "1px" }}
+                onClick={() => dontChangeCharacter(itemId)}
+              />
+            }
+            content={
+              dontChangeState
+                ? `'${characterName}' 휴식게이지 고정취소`
+                : `'${characterName}' 휴식게이지 고정`
+            }
           />
         )}
       </Grid.Column>

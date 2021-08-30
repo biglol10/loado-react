@@ -6,6 +6,7 @@ import NavHeader from "./Components/Nav/NavHeader";
 import CharacterToDo from "./Components/Home/CharacterToDo";
 import CharacterToDoRow from "./Components/Home/CharacterToDoRow";
 import Login from "./Components/Home/Login";
+import Register from "./Components/Home/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createMedia } from "@artsy/fresnel";
 
@@ -59,6 +60,9 @@ function App() {
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/" exact>
             <Login />

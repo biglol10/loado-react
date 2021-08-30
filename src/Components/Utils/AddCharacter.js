@@ -12,7 +12,6 @@ import {
 } from "semantic-ui-react";
 import { characterCdn, characterKorean } from "../../_data/characterDefinition";
 import axios from "axios";
-import cookie from "js-cookie";
 
 import { ToastContainer, toast } from "react-toastify";
 import backendUrl from "../Utils/ConstVar";
