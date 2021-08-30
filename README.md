@@ -36,6 +36,7 @@
 
 #### * 휴식게이지 수정
 휴식게이지에 마우스 우클릭 시 케릭터의 휴식게이지를 수정할 수 있는 팝업 등장 (숫자는 10단위)
+위아래 버튼 및 타이핑으로 수정 가능
 ![image](https://user-images.githubusercontent.com/46738034/131293598-4aafd97a-745a-4fed-9d7c-0cf98d6d5a10.png)
 <br/><br/>
 
