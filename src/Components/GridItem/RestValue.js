@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Modal, Image, Button } from "semantic-ui-react";
 import TextField from "@material-ui/core/TextField";
+import { characterCdn } from "../../_data/characterDefinition";
 
 function RestValue({ item, userTodoData, setUserTodoData }) {
   const [showModal, setShowModal] = useState(false);
@@ -15,6 +16,8 @@ function RestValue({ item, userTodoData, setUserTodoData }) {
       element.removeEventListener("contextmenu", rightclickEvent);
     };
   });
+
+  console.log(item);
 
   // if you use setShowModal directly in Modal onClose, react will throw error
   const closeModal = () => {
@@ -104,11 +107,7 @@ function RestValue({ item, userTodoData, setUserTodoData }) {
         closeOnDimmerClick
       >
         <Modal.Header>
-          <Image
-            src="https://cdn-lostark.game.onstove.com/2018/obt/assets/images/common/thumb/lancemaster_s.png"
-            size="mini"
-            avatar
-          />
+          <Image src={characterCdn[item.character]} size="mini" avatar />
           {item.characterName}
         </Modal.Header>
         <Modal.Content>

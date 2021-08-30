@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid, Dropdown } from "semantic-ui-react";
 
 function ChaosDunValue({ chaosItem, userTodoData, setUserTodoData }) {
