@@ -68,6 +68,7 @@ function CharacterAvatar({
     showDeleteIcon(false);
   };
 
+  // 원래 1회 실행으로 useEffect에 []를 넣었지만 이걸 넣으니 되돌아가기가 안됨... 그래서 [] 빼보니 됨
   useEffect(() => {
     let element = document.getElementById(`${itemId}_${characterName}`);
     const rightclickEvent = element.addEventListener("contextmenu", (event) => {
@@ -77,7 +78,7 @@ function CharacterAvatar({
     return () => {
       element.removeEventListener("contextmenu", rightclickEvent);
     };
-  }, []);
+  });
 
   return (
     <>

@@ -13,9 +13,11 @@ import {
   Loader,
   Pagination,
   Image,
+  Divider
 } from "semantic-ui-react";
 import RestValue from "../GridItem/RestValue";
 import CharacterAvatar from "./CharacterAvatar";
+import PerIdNote from './PerIdNote';
 import {
   ChaosDunValue,
   GuardianDunValue,
@@ -178,8 +180,11 @@ function CharacterToDoRow({ limit, type }) {
       });
   };
 
-  // for animation
+  // for alarm animation
   const [alarmTrue, setAlarmTrue] = useState(true);
+
+  // for note per list
+  const [showNote, setShowNote] = useState(false);
 
   const alarmRestValue = (todoList) => {
     // 알람 중지
@@ -248,7 +253,7 @@ function CharacterToDoRow({ limit, type }) {
                   >
                     {today}{" "}
                     {type === "computer" && (
-                      <span style={{ marginLeft: "40px" }}>
+                      <span style={{ marginLeft: "30px" }}>
                         금일 06:00 ~ 명일 05:59
                       </span>
                     )}
@@ -282,14 +287,15 @@ function CharacterToDoRow({ limit, type }) {
                 <Grid columns={limit + 1}>
                   <Grid.Row style={{ borderBottom: "0.05rem inset ivory" }}>
                     <Grid.Column className="contentColumn">
-                      <Button
-                        icon={alarmTrue ? "alarm" : "alarm mute"}
-                        content={
-                          type === "computer" && (alarmTrue ? "체크" : "체크X")
-                        }
-                        style={{ background: "dimgray", color: "white" }}
-                        onClick={() => alarmRestValue(userTodoData)}
-                      />
+                      {/* padding got from <Button/> */}
+                      <Header as="h4" style={{color:'white', display:'flex', padding:'.78571429em 1.5em .78571429em'}}>
+                        <div>
+                          <Icon className="iconClass" name={alarmTrue ? "alarm" : "alarm mute"} onClick={() => alarmRestValue(userTodoData)}/>
+                          {"  //  "}
+                          <Icon className="iconClass" name={!showNote ? "sticky note outline" : 'angle double up'} onClick={() => setShowNote(!showNote)}/>
+                        </div>
+                        
+                      </Header>
                     </Grid.Column>
                     {userTodoData.map((item, idx) => (
                       <CharacterAvatar
@@ -308,6 +314,20 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
+                  {
+                    showNote && (
+                      <Grid.Row>
+                        <Grid.Column/>
+                        {userTodoData.map((item, idx) => (
+                          <PerIdNote
+                          item={item}
+                        userTodoData={userTodoData}
+                        setUserTodoData={setUserTodoData}
+                          />
+                        ))}
+                      </Grid.Row>
+                    )
+                  }
                   <Grid.Row className="eachRow">
                     <Grid.Column className="contentColumn">
                       <Icon name="calendar check outline" />

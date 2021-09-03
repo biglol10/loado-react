@@ -48,6 +48,10 @@ div.eachRow {
   width: 24px !important;
 }
 
+.iconClass{
+  cursor: pointer;
+}
+
 /* .eachRow {
   border-bottom: 1px inset ivory;
 } */
