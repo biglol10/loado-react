@@ -190,7 +190,6 @@ function CharacterToDoRow({ limit, type }) {
     // 알람 중지
     if (!alarmTrue) {
       const alarmList1 = todoList.map((item, idx) => {
-        console.log(item.alarmCharacter);
         item.alarmCharacter = false;
         return item;
       });
@@ -285,7 +284,7 @@ function CharacterToDoRow({ limit, type }) {
                 style={{ backgroundColor: "dimgray", marginTop: "0px" }}
               >
                 <Grid columns={limit + 1}>
-                  <Grid.Row style={{ borderBottom: "0.05rem inset ivory" }}>
+                  <Grid.Row style={{ borderBottom: !showNote && "0.05rem inset ivory" }}>
                     <Grid.Column className="contentColumn">
                       {/* padding got from <Button/> */}
                       <Header as="h4" style={{color:'white', display:'flex', padding:'.78571429em 1.5em .78571429em'}}>
@@ -316,13 +315,13 @@ function CharacterToDoRow({ limit, type }) {
                   </Grid.Row>
                   {
                     showNote && (
-                      <Grid.Row>
+                      <Grid.Row style={{padding:0, borderBottom: "0.05rem inset ivory", paddingBottom: '7px'}}>
                         <Grid.Column/>
                         {userTodoData.map((item, idx) => (
                           <PerIdNote
-                          item={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
+                            item={item}
+                            userTodoData={userTodoData}
+                            setUserTodoData={setUserTodoData}
                           />
                         ))}
                       </Grid.Row>
@@ -425,7 +424,7 @@ function CharacterToDoRow({ limit, type }) {
                           avatar
                           className="contentImage"
                         />
-                        <span>어비스2종</span>
+                        <span>오레하2종</span>
                       </div>
                     </Grid.Column>
                     {userTodoData.map((item, idx) => (
@@ -436,7 +435,8 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className="eachRow">
+                  {/* 원정대 주간 컨탠츠는 안 보이게 하기로 결정 */}
+                  {/* <Grid.Row className="eachRow">
                     <Grid.Column className="contentColumn">
                       <div>
                         <Image
@@ -475,7 +475,7 @@ function CharacterToDoRow({ limit, type }) {
                         setUserTodoData={setUserTodoData}
                       />
                     ))}
-                  </Grid.Row>
+                  </Grid.Row> */}
                   <Grid.Row className="eachRow">
                     <Grid.Column className="contentColumn">
                       <div>

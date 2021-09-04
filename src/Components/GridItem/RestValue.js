@@ -17,8 +17,6 @@ function RestValue({ item, userTodoData, setUserTodoData }) {
     };
   });
 
-  console.log(item);
-
   // if you use setShowModal directly in Modal onClose, react will throw error
   const closeModal = () => {
     setShowModal(false);
