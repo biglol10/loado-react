@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Modal,
   Icon,
@@ -9,14 +9,14 @@ import {
   Label,
   List,
   Button,
-} from "semantic-ui-react";
-import { characterCdn, characterKorean } from "../../_data/characterDefinition";
-import axios from "axios";
+} from 'semantic-ui-react';
+import { characterCdn, characterKorean } from '../../_data/characterDefinition';
+import axios from 'axios';
 
-import { ToastContainer, toast } from "react-toastify";
-import backendUrl from "../Utils/ConstVar";
+import { ToastContainer, toast } from 'react-toastify';
+import backendUrl from '../Utils/ConstVar';
 
-import "./AddCharacter.css";
+import './AddCharacter.css';
 
 function AddCharacter({
   addCharacterModal,
@@ -27,8 +27,8 @@ function AddCharacter({
   limit,
 }) {
   const [selectCharacterModal, setSelectCharacterModal] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState("");
-  const [characterName, setCharacterName] = useState("");
+  const [selectedCharacter, setSelectedCharacter] = useState('');
+  const [characterName, setCharacterName] = useState('');
   const [chaosRestValue, setChaosRestValue] = useState(0);
   const [guardianRestValue, setGuardianRestValue] = useState(0);
   const [eponaRestValue, setEponaRestValue] = useState(0);
@@ -45,10 +45,10 @@ function AddCharacter({
 
   const classSelected = (event) => {
     let selectedClass;
-    if (event.target.className.indexOf("image") > 0) {
+    if (event.target.className.indexOf('image') > 0) {
       selectedClass = event.target.dataset.options;
     } else {
-      selectedClass = event.target.className.split(" ")[2];
+      selectedClass = event.target.className.split(' ')[2];
     }
     setSelectedCharacter(selectedClass);
     setSelectCharacterModal(false);
@@ -56,8 +56,8 @@ function AddCharacter({
   };
 
   const closeAddCharacterModal = () => {
-    setSelectedCharacter("");
-    setCharacterName("");
+    setSelectedCharacter('');
+    setCharacterName('');
     setChaosRestValue(0);
     setGuardianRestValue(0);
     setEponaRestValue(0);
@@ -67,7 +67,7 @@ function AddCharacter({
   const changeInputCharName = (event, data) => {
     const insertedValue = data.value;
     if (insertedValue.length === 0) {
-      setCharacterName("");
+      setCharacterName('');
       return;
     }
     if (!regex.test(insertedValue) || insertedValue.length > 12) return;
@@ -77,7 +77,7 @@ function AddCharacter({
   const changeRestValue = (event, data) => {
     event.preventDefault();
     if (!regexNumber.test(event.target.value)) return;
-    if (event.target.id === "chaosChange") {
+    if (event.target.id === 'chaosChange') {
       const changedValue = event.target.value;
       const valueOutput = chaosRestValue + (changedValue - chaosRestValue) * 10;
       if (valueOutput < 0) setChaosRestValue(0);
@@ -85,7 +85,7 @@ function AddCharacter({
         setChaosRestValue(valueOutput);
       else setChaosRestValue(100);
     }
-    if (event.target.id === "guardianChange") {
+    if (event.target.id === 'guardianChange') {
       const changedValue = event.target.value;
       const valueOutput =
         guardianRestValue + (changedValue - guardianRestValue) * 10;
@@ -94,7 +94,7 @@ function AddCharacter({
         setGuardianRestValue(valueOutput);
       else setGuardianRestValue(100);
     }
-    if (event.target.id === "eponaChange") {
+    if (event.target.id === 'eponaChange') {
       const changedValue = event.target.value;
       const valueOutput = eponaRestValue + (changedValue - eponaRestValue) * 10;
       if (valueOutput < 0) setEponaRestValue(0);
@@ -155,17 +155,17 @@ function AddCharacter({
 
   useEffect(() => {
     const classElements = document.getElementsByClassName(
-      "characterClassContent"
+      'characterClassContent'
     );
     let eventAdd;
     for (let index = 0; index < classElements.length; index++) {
-      eventAdd = classElements[index].addEventListener("click", (event) => {
+      eventAdd = classElements[index].addEventListener('click', (event) => {
         classSelected(event);
       });
     }
     return () => {
       for (let index = 0; index < classElements.length; index++) {
-        classElements[index].removeEventListener("click", eventAdd);
+        classElements[index].removeEventListener('click', eventAdd);
       }
     };
   });
@@ -173,33 +173,33 @@ function AddCharacter({
   return (
     <>
       <Modal
-        size="mini"
+        size='mini'
         open={addCharacterModal}
         onClose={closeAddCharacterModal}
         closeIcon
         closeOnDimmerClick
         // centered={false}
       >
-        <Modal.Content style={{ backgroundColor: "dimgray" }}>
-          <Header className="itemHeader" as="h4">
+        <Modal.Content style={{ backgroundColor: 'dimgray' }}>
+          <Header className='itemHeader' as='h4'>
             {!selectedCharacter ? (
               <>
-                <span className="itemHeaderAttribute1">클래스:</span>
+                <span className='itemHeaderAttribute1'>클래스:</span>
                 <Icon
-                  name="add square"
-                  size="large"
-                  color="white"
+                  name='add square'
+                  size='large'
+                  color='white'
                   onClick={modalShow}
-                  style={{ cursor: "pointer" }}
+                  style={{ cursor: 'pointer' }}
                 />
               </>
             ) : (
               <>
-                <span className="itemHeaderAttribute2">클래스:</span>
+                <span className='itemHeaderAttribute2'>클래스:</span>
                 <span onClick={() => setSelectCharacterModal(true)}>
                   <Image
                     src={characterCdn[selectedCharacter]}
-                    size="mini"
+                    size='mini'
                     avatar
                   />
                   {characterKorean[selectedCharacter]}
@@ -207,28 +207,28 @@ function AddCharacter({
               </>
             )}
           </Header>
-          <Header className="itemHeader" as="h4">
-            <span style={{ marginRight: "40px" }}>케릭명:</span>
+          <Header className='itemHeader' as='h4'>
+            <span style={{ marginRight: '40px' }}>케릭명:</span>
             <Input
               transparent
-              placeholder="케릭터명"
-              style={{ color: "white" }}
-              className="charNameInput"
+              placeholder='케릭터명'
+              style={{ color: 'white' }}
+              className='charNameInput'
               value={characterName}
               ref={inputRef}
               onChange={(event, data) => changeInputCharName(event, data)}
             />
           </Header>
-          <Header className="itemHeaderRest" as="h4">
+          <Header className='itemHeaderRest' as='h4'>
             <List divided selection>
               <List.Item>
                 <Label horizontal>카오스던전</Label>
                 <Input
                   transparent
-                  style={{ color: "white" }}
-                  className="charNameInput"
+                  style={{ color: 'white' }}
+                  className='charNameInput'
                   value={chaosRestValue}
-                  id="chaosChange"
+                  id='chaosChange'
                   onChange={(event, data) => changeRestValue(event, data)}
                 />
               </List.Item>
@@ -236,10 +236,10 @@ function AddCharacter({
                 <Label horizontal>가디언던전</Label>
                 <Input
                   transparent
-                  style={{ color: "white" }}
-                  className="charNameInput"
+                  style={{ color: 'white' }}
+                  className='charNameInput'
                   value={guardianRestValue}
-                  id="guardianChange"
+                  id='guardianChange'
                   onChange={(event, data) => changeRestValue(event, data)}
                 />
               </List.Item>
@@ -247,26 +247,26 @@ function AddCharacter({
                 <Label horizontal>에포나</Label>
                 <Input
                   transparent
-                  style={{ color: "white" }}
-                  className="charNameInput"
+                  style={{ color: 'white' }}
+                  className='charNameInput'
                   value={eponaRestValue}
-                  id="eponaChange"
+                  id='eponaChange'
                   onChange={(event, data) => changeRestValue(event, data)}
                 />
               </List.Item>
             </List>
           </Header>
-          <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button
               circular
-              color="google plus"
-              icon="cancel"
+              color='google plus'
+              icon='cancel'
               onClick={closeAddCharacterModal}
             />
             <Button
               circular
-              color="twitter"
-              icon="check"
+              color='twitter'
+              icon='check'
               onClick={confirmAddCharacter}
             />
           </div>
@@ -277,242 +277,242 @@ function AddCharacter({
         onClose={closeSelectCharacter}
         closeOnDimmerClick
         // centered={false}
-        className="classSelectModal"
+        className='classSelectModal'
       >
         <Modal.Header
           style={{
-            backgroundColor: "#384862",
-            color: "white",
-            borderBottom: "1px solid white",
+            backgroundColor: '#384862',
+            color: 'white',
+            borderBottom: '1px solid white',
           }}
         >
           클래스
         </Modal.Header>
-        <Modal.Content style={{ backgroundColor: "#384862", color: "white" }}>
+        <Modal.Content style={{ backgroundColor: '#384862', color: 'white' }}>
           <Grid columns={6}>
             <Grid.Row>
-              <Grid.Column className="characterClassHeader">
-                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+              <Grid.Column className='characterClassHeader'>
+                <Header as='h4' style={{ marginTop: '6px', color: 'white' }}>
                   전사
                 </Header>
               </Grid.Column>
               <Grid.Column
-                className="characterClassContent berserker"
-                name="berserker"
+                className='characterClassContent berserker'
+                name='berserker'
               >
                 <Image
                   src={characterCdn.berserker}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="berserker"
+                  data-options='berserker'
                 />
                 버서커
               </Grid.Column>
-              <Grid.Column className="characterClassContent warlord">
+              <Grid.Column className='characterClassContent warlord'>
                 <Image
                   src={characterCdn.warlord}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="warlord"
+                  data-options='warlord'
                 />
                 워로드
               </Grid.Column>
-              <Grid.Column className="characterClassContent destroyer">
+              <Grid.Column className='characterClassContent destroyer'>
                 <Image
                   src={characterCdn.destroyer}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="destroyer"
+                  data-options='destroyer'
                 />
                 디스트로이어
               </Grid.Column>
-              <Grid.Column className="characterClassContent holyknight">
+              <Grid.Column className='characterClassContent holyknight'>
                 <Image
                   src={characterCdn.holyknight}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="holyknight"
+                  data-options='holyknight'
                 />
                 홀리나이트
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Column className="characterClassHeader">
-                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+              <Grid.Column className='characterClassHeader'>
+                <Header as='h4' style={{ marginTop: '6px', color: 'white' }}>
                   무도가
                 </Header>
               </Grid.Column>
-              <Grid.Column className="characterClassContent battlemaster">
+              <Grid.Column className='characterClassContent battlemaster'>
                 <Image
                   src={characterCdn.battlemaster}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="battlemaster"
+                  data-options='battlemaster'
                 />
                 배틀마스터
               </Grid.Column>
-              <Grid.Column className="characterClassContent infighter">
+              <Grid.Column className='characterClassContent infighter'>
                 <Image
                   src={characterCdn.infighter}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="infighter"
+                  data-options='infighter'
                 />
                 인파이터
               </Grid.Column>
-              <Grid.Column className="characterClassContent soulmaster">
+              <Grid.Column className='characterClassContent soulmaster'>
                 <Image
                   src={characterCdn.soulmaster}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="soulmaster"
+                  data-options='soulmaster'
                 />
                 기공사
               </Grid.Column>
-              <Grid.Column className="characterClassContent lancemaster">
+              <Grid.Column className='characterClassContent lancemaster'>
                 <Image
                   src={characterCdn.lancemaster}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="lancemaster"
+                  data-options='lancemaster'
                 />
                 창술사
               </Grid.Column>
-              <Grid.Column className="characterClassContent striker">
+              <Grid.Column className='characterClassContent striker'>
                 <Image
                   src={characterCdn.striker}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="striker"
+                  data-options='striker'
                 />
                 스트라이커
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Column className="characterClassHeader">
-                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+              <Grid.Column className='characterClassHeader'>
+                <Header as='h4' style={{ marginTop: '6px', color: 'white' }}>
                   헌터
                 </Header>
               </Grid.Column>
-              <Grid.Column className="characterClassContent devilhunter">
+              <Grid.Column className='characterClassContent devilhunter'>
                 <Image
                   src={characterCdn.devilhunter}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="devilhunter"
+                  data-options='devilhunter'
                 />
                 데빌헌터
               </Grid.Column>
-              <Grid.Column className="characterClassContent blaster">
+              <Grid.Column className='characterClassContent blaster'>
                 <Image
                   src={characterCdn.blaster}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="blaster"
+                  data-options='blaster'
                 />
                 블래스터
               </Grid.Column>
-              <Grid.Column className="characterClassContent hawkeye">
+              <Grid.Column className='characterClassContent hawkeye'>
                 <Image
                   src={characterCdn.hawkeye}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="hawkeye"
+                  data-options='hawkeye'
                 />
                 호크아이
               </Grid.Column>
-              <Grid.Column className="characterClassContent scouter">
+              <Grid.Column className='characterClassContent scouter'>
                 <Image
                   src={characterCdn.scouter}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="scouter"
+                  data-options='scouter'
                 />
                 스카우터
               </Grid.Column>
-              <Grid.Column className="characterClassContent gunslinger">
+              <Grid.Column className='characterClassContent gunslinger'>
                 <Image
                   src={characterCdn.gunslinger}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="gunslinger"
+                  data-options='gunslinger'
                 />
                 건슬링어
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Column className="characterClassHeader">
-                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+              <Grid.Column className='characterClassHeader'>
+                <Header as='h4' style={{ marginTop: '6px', color: 'white' }}>
                   마법사
                 </Header>
               </Grid.Column>
-              <Grid.Column className="characterClassContent summoner">
+              <Grid.Column className='characterClassContent summoner'>
                 <Image
                   src={characterCdn.summoner}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="summoner"
+                  data-options='summoner'
                 />
                 서머너
               </Grid.Column>
-              <Grid.Column className="characterClassContent arcana">
+              <Grid.Column className='characterClassContent arcana'>
                 <Image
                   src={characterCdn.arcana}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="arcana"
+                  data-options='arcana'
                 />
-                아르라카
+                아르카나
               </Grid.Column>
-              <Grid.Column className="characterClassContent bard">
+              <Grid.Column className='characterClassContent bard'>
                 <Image
                   src={characterCdn.bard}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="bard"
+                  data-options='bard'
                 />
                 바드
               </Grid.Column>
-              <Grid.Column className="characterClassContent sorceress">
+              <Grid.Column className='characterClassContent sorceress'>
                 <Image
                   src={characterCdn.sorceress}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="sorceress"
+                  data-options='sorceress'
                 />
                 소서리스
               </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-              <Grid.Column className="characterClassHeader">
-                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+              <Grid.Column className='characterClassHeader'>
+                <Header as='h4' style={{ marginTop: '6px', color: 'white' }}>
                   암살자
                 </Header>
               </Grid.Column>
-              <Grid.Column className="characterClassContent blade">
+              <Grid.Column className='characterClassContent blade'>
                 <Image
                   src={characterCdn.blade}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="blade"
+                  data-options='blade'
                 />
                 블레이드
               </Grid.Column>
-              <Grid.Column className="characterClassContent demonic">
+              <Grid.Column className='characterClassContent demonic'>
                 <Image
                   src={characterCdn.demonic}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="demonic"
+                  data-options='demonic'
                 />
                 데모닉
               </Grid.Column>
-              <Grid.Column className="characterClassContent reaper">
+              <Grid.Column className='characterClassContent reaper'>
                 <Image
                   src={characterCdn.reaper}
-                  size="mini"
+                  size='mini'
                   avatar
-                  data-options="reaper"
+                  data-options='reaper'
                 />
                 리퍼
               </Grid.Column>
