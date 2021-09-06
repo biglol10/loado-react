@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import {
   Button,
   Form,
@@ -7,19 +7,19 @@ import {
   Image,
   Message,
   Segment,
-} from "semantic-ui-react";
-import axios from "axios";
-import cookie from "js-cookie";
-import { Link, useHistory } from "react-router-dom";
-import backendUrl from "../Utils/ConstVar";
+} from 'semantic-ui-react';
+import axios from 'axios';
+import cookie from 'js-cookie';
+import { Link, useHistory } from 'react-router-dom';
+import backendUrl from '../Utils/ConstVar';
 
 function Register() {
   const history = useHistory();
-  const [loginMessage, setLoginMessage] = useState("회원가입");
+  const [loginMessage, setLoginMessage] = useState('회원가입');
   const [user, setUser] = useState({
-    id: "",
-    password: "",
-    name: "",
+    id: '',
+    password: '',
+    name: '',
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +28,7 @@ function Register() {
 
   const axiosConfig = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -47,13 +47,13 @@ function Register() {
       .then((response) => {
         if (response.data.success) {
           const token = response.data.token;
-          cookie.set("loadoUserToken", token);
+          cookie.set('loadoUserToken', token);
           const userCookie = {
             userId: user.id,
             userName: response.data.userName,
           };
-          cookie.set("loadoUserCookie", JSON.stringify(userCookie));
-          history.push("/userhomework");
+          cookie.set('loadoUserCookie', JSON.stringify(userCookie));
+          history.push('/userhomework');
         }
       })
       .catch((err) => {
@@ -64,51 +64,57 @@ function Register() {
   return (
     <>
       <Grid
-        textAlign="center"
-        style={{ height: "100vh", marginTop: "0", backgroundColor: "dimgray" }}
-        verticalAlign="middle"
+        textAlign='center'
+        style={{ height: '100vh', marginTop: '0', backgroundColor: 'dimgray' }}
+        verticalAlign='middle'
       >
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h2" textAlign="center" style={{ color: "white" }}>
-            <Image src="https://react.semantic-ui.com/logo.png" />{" "}
+          <Header as='h2' textAlign='center' style={{ color: 'white' }}>
+            <Image src='https://react.semantic-ui.com/logo.png' />{' '}
             {loginMessage}
           </Header>
-          <Form size="large" onSubmit={handleSubmit}>
+          <Form size='large' onSubmit={handleSubmit}>
             <Segment stacked>
               <Form.Input
                 fluid
-                icon="user"
-                iconPosition="left"
-                placeholder="ID"
-                name="id"
+                icon='user'
+                iconPosition='left'
+                placeholder='ID'
+                name='id'
                 onChange={handleChange}
                 value={user.id}
               />
               <Form.Input
                 fluid
-                icon="lock"
-                iconPosition="left"
-                placeholder="비밀번호"
-                type="password"
-                name="password"
+                icon='lock'
+                iconPosition='left'
+                placeholder='비밀번호'
+                type='password'
+                name='password'
                 onChange={handleChange}
               />
               <Form.Input
                 fluid
-                icon="quote left"
-                iconPosition="left"
-                placeholder="이름"
-                name="name"
+                icon='quote left'
+                iconPosition='left'
+                placeholder='이름'
+                name='name'
                 onChange={handleChange}
                 value={user.name}
               />
 
-              <Button color="teal" fluid size="large" type="submit">
+              <Button color='teal' fluid size='large' type='submit'>
                 가입
               </Button>
             </Segment>
           </Form>
-          <Message>비밀번호를 잊어버리시면 복구가 불가능합니다</Message>
+          <Message>
+            비밀번호를 잊어버리시면 복구가 불가능합니다
+            <br />
+            [비밀번호는 암호화되어 저장됩니다]
+            <br />
+            [예시: .....APvs6TgQOG5d8byxYdLJOD0O6Am.....]
+          </Message>
         </Grid.Column>
       </Grid>
     </>
