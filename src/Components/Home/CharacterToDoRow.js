@@ -612,14 +612,16 @@ function CharacterToDoRow({ limit, type }) {
         </Grid>
       )}
 
-      <AddCharacter
-        addCharacterModal={addCharacterModal}
-        closeAddCharacter={closeAddCharacter}
-        userTodoData={userTodoData}
-        axiosConfig={axiosConfig}
-        viewPage={viewPage}
-        limit={limit}
-      />
+      {addCharacterModal && (
+        <AddCharacter
+          addCharacterModal={addCharacterModal}
+          closeAddCharacter={closeAddCharacter}
+          userTodoData={userTodoData}
+          axiosConfig={axiosConfig}
+          viewPage={viewPage}
+          limit={limit}
+        />
+      )}
       <ToastContainer autoClose={3000} />
     </>
   );
