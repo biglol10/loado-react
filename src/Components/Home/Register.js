@@ -11,7 +11,7 @@ import {
 import axios from 'axios';
 import cookie from 'js-cookie';
 import { Link, useHistory } from 'react-router-dom';
-import backendUrl from '../Utils/ConstVar';
+import { backendUrl, axiosConfig } from '../Utils/ConstVar';
 
 function Register() {
   const history = useHistory();
@@ -24,12 +24,6 @@ function Register() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
 
   const handleSubmit = (e) => {

@@ -13,7 +13,6 @@ import {
   Loader,
   Pagination,
   Image,
-  Divider,
 } from 'semantic-ui-react';
 import RestValue from '../GridItem/RestValue';
 import CharacterAvatar from './CharacterAvatar';
@@ -26,8 +25,6 @@ import {
 } from '../GridItem/DungeonAndEpona';
 import {
   AbyssDun2,
-  AbyssRaid,
-  RehearsalAndDejavu,
   ArgosRaid,
   BaltanRaid,
   BiakissRaid,
@@ -37,10 +34,16 @@ import {
 import axios from 'axios';
 import cookie from 'js-cookie';
 
-import { ToastContainer, toast } from 'react-toastify';
-import { Link, useHistory } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
-import backendUrl from '../Utils/ConstVar';
+import { backendUrl, axiosConfigAuth } from '../Utils/ConstVar';
+import {
+  viewDataMain,
+  applyChangesUtil,
+  alarmRestValueUtil,
+  toastMessage,
+} from '../Utils/ViewDataUtil';
 
 function CharacterToDoRow({ limit, type }) {
   const todayDate = new Date(Date.now());
@@ -68,99 +71,40 @@ function CharacterToDoRow({ limit, type }) {
     setAddCharacterModal(false);
   };
 
-  const axiosConfig = {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${cookie.get('loadoUserToken')}`,
-    },
-  };
-
   const viewPage = async (minusOne = false, plusOne = false, plusPage = 0) => {
     setLoading(true);
     setUserTodoData([]);
 
-    let searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${activePage}`;
-    if (minusOne) {
-      searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${
-        activePage - 1
-      }`;
-      setActivePage(activePage - 1);
-    } else if (plusOne) {
-      searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${
-        Math.floor(plusPage / limit) + 1
-      }`;
-      setActivePage(Math.floor(plusPage / limit) + 1);
+    const resultData = await viewDataMain(
+      minusOne,
+      plusOne,
+      plusPage,
+      limit,
+      activePage,
+      setActivePage
+    );
+
+    if (resultData.success) {
+      setUserTodoData(resultData.viewData.data);
+      setPagination(resultData.setPage);
+    } else {
+      toastMessage('데이터를 불러오지 못했습니다', 'error');
     }
-
-    await axios
-      .get(searchString, axiosConfig)
-      .then((response) => {
-        setUserTodoData(response.data.data);
-
-        const totalLength = response.data.totalLength;
-        if (totalLength) {
-          const totalPage =
-            totalLength / limit - Math.floor(totalLength / limit) > 0
-              ? Math.floor(totalLength / limit) + 1
-              : Math.floor(totalLength / limit);
-          setPagination(totalPage);
-        } else {
-          setPagination(1);
-        }
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error('데이터를 불러오지 못했습니다', {
-          position: toast.POSITION.BOTTOM_LEFT,
-        });
-        setLoading(false);
-      });
+    setLoading(false);
   };
 
   const applyChanges = async () => {
     setLoading(true);
-    let errorOccured = false;
 
     let submitData = userTodoData.filter(
       (item) => item.attributeChanged === true
     );
 
-    for (let index = 0; index < submitData.length; index++) {
-      await axios
-        .put(
-          `${backendUrl}/loado/api/homeworks/${submitData[index]._id}`,
-          {
-            data: submitData[index],
-          },
-          axiosConfig
-        )
-        .then((response) => {})
-        .catch((err) => {
-          errorOccured = true;
-        });
-    }
-    // let weeklySubmitData = userTodoData.filter(
-    //   (item) => item.weeklyAttributeChanged === true
-    // );
-    // if (weeklySubmitData.length !== 0) {
-    //   await axios
-    //     .put(
-    //       `${backendUrl}/loado/api/homeworks/${weeklySubmitData[0]._id}`,
-    //       {
-    //         data: weeklySubmitData[0],
-    //       },
-    //       axiosConfig
-    //     )
-    //     .then((response) => {})
-    //     .catch((err) => {
-    //       errorOccured = true;
-    //     });
-    // }
+    const applyResult = await applyChangesUtil(submitData);
+
     setLoading(false);
-    if (errorOccured) {
-      toast.error('일부 변경사항이 제대로 반영되지 않았습니다', {
-        position: toast.POSITION.BOTTOM_LEFT,
-      });
+    if (applyResult) {
+      toastMessage('일부 변경사항이 제대로 반영되지 않았습니다', 'error');
     }
     viewPage();
   };
@@ -176,16 +120,14 @@ function CharacterToDoRow({ limit, type }) {
     await axios
       .get(
         `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${data.activePage}`,
-        axiosConfig
+        axiosConfigAuth
       )
       .then((response) => {
         setUserTodoData(response.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        toast.error('데이터를 불러오지 못했습니다', {
-          position: toast.POSITION.BOTTOM_LEFT,
-        });
+        toastMessage('데이터를 불러오지 못했습니다', 'error');
         setLoading(false);
       });
   };
@@ -197,30 +139,9 @@ function CharacterToDoRow({ limit, type }) {
   const [showNote, setShowNote] = useState(false);
 
   const alarmRestValue = (todoList) => {
-    // 알람 중지
-    if (!alarmTrue) {
-      const alarmList1 = todoList.map((item, idx) => {
-        item.alarmCharacter = false;
-        return item;
-      });
-      setUserTodoData(alarmList1);
-      setAlarmTrue(true);
-    }
-    // 알람 온
-    else {
-      const alarmList = todoList.map((item, idx) => {
-        if (
-          item.chaosRestValue >= 40 ||
-          item.guardianRestValue >= 40 ||
-          item.eponaRestValue >= 60
-        ) {
-          item.alarmCharacter = true;
-        }
-        return item;
-      });
-      setUserTodoData(alarmList);
-      setAlarmTrue(false);
-    }
+    const alarmDataResult = alarmRestValueUtil(todoList, alarmTrue);
+    setUserTodoData(alarmDataResult.alarmList);
+    setAlarmTrue(alarmDataResult.alarm);
   };
 
   // if no user cookie then redirect to login page
@@ -333,7 +254,7 @@ function CharacterToDoRow({ limit, type }) {
                         characterName={item.characterName}
                         attributeChanged={item.attributeChanged}
                         weeklyAttributeChanged={item.weeklyAttributeChanged}
-                        axiosConfig={axiosConfig}
+                        axiosConfigAuth={axiosConfigAuth}
                         viewPage={viewPage}
                         alarmCharacter={item.alarmCharacter}
                         limit={limit}
@@ -617,7 +538,7 @@ function CharacterToDoRow({ limit, type }) {
           addCharacterModal={addCharacterModal}
           closeAddCharacter={closeAddCharacter}
           userTodoData={userTodoData}
-          axiosConfig={axiosConfig}
+          axiosConfigAuth={axiosConfigAuth}
           viewPage={viewPage}
           limit={limit}
         />
