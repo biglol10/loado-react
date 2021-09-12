@@ -4,7 +4,7 @@ import { characterCdn } from '../../_data/characterDefinition';
 import axios from 'axios';
 import cookie from 'js-cookie';
 import './CharacterAvatarCss.css';
-import {backendUrl} from '../Utils/ConstVar';
+import { backendUrl } from '../Utils/ConstVar';
 
 function CharacterAvatar({
   itemId,
@@ -39,7 +39,10 @@ function CharacterAvatar({
     // showDeleteIcon(false);
 
     axios
-      .delete(`${backendUrl}/loado/api/homeworks/${itemId}`, axiosConfigAuth)
+      .delete(
+        `${backendUrl}/loado/api/homeworks/${itemId}`,
+        axiosConfigAuth(cookie.get('loadoUserToken'))
+      )
       .then((response) => {
         if (
           response.data.totalLength > 0 &&

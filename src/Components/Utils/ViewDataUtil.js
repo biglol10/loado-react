@@ -8,7 +8,8 @@ async function viewDataMain(
   plusPage,
   limit,
   activePage,
-  setActivePage
+  setActivePage,
+  userCookie
 ) {
   let searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${activePage}`;
 
@@ -25,7 +26,7 @@ async function viewDataMain(
   }
 
   const axiosResult = await axios
-    .get(searchString, axiosConfigAuth)
+    .get(searchString, axiosConfigAuth(userCookie))
     .then((response) => {
       const totalLength = response.data.totalLength;
       let setPage = 0;
@@ -54,7 +55,7 @@ async function viewDataMain(
   return axiosResult;
 }
 
-async function applyChangesUtil(submitData) {
+async function applyChangesUtil(submitData, userCookie) {
   let errorOccured = false;
 
   for (let index = 0; index < submitData.length; index++) {
@@ -64,7 +65,7 @@ async function applyChangesUtil(submitData) {
         {
           data: submitData[index],
         },
-        axiosConfigAuth
+        axiosConfigAuth(userCookie)
       )
       .then((response) => {})
       .catch((err) => {

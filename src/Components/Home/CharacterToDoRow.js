@@ -81,7 +81,8 @@ function CharacterToDoRow({ limit, type }) {
       plusPage,
       limit,
       activePage,
-      setActivePage
+      setActivePage,
+      cookie.get('loadoUserToken')
     );
 
     if (resultData.success) {
@@ -100,7 +101,10 @@ function CharacterToDoRow({ limit, type }) {
       (item) => item.attributeChanged === true
     );
 
-    const applyResult = await applyChangesUtil(submitData);
+    const applyResult = await applyChangesUtil(
+      submitData,
+      cookie.get('loadoUserToken')
+    );
 
     setLoading(false);
     if (applyResult) {
@@ -120,7 +124,7 @@ function CharacterToDoRow({ limit, type }) {
     await axios
       .get(
         `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${data.activePage}`,
-        axiosConfigAuth
+        axiosConfigAuth(cookie.get('loadoUserToken'))
       )
       .then((response) => {
         setUserTodoData(response.data.data);

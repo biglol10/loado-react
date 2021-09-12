@@ -164,6 +164,12 @@ function NavHeader() {
               유지보수 및 코드 분석을 위해 내부 코드 리팩토링 진행 및 간결하게
               수정
             </p>
+            <p>
+              <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
+                2021-09-12
+              </span>
+              9월10일 업데이트 후 첫 로그인 시 화면에 아무것도 안 뜨던 현상 수정
+            </p>
           </Modal.Content>
         </Modal>
       )}

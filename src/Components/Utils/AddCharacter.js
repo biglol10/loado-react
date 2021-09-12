@@ -14,7 +14,8 @@ import { characterCdn, characterKorean } from '../../_data/characterDefinition';
 import axios from 'axios';
 
 import { ToastContainer, toast } from 'react-toastify';
-import {backendUrl} from '../Utils/ConstVar';
+import { backendUrl } from '../Utils/ConstVar';
+import cookie from 'js-cookie';
 
 import './AddCharacter.css';
 
@@ -133,7 +134,11 @@ function AddCharacter({
       createdAt: Date.now(),
     };
     axios
-      .post(`${backendUrl}/loado/api/homeworks`, createdData, axiosConfigAuth)
+      .post(
+        `${backendUrl}/loado/api/homeworks`,
+        createdData,
+        axiosConfigAuth(cookie.get('loadoUserToken'))
+      )
       .then((response) => {
         // setUserTodoData([...userTodoData, response.data.data]);
         if (
