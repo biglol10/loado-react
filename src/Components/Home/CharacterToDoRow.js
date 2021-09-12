@@ -13,6 +13,7 @@ import {
   Loader,
   Pagination,
   Image,
+  Label,
 } from 'semantic-ui-react';
 import RestValue from '../GridItem/RestValue';
 import CharacterAvatar from './CharacterAvatar';
@@ -60,6 +61,8 @@ function CharacterToDoRow({ limit, type }) {
   const [activePage, setActivePage] = useState(1);
 
   const [pagination, setPagination] = useState(0);
+
+  const [viewByCheckBox, setViewByCheckBox] = useState(false);
 
   const history = useHistory();
 
@@ -187,9 +190,26 @@ function CharacterToDoRow({ limit, type }) {
                   >
                     {today}{' '}
                     {type === 'computer' && (
-                      <span style={{ marginLeft: '30px' }}>
-                        금일 06:00 ~ 명일 05:59
-                      </span>
+                      // <span style={{ marginLeft: '30px' }}>
+                      //   금일 06:00 ~ 명일 05:59
+                      // </span>
+                      <Label
+                        as='a'
+                        basic
+                        image
+                        style={{ marginLeft: '30px' }}
+                        onClick={() => setViewByCheckBox(!viewByCheckBox)}
+                      >
+                        {!viewByCheckBox ? (
+                          <>
+                            <Icon name='checkmark box' />로 보기
+                          </>
+                        ) : (
+                          <>
+                            <Icon name='angle double down' />로 보기
+                          </>
+                        )}
+                      </Label>
                     )}
                   </Header>
                 </div>
@@ -315,6 +335,7 @@ function CharacterToDoRow({ limit, type }) {
                         chaosItem={item}
                         userTodoData={userTodoData}
                         setUserTodoData={setUserTodoData}
+                        viewByCheckBox={viewByCheckBox}
                       />
                     ))}
                   </Grid.Row>
@@ -334,6 +355,7 @@ function CharacterToDoRow({ limit, type }) {
                         guardianItem={item}
                         userTodoData={userTodoData}
                         setUserTodoData={setUserTodoData}
+                        viewByCheckBox={viewByCheckBox}
                       />
                     ))}
                   </Grid.Row>
@@ -353,6 +375,7 @@ function CharacterToDoRow({ limit, type }) {
                         eponaItem={item}
                         userTodoData={userTodoData}
                         setUserTodoData={setUserTodoData}
+                        viewByCheckBox={viewByCheckBox}
                       />
                     ))}
                   </Grid.Row>
@@ -372,6 +395,7 @@ function CharacterToDoRow({ limit, type }) {
                         weeklyGuardianItem={item}
                         userTodoData={userTodoData}
                         setUserTodoData={setUserTodoData}
+                        viewByCheckBox={viewByCheckBox}
                       />
                     ))}
                   </Grid.Row>
@@ -454,7 +478,7 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow'>
+                  <Grid.Row className='eachRow baltanRow'>
                     <Grid.Column className='contentColumn'>
                       <div>
                         <Image
@@ -511,7 +535,7 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row>
+                  <Grid.Row className='abrelRow'>
                     <Grid.Column className='contentColumn'>
                       <div>
                         <Image

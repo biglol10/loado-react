@@ -145,12 +145,6 @@ function ArgosRaid({ argosRaidItem, userTodoData, setUserTodoData }) {
 function BaltanRaid({ baltanRaidItem, userTodoData, setUserTodoData }) {
   const [baltanRaid, setBaltanRaid] = useState(baltanRaidItem.baltan);
 
-  const options = [
-    { text: '1관문', value: 1 },
-    { text: '2관문', value: 2 },
-    { text: '3관문', value: 3 },
-  ];
-
   return (
     <Grid.Column>
       <Checkbox

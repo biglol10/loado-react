@@ -168,7 +168,15 @@ function NavHeader() {
               <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
                 2021-09-12
               </span>
-              9월10일 업데이트 후 첫 로그인 시 화면에 아무것도 안 뜨던 현상 수정
+              9월10일 업데이트 후 첫 로그인 시 화면에 아무것도 안 뜨던 현상
+              수정, 컨탠츠에 마우스 올리면 행의 색갈이 바뀌도록 수정
+            </p>
+            <p>
+              <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
+                2021-09-12
+              </span>
+              카던, 가디언, 에포나에 숫자로 선택할 필요없이 체크로 선택하여
+              저장하기 가능토록 수정
             </p>
           </Modal.Content>
         </Modal>
