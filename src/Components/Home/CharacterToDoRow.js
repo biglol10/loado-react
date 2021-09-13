@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './CharacterToDo.css';
-import AddCharacter from '../Utils/AddCharacter';
+import React, { useState, useEffect } from "react";
+import "./CharacterToDo.css";
+import AddCharacter from "../Utils/AddCharacter";
 
 import {
   Header,
@@ -14,16 +14,16 @@ import {
   Pagination,
   Image,
   Label,
-} from 'semantic-ui-react';
-import RestValue from '../GridItem/RestValue';
-import CharacterAvatar from './CharacterAvatar';
-import PerIdNote from './PerIdNote';
+} from "semantic-ui-react";
+import RestValue from "../GridItem/RestValue";
+import CharacterAvatar from "./CharacterAvatar";
+import PerIdNote from "./PerIdNote";
 import {
   ChaosDunValue,
   GuardianDunValue,
   EponaValue,
   WeeklyGuardian,
-} from '../GridItem/DungeonAndEpona';
+} from "../GridItem/DungeonAndEpona";
 import {
   AbyssDun2,
   ArgosRaid,
@@ -31,26 +31,27 @@ import {
   BiakissRaid,
   KukseitnRaid,
   AbrelRaid,
-} from '../GridItem/AbyssAndRaid';
-import axios from 'axios';
-import cookie from 'js-cookie';
+} from "../GridItem/AbyssAndRaid";
+import axios from "axios";
+import cookie from "js-cookie";
 
-import { ToastContainer } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import { useHistory } from "react-router-dom";
 
-import { backendUrl, axiosConfigAuth } from '../Utils/ConstVar';
+import { backendUrl, axiosConfigAuth } from "../Utils/ConstVar";
 import {
   viewDataMain,
   applyChangesUtil,
   alarmRestValueUtil,
   toastMessage,
-} from '../Utils/ViewDataUtil';
+} from "../Utils/ViewDataUtil";
+import AddAndChange from "../HomeSubComp/AddAndChange";
+import PaginationComp from "../HomeSubComp/PaginationComp";
+import SettingChange from "../HomeSubComp/SettingChange";
+import AlarmAndNote from "../HomeSubComp/AlarmAndNote";
 
 function CharacterToDoRow({ limit, type }) {
   const todayDate = new Date(Date.now());
-  const today = `${todayDate.getFullYear()}-${
-    todayDate.getMonth() + 1
-  }-${todayDate.getDate()}`;
 
   const [userTodoData, setUserTodoData] = useState([]);
 
@@ -85,14 +86,14 @@ function CharacterToDoRow({ limit, type }) {
       limit,
       activePage,
       setActivePage,
-      cookie.get('loadoUserToken')
+      cookie.get("loadoUserToken")
     );
 
     if (resultData.success) {
       setUserTodoData(resultData.viewData.data);
       setPagination(resultData.setPage);
     } else {
-      toastMessage('데이터를 불러오지 못했습니다', 'error');
+      toastMessage("데이터를 불러오지 못했습니다", "error");
     }
     setLoading(false);
   };
@@ -106,12 +107,12 @@ function CharacterToDoRow({ limit, type }) {
 
     const applyResult = await applyChangesUtil(
       submitData,
-      cookie.get('loadoUserToken')
+      cookie.get("loadoUserToken")
     );
 
     setLoading(false);
     if (applyResult) {
-      toastMessage('일부 변경사항이 제대로 반영되지 않았습니다', 'error');
+      toastMessage("일부 변경사항이 제대로 반영되지 않았습니다", "error");
     }
     viewPage();
   };
@@ -127,14 +128,14 @@ function CharacterToDoRow({ limit, type }) {
     await axios
       .get(
         `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${data.activePage}`,
-        axiosConfigAuth(cookie.get('loadoUserToken'))
+        axiosConfigAuth(cookie.get("loadoUserToken"))
       )
       .then((response) => {
         setUserTodoData(response.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        toastMessage('데이터를 불러오지 못했습니다', 'error');
+        toastMessage("데이터를 불러오지 못했습니다", "error");
         setLoading(false);
       });
   };
@@ -153,8 +154,8 @@ function CharacterToDoRow({ limit, type }) {
 
   // if no user cookie then redirect to login page
   useEffect(() => {
-    let loginCookie = cookie.get('loadoUserToken');
-    !loginCookie && history.push('/login');
+    let loginCookie = cookie.get("loadoUserToken");
+    !loginCookie && history.push("/login");
   }, []);
 
   useEffect(() => {
@@ -165,111 +166,54 @@ function CharacterToDoRow({ limit, type }) {
     <>
       {loading ? (
         <Segment
-          className='fullPage'
-          style={{ height: '94vh', border: 'none' }}
+          className="fullPage"
+          style={{ height: "94vh", border: "none" }}
         >
           <Dimmer active>
-            <Loader size='big'>로딩중</Loader>
+            <Loader size="big">로딩중</Loader>
           </Dimmer>
         </Segment>
       ) : (
-        <Grid className='fullPage'>
+        <Grid className="fullPage">
           <Container
-            style={{ width: '95%', marginLeft: '2.5%', marginRight: '2.5%' }}
+            style={{ width: "95%", marginLeft: "2.5%", marginRight: "2.5%" }}
           >
             <Grid.Column width={16}>
               <Segment
                 basic
-                className='contentHeader'
-                style={{ marginBottom: '0px' }}
+                className="contentHeader"
+                style={{ marginBottom: "0px" }}
               >
-                <div className='headerValueStart'>
-                  <Header
-                    size='medium'
-                    style={{ color: 'white', paddingTop: '5px' }}
-                  >
-                    {today}{' '}
-                    {type === 'computer' && (
-                      // <span style={{ marginLeft: '30px' }}>
-                      //   금일 06:00 ~ 명일 05:59
-                      // </span>
-                      <Label
-                        as='a'
-                        basic
-                        image
-                        style={{ marginLeft: '30px' }}
-                        onClick={() => setViewByCheckBox(!viewByCheckBox)}
-                      >
-                        {!viewByCheckBox ? (
-                          <>
-                            <Icon name='checkmark box' />로 보기
-                          </>
-                        ) : (
-                          <>
-                            <Icon name='angle double down' />로 보기
-                          </>
-                        )}
-                      </Label>
-                    )}
-                  </Header>
-                </div>
-                <div className='headerValueCenter'>
-                  <Pagination
-                    // defaultActivePage={1}
-                    firstItem={null}
-                    lastItem={null}
-                    pointing
-                    secondary
-                    totalPages={pagination}
-                    activePage={activePage}
-                    onPageChange={(event, data) => pageChange(event, data)}
-                  />
-                </div>
-                <div className='headerValueEnd'>
-                  <Button inverted color='olive' onClick={addCharacter}>
-                    케릭터 추가
-                  </Button>
-                  <Button inverted color='red' onClick={applyChanges}>
-                    변경사항 저장
-                  </Button>
-                </div>
+                <SettingChange
+                  viewByCheckBox={viewByCheckBox}
+                  setViewByCheckBox={setViewByCheckBox}
+                />
+                <PaginationComp
+                  pagination={pagination}
+                  activePage={activePage}
+                  pageChange={pageChange}
+                />
+                <AddAndChange
+                  addCharacter={addCharacter}
+                  applyChanges={applyChanges}
+                />
               </Segment>
               <Segment
                 basic
-                style={{ backgroundColor: 'dimgray', marginTop: '0px' }}
+                style={{ backgroundColor: "dimgray", marginTop: "0px" }}
               >
                 <Grid columns={limit + 1}>
                   <Grid.Row
-                    style={{ borderBottom: !showNote && '0.05rem inset ivory' }}
+                    style={{ borderBottom: !showNote && "0.05rem inset ivory" }}
                   >
-                    <Grid.Column className='contentColumn'>
-                      {/* padding got from <Button/> */}
-                      <Header
-                        as='h4'
-                        style={{
-                          color: 'white',
-                          display: 'flex',
-                          padding: '.78571429em 1.5em .78571429em',
-                        }}
-                      >
-                        <div>
-                          <Icon
-                            className='iconClass'
-                            name={alarmTrue ? 'alarm' : 'alarm mute'}
-                            onClick={() => alarmRestValue(userTodoData)}
-                          />
-                          {'  //  '}
-                          <Icon
-                            className='iconClass'
-                            name={
-                              !showNote
-                                ? 'sticky note outline'
-                                : 'angle double up'
-                            }
-                            onClick={() => setShowNote(!showNote)}
-                          />
-                        </div>
-                      </Header>
+                    <Grid.Column className="contentColumn">
+                      <AlarmAndNote
+                        alarmTrue={alarmTrue}
+                        alarmRestValue={alarmRestValue}
+                        userTodoData={userTodoData}
+                        showNote={showNote}
+                        setShowNote={setShowNote}
+                      />
                     </Grid.Column>
                     {userTodoData.map((item, idx) => (
                       <CharacterAvatar
@@ -292,8 +236,8 @@ function CharacterToDoRow({ limit, type }) {
                     <Grid.Row
                       style={{
                         padding: 0,
-                        borderBottom: '0.05rem inset ivory',
-                        paddingBottom: '7px',
+                        borderBottom: "0.05rem inset ivory",
+                        paddingBottom: "7px",
                       }}
                     >
                       <Grid.Column />
@@ -306,9 +250,9 @@ function CharacterToDoRow({ limit, type }) {
                       ))}
                     </Grid.Row>
                   )}
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
-                      <Icon name='calendar check outline' />
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
+                      <Icon name="calendar check outline" />
                       휴식게이지
                     </Grid.Column>
                     {userTodoData.map((item, idx) => (
@@ -319,13 +263,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/chaosDun.png'
+                          src="./images/loa_icons/chaosDun.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>카오스던전</span>
                       </div>
@@ -339,13 +283,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/guardianDun.png'
+                          src="./images/loa_icons/guardianDun.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>가디언토벌</span>
                       </div>
@@ -359,13 +303,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/epona.png'
+                          src="./images/loa_icons/epona.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>에포나</span>
                       </div>
@@ -379,13 +323,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/guardianDun.png'
+                          src="./images/loa_icons/guardianDun.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>주간가디언</span>
                       </div>
@@ -399,13 +343,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/abyss2types.png'
+                          src="./images/loa_icons/abyss2types.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>오레하2종</span>
                       </div>
@@ -459,13 +403,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row> */}
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/argos.png'
+                          src="./images/loa_icons/argos.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>아르고스</span>
                       </div>
@@ -478,13 +422,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow baltanRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow baltanRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/baltan.png'
+                          src="./images/loa_icons/baltan.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>발탄</span>
                       </div>
@@ -497,13 +441,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/biakiss.png'
+                          src="./images/loa_icons/biakiss.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>비아키스</span>
                       </div>
@@ -516,13 +460,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='eachRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="eachRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/kukuseitn.png'
+                          src="./images/loa_icons/kukuseitn.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>쿠크세이튼</span>
                       </div>
@@ -535,13 +479,13 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row>
-                  <Grid.Row className='abrelRow'>
-                    <Grid.Column className='contentColumn'>
+                  <Grid.Row className="abrelRow">
+                    <Grid.Column className="contentColumn">
                       <div>
                         <Image
-                          src='./images/loa_icons/abrel.png'
+                          src="./images/loa_icons/abrel.png"
                           avatar
-                          className='contentImage'
+                          className="contentImage"
                         />
                         <span>아브렐슈드</span>
                       </div>
