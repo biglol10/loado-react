@@ -64,6 +64,12 @@ function HistoryModal({ showUpdateHistoryModal, setShowUpdateHistoryModal }) {
           카던, 가디언, 에포나에 숫자로 선택할 필요없이 체크로 선택하여 저장하기
           가능토록 수정
         </p>
+        <p>
+          <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
+            2021-09-16
+          </span>
+          케릭터 순서 변경 기능 추가 (우측 상단 이름 클릭 후 순서변경)
+        </p>
       </Modal.Content>
     </Modal>
   );
