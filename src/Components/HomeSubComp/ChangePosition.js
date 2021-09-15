@@ -1,69 +1,164 @@
-import React from 'react';
-import { Modal } from 'semantic-ui-react';
+import React, { useState, useEffect } from "react";
+import { Modal, Grid, Image, Header, Label } from "semantic-ui-react";
+import cookie from "js-cookie";
+import { characterCdn, characterKorean } from "../../_data/characterDefinition";
+
+import { allViewDataMain, applyChangesUtil } from "../Utils/ViewDataUtil";
 
 function ChangePosition({ changeRowModal, setChangeRowModal }) {
+  const [userTodoData, setUserTodoData] = useState();
+  const [labelText, setLabelText] = useState("저장");
+
+  const changedIndexArr = [];
+
+  const saveChanges = async () => {
+    setLabelText("저장중입니다");
+    const applyResult = await applyChangesUtil(
+      userTodoData,
+      cookie.get("loadoUserToken")
+    );
+    alert(applyResult);
+    if (applyResult) {
+      setLabelText("저장에 실패했습니다");
+      return;
+    }
+    window.location.reload();
+  };
+
+  useEffect(() => {
+    async function callData() {
+      const resultData = await allViewDataMain(cookie.get("loadoUserToken"));
+      console.log(resultData.viewData.data);
+      setUserTodoData(resultData.viewData.data);
+    }
+    callData();
+  }, []);
+
+  let dragStartIndex;
+
+  useEffect(() => {
+    function dragStart() {
+      dragStartIndex = +this.getAttribute("data-index");
+    }
+
+    function dragOver(e) {
+      //   console.log("Event: ", "dragover");
+      //   nothing happens and the reason
+      // for that is basically the drag over event is getting in the way.
+      // So we want the read the only reason I have drag over here is to prevent the default action.
+      e.preventDefault();
+    }
+
+    function dragDrop() {
+      const dragEndIndex = +this.getAttribute("data-index");
+      swapItems(dragStartIndex, dragEndIndex);
+      this.classList.remove("over");
+    }
+
+    function dragEnter() {
+      this.classList.add("over");
+    }
+    function dragLeave() {
+      this.classList.remove("over");
+    }
+
+    // Swap list iteams that are drag and drop
+    function swapItems(fromIndex, toIndex) {
+      const itemFrom = userTodoData[fromIndex - 1];
+      const itemTo = userTodoData[toIndex - 1];
+
+      const itemFromIdx = itemFrom.idx;
+      const itemToIdx = itemTo.idx;
+
+      itemFrom.idx = itemToIdx;
+      itemTo.idx = itemFromIdx;
+
+      userTodoData[fromIndex - 1] = itemTo;
+      userTodoData[toIndex - 1] = itemFrom;
+
+      changedIndexArr.push(fromIndex - 1);
+      changedIndexArr.push(toIndex - 1);
+
+      setUserTodoData([]); // 정보가 남아서 초기화
+      setUserTodoData(userTodoData);
+    }
+
+    if (userTodoData) {
+      const draggables = document.querySelectorAll(".draggable");
+
+      draggables.forEach((draggable) => {
+        draggable.addEventListener("dragstart", dragStart);
+        draggable.addEventListener("dragover", dragOver);
+        draggable.addEventListener("drop", dragDrop);
+        draggable.addEventListener("dragenter", dragEnter);
+        draggable.addEventListener("dragleave", dragLeave);
+      });
+
+      return () => {
+        draggables.forEach((draggable) => {
+          draggable.removeEventListener("dragstart", dragStart);
+          draggable.addEventListener("dragover", dragOver);
+          draggable.addEventListener("drop", dragDrop);
+          draggable.addEventListener("dragenter", dragEnter);
+          draggable.addEventListener("dragleave", dragLeave);
+        });
+      };
+    }
+  }, [userTodoData]);
+
   return (
     <Modal
       open={changeRowModal}
       onClose={() => setChangeRowModal(false)}
       closeOnDimmerClick
+      size="tiny"
     >
       <Modal.Header
         style={{
-          backgroundColor: '#384862',
-          color: 'white',
-          borderBottom: '1px solid white',
+          backgroundColor: "#384862",
+          color: "white",
+          borderBottom: "1px solid white",
         }}
       >
-        작업 내역 __ (이 팝업은 조금 더 보기 편하게 개편될 것입니다)
+        케릭터 순서변경
+        {userTodoData && (
+          <Label
+            as="a"
+            color="orange"
+            ribbon
+            style={{ marginLeft: "80px" }}
+            onClick={saveChanges}
+          >
+            {labelText}
+          </Label>
+        )}
       </Modal.Header>
-      <Modal.Content>
-        <p>
-          <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
-            2021-09-06
-          </span>
-          직업명 오타 수정 : 아르라카 {'->'} 아르카나
-        </p>
-        <p>
-          <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
-            2021-09-07
-          </span>
-          가입 시 암호화 관련 설명 추가
-        </p>
-        <p>
-          <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
-            2021-09-08
-          </span>
-          케릭터명 입력 후 엔터 이벤트를 등록하기 위해 [케릭터 추가] 팝업 등장
-          내부로직 수정
-        </p>
-        <p>
-          <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
-            2021-09-09
-          </span>
-          (버튼이 안 보이는 분들을 위해) 케릭터 추가 기능에서 클래스 선택 및
-          케릭터명 입력 후 엔터 시 케릭터가 추가되는 기능 추가
-        </p>
-        <p>
-          <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
-            2021-09-10
-          </span>
-          유지보수 및 코드 분석을 위해 내부 코드 리팩토링 진행 및 간결하게 수정
-        </p>
-        <p>
-          <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
-            2021-09-12
-          </span>
-          9월10일 업데이트 후 첫 로그인 시 화면에 아무것도 안 뜨던 현상 수정,
-          컨탠츠에 마우스 올리면 행의 색갈이 바뀌도록 수정
-        </p>
-        <p>
-          <span style={{ fontWeight: 'bold', marginRight: '20px' }}>
-            2021-09-12
-          </span>
-          카던, 가디언, 에포나에 숫자로 선택할 필요없이 체크로 선택하여 저장하기
-          가능토록 수정
-        </p>
+      <Modal.Content style={{ backgroundColor: "lavender" }}>
+        <Grid columns={10}>
+          {userTodoData &&
+            userTodoData
+              .sort(function (a, b) {
+                return a["idx"] - b["idx"];
+              })
+              .map((item, index) => (
+                <Grid.Row
+                  className="draggable"
+                  draggable={true}
+                  data-index={item.idx}
+                  style={{ borderBottom: "1px solid rgb(56, 72, 98)" }}
+                >
+                  <Grid.Column width={7}>
+                    <Header as="h5">
+                      <span style={{ marginRight: "20px" }}>{index + 1}.</span>
+                      <Image avatar src={characterCdn[item.character]} />{" "}
+                      <span style={{ marginLeft: "10px" }}>
+                        {item.characterName}
+                      </span>
+                    </Header>
+                  </Grid.Column>
+                </Grid.Row>
+              ))}
+        </Grid>
       </Modal.Content>
     </Modal>
   );

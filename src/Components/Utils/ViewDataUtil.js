@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { backendUrl, axiosConfigAuth } from './ConstVar';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import { backendUrl, axiosConfigAuth } from "./ConstVar";
+import { toast } from "react-toastify";
 
 async function viewDataMain(
   minusOne,
@@ -50,6 +50,20 @@ async function viewDataMain(
         viewData: [],
         success: true,
         setPage: 1,
+      };
+    });
+  return axiosResult;
+}
+
+async function allViewDataMain(userCookie) {
+  let searchString = `${backendUrl}/loado/api/homeworks/getAllHomework`;
+  const axiosResult = await axios
+    .get(searchString, axiosConfigAuth(userCookie))
+    .then((response) => {
+      return {
+        viewData: response.data,
+        success: true,
+        dataLength: response.data.totalLength,
       };
     });
   return axiosResult;
@@ -108,15 +122,21 @@ function alarmRestValueUtil(todoList, alarmTrue) {
 }
 
 function toastMessage(msg, type) {
-  if (type === 'error') {
+  if (type === "error") {
     return toast.error(msg, {
       position: toast.POSITION.BOTTOM_LEFT,
     });
-  } else if (type === 'info') {
+  } else if (type === "info") {
     return toast.info(msg, {
       position: toast.POSITION.BOTTOM_LEFT,
     });
   }
 }
 
-export { viewDataMain, applyChangesUtil, alarmRestValueUtil, toastMessage };
+export {
+  viewDataMain,
+  allViewDataMain,
+  applyChangesUtil,
+  alarmRestValueUtil,
+  toastMessage,
+};

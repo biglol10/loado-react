@@ -3,17 +3,13 @@ import "./CharacterToDo.css";
 import AddCharacter from "../Utils/AddCharacter";
 
 import {
-  Header,
-  Button,
   Segment,
   Grid,
   Container,
   Icon,
   Dimmer,
   Loader,
-  Pagination,
   Image,
-  Label,
 } from "semantic-ui-react";
 import RestValue from "../GridItem/RestValue";
 import CharacterAvatar from "./CharacterAvatar";
