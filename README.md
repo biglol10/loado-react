@@ -8,6 +8,9 @@
 접속 URL: https://loado-app.herokuapp.com
 <br/>
 
+업데이트 내역
+https://github.com/biglol10/loado-react/blob/main/UPDATE.md
+
 ---
 
 #### **화면 개요**
