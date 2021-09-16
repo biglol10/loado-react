@@ -1,0 +1,14 @@
+.newNoticeAlert {
+  animation: newNotice 1s ease;
+  animation-iteration-count: 10;
+}
+
+@keyframes newNotice {
+  from {
+    color: #34495e;
+  }
+
+  to {
+    color: white;
+  }
+}
