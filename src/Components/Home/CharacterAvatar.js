@@ -19,6 +19,7 @@ function CharacterAvatar({
   dontChange,
   userTodoData,
   setUserTodoData,
+  deviceType,
 }) {
   const [deleteIcon, showDeleteIcon] = useState(false);
 
@@ -92,6 +93,7 @@ function CharacterAvatar({
           avatar
           onClick={() => showDeleteIcon(!deleteIcon)}
         />
+        {deviceType === 'mobile' && <br />}
         <span
           onClick={() => showDeleteIcon(!deleteIcon)}
           className={alarmCharacter ? 'alarmLight' : ''}

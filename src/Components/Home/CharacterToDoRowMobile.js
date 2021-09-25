@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from "react";
-import "./CharacterToDo.css";
-import AddCharacter from "../Utils/AddCharacter";
+import React, { useState, useEffect } from 'react';
+import './CharacterToDo.css';
+import AddCharacterMobile from '../Utils/AddCharacterMobile';
 
 import {
   Segment,
   Grid,
-  Container,
   Icon,
   Dimmer,
   Loader,
   Image,
-} from "semantic-ui-react";
-import RestValue from "../GridItem/RestValue";
-import CharacterAvatar from "./CharacterAvatar";
-import PerIdNote from "./PerIdNote";
+  Popup,
+} from 'semantic-ui-react';
+import RestValueMobile from '../GridItem/RestValueMobile';
+import CharacterAvatar from './CharacterAvatar';
 import {
   ChaosDunValue,
   GuardianDunValue,
   EponaValue,
   WeeklyGuardian,
-} from "../GridItem/DungeonAndEpona";
+} from '../GridItem/DungeonAndEpona';
 import {
   AbyssDun2,
   ArgosRaid,
@@ -27,24 +26,25 @@ import {
   BiakissRaid,
   KukseitnRaid,
   AbrelRaid,
-} from "../GridItem/AbyssAndRaid";
-import axios from "axios";
-import cookie from "js-cookie";
+} from '../GridItem/AbyssAndRaid';
+import axios from 'axios';
+import cookie from 'js-cookie';
 
-import { ToastContainer } from "react-toastify";
-import { useHistory } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
-import { backendUrl, axiosConfigAuth } from "../Utils/ConstVar";
+import { backendUrl, axiosConfigAuth } from '../Utils/ConstVar';
 import {
   viewDataMain,
   applyChangesUtil,
   alarmRestValueUtil,
   toastMessage,
-} from "../Utils/ViewDataUtil";
-import AddAndChange from "../HomeSubComp/AddAndChange";
-import PaginationComp from "../HomeSubComp/PaginationComp";
-import SettingChange from "../HomeSubComp/SettingChange";
-import AlarmAndNote from "../HomeSubComp/AlarmAndNote";
+} from '../Utils/ViewDataUtil';
+import AddAndChange from '../HomeSubComp/AddAndChange';
+import PaginationComp from '../HomeSubComp/PaginationComp';
+import SettingChange from '../HomeSubComp/SettingChange';
+import AlarmAndNoteMobile from '../HomeSubComp/AlarmAndNoteMobile';
+import { showContentPopupValue } from '../Utils/ContentDefinition';
 
 function CharacterToDoRowMobile({ limit, type }) {
   const todayDate = new Date(Date.now());
@@ -82,14 +82,14 @@ function CharacterToDoRowMobile({ limit, type }) {
       limit,
       activePage,
       setActivePage,
-      cookie.get("loadoUserToken")
+      cookie.get('loadoUserToken')
     );
 
     if (resultData.success) {
       setUserTodoData(resultData.viewData.data);
       setPagination(resultData.setPage);
     } else {
-      toastMessage("데이터를 불러오지 못했습니다", "error");
+      toastMessage('데이터를 불러오지 못했습니다', 'error', 'mobile');
     }
     setLoading(false);
   };
@@ -103,12 +103,12 @@ function CharacterToDoRowMobile({ limit, type }) {
 
     const applyResult = await applyChangesUtil(
       submitData,
-      cookie.get("loadoUserToken")
+      cookie.get('loadoUserToken')
     );
 
     setLoading(false);
     if (applyResult) {
-      toastMessage("일부 변경사항이 제대로 반영되지 않았습니다", "error");
+      toastMessage('일부 변경사항이 제대로 반영되지 않았습니다', 'error');
     }
     viewPage();
   };
@@ -124,14 +124,14 @@ function CharacterToDoRowMobile({ limit, type }) {
     await axios
       .get(
         `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${data.activePage}`,
-        axiosConfigAuth(cookie.get("loadoUserToken"))
+        axiosConfigAuth(cookie.get('loadoUserToken'))
       )
       .then((response) => {
         setUserTodoData(response.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        toastMessage("데이터를 불러오지 못했습니다", "error");
+        toastMessage('데이터를 불러오지 못했습니다', 'error');
         setLoading(false);
       });
   };
@@ -150,8 +150,8 @@ function CharacterToDoRowMobile({ limit, type }) {
 
   // if no user cookie then redirect to login page
   useEffect(() => {
-    let loginCookie = cookie.get("loadoUserToken");
-    !loginCookie && history.push("/login");
+    let loginCookie = cookie.get('loadoUserToken');
+    !loginCookie && history.push('/login');
   }, []);
 
   useEffect(() => {
@@ -162,345 +162,306 @@ function CharacterToDoRowMobile({ limit, type }) {
     <>
       {loading ? (
         <Segment
-          className="fullPage"
-          style={{ height: "94vh", border: "none" }}
+          className='fullPage'
+          style={{ height: '94vh', border: 'none' }}
         >
           <Dimmer active>
-            <Loader size="big">로딩중</Loader>
+            <Loader size='big'>로딩중</Loader>
           </Dimmer>
         </Segment>
       ) : (
-        <Grid className="fullPage">
-          <Container style={{ width: "95%", padding: "0px" }}>
-            <Grid.Column width={16}>
-              <Segment
-                basic
-                className="contentHeader"
-                style={{ marginBottom: "0px" }}
+        <Segment
+          style={{
+            width: '100%',
+            margin: '0px',
+            textAlign: 'center',
+            paddingTop: '0px',
+            backgroundColor: '#384862',
+            height: '100%',
+            padding: '0px',
+          }}
+        >
+          <PaginationComp
+            pagination={pagination}
+            activePage={activePage}
+            pageChange={pageChange}
+            deviceType='mobile'
+          />
+          <div
+            style={{
+              display: 'flex',
+              marginTop: '20px',
+              justifyContent: 'space-between',
+              marginBottom: '10px',
+            }}
+          >
+            <SettingChange
+              viewByCheckBox={viewByCheckBox}
+              setViewByCheckBox={setViewByCheckBox}
+              deviceType='mobile'
+            />
+            <AddAndChange
+              addCharacter={addCharacter}
+              applyChanges={applyChanges}
+              style={{ fontSize: '5px' }}
+            />
+          </div>
+          <Segment
+            basic
+            style={{
+              backgroundColor: 'dimgray',
+              marginTop: '0px',
+              fontSize: '10px',
+              color: 'white',
+            }}
+          >
+            <Grid columns={limit + 1}>
+              <Grid.Row
+                style={{
+                  borderBottom: !showNote && '0.05rem inset ivory',
+                }}
               >
-                <SettingChange
-                  viewByCheckBox={viewByCheckBox}
-                  setViewByCheckBox={setViewByCheckBox}
-                />
-                <PaginationComp
-                  pagination={pagination}
-                  activePage={activePage}
-                  pageChange={pageChange}
-                />
-                <AddAndChange
-                  addCharacter={addCharacter}
-                  applyChanges={applyChanges}
-                />
-              </Segment>
-              <Segment
-                basic
-                style={{ backgroundColor: "dimgray", marginTop: "0px" }}
-              >
-                <Grid columns={limit + 1}>
-                  <Grid.Row
-                    style={{ borderBottom: !showNote && "0.05rem inset ivory" }}
-                  >
-                    <Grid.Column className="contentColumn">
-                      <AlarmAndNote
-                        alarmTrue={alarmTrue}
-                        alarmRestValue={alarmRestValue}
-                        userTodoData={userTodoData}
-                        showNote={showNote}
-                        setShowNote={setShowNote}
+                <Grid.Column className='contentColumn'>
+                  <AlarmAndNoteMobile
+                    alarmTrue={alarmTrue}
+                    alarmRestValue={alarmRestValue}
+                    userTodoData={userTodoData}
+                    showNote={showNote}
+                    setShowNote={setShowNote}
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <CharacterAvatar
+                    itemId={item._id}
+                    character={item.character}
+                    characterName={item.characterName}
+                    attributeChanged={item.attributeChanged}
+                    weeklyAttributeChanged={item.weeklyAttributeChanged}
+                    axiosConfigAuth={axiosConfigAuth}
+                    viewPage={viewPage}
+                    alarmCharacter={item.alarmCharacter}
+                    limit={limit}
+                    dontChange={item.dontChange}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                    deviceType='mobile'
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={
+                      <Icon
+                        name='calendar check outline'
+                        style={{ fontSize: '21px' }}
                       />
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <CharacterAvatar
-                        itemId={item._id}
-                        character={item.character}
-                        characterName={item.characterName}
-                        attributeChanged={item.attributeChanged}
-                        weeklyAttributeChanged={item.weeklyAttributeChanged}
-                        axiosConfigAuth={axiosConfigAuth}
-                        viewPage={viewPage}
-                        alarmCharacter={item.alarmCharacter}
-                        limit={limit}
-                        dontChange={item.dontChange}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                  {showNote && (
-                    <Grid.Row
-                      style={{
-                        padding: 0,
-                        borderBottom: "0.05rem inset ivory",
-                        paddingBottom: "7px",
-                      }}
-                    >
-                      <Grid.Column />
-                      {userTodoData.map((item, idx) => (
-                        <PerIdNote
-                          item={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                        />
-                      ))}
-                    </Grid.Row>
-                  )}
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <Icon name="calendar check outline" />
-                      휴식게이지
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <RestValue
-                        item={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/chaosDun.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>카오스던전</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <ChaosDunValue
-                        chaosItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                        viewByCheckBox={viewByCheckBox}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/guardianDun.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>가디언토벌</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <GuardianDunValue
-                        guardianItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                        viewByCheckBox={viewByCheckBox}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/epona.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>에포나</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <EponaValue
-                        eponaItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                        viewByCheckBox={viewByCheckBox}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/guardianDun.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>주간가디언</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <WeeklyGuardian
-                        weeklyGuardianItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                        viewByCheckBox={viewByCheckBox}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/abyss2types.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>오레하2종</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <AbyssDun2
-                        abyssDun2Item={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                  {/* 원정대 주간 컨탠츠는 안 보이게 하기로 결정 */}
-                  {/* <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/abyssWeekly.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>어비스레이드</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <AbyssRaid
-                        idx={idx}
-                        abyssRaidItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/rehearsal.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>리허설, 데쟈뷰</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <RehearsalAndDejavu
-                        rehearsalAndDejavuItem={item}
-                        idx={idx}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row> */}
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/argos.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>아르고스</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <ArgosRaid
-                        argosRaidItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow baltanRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/baltan.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>발탄</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <BaltanRaid
-                        baltanRaidItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/biakiss.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>비아키스</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <BiakissRaid
-                        biakissRaidItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="eachRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/kukuseitn.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>쿠크세이튼</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <KukseitnRaid
-                        kukseitnRaidItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                  <Grid.Row className="abrelRow">
-                    <Grid.Column className="contentColumn">
-                      <div>
-                        <Image
-                          src="./images/loa_icons/abrel.png"
-                          avatar
-                          className="contentImage"
-                        />
-                        <span>아브렐슈드</span>
-                      </div>
-                    </Grid.Column>
-                    {userTodoData.map((item, idx) => (
-                      <AbrelRaid
-                        abrelRaidItem={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                      />
-                    ))}
-                  </Grid.Row>
-                </Grid>
-              </Segment>
-            </Grid.Column>
-          </Container>
-        </Grid>
+                    }
+                    content={showContentPopupValue('휴식게이지')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <RestValueMobile
+                    item={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('카오스던전')[0]}
+                    content={showContentPopupValue('카오스던전')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <ChaosDunValue
+                    chaosItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                    viewByCheckBox={viewByCheckBox}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('가디언던전')[0]}
+                    content={showContentPopupValue('가디언던전')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <GuardianDunValue
+                    guardianItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                    viewByCheckBox={viewByCheckBox}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('에포나')[0]}
+                    content={showContentPopupValue('에포나')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <EponaValue
+                    eponaItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                    viewByCheckBox={viewByCheckBox}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('주간가디언')[0]}
+                    content={showContentPopupValue('주간가디언')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <WeeklyGuardian
+                    weeklyGuardianItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                    viewByCheckBox={viewByCheckBox}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('어비스던전')[0]}
+                    content={showContentPopupValue('어비스던전')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <AbyssDun2
+                    abyssDun2Item={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('아르고스')[0]}
+                    content={showContentPopupValue('아르고스')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <ArgosRaid
+                    argosRaidItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow baltanRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('발탄')[0]}
+                    content={showContentPopupValue('발탄')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <BaltanRaid
+                    baltanRaidItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('비아키스')[0]}
+                    content={showContentPopupValue('비아키스')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <BiakissRaid
+                    biakissRaidItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('쿠크세이튼')[0]}
+                    content={showContentPopupValue('쿠크세이튼')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <KukseitnRaid
+                    kukseitnRaidItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                  />
+                ))}
+              </Grid.Row>
+              <Grid.Row className='abrelRow'>
+                <Grid.Column className='contentColumn'>
+                  <Popup
+                    on='click'
+                    pinned
+                    trigger={showContentPopupValue('아브렐슈드')[0]}
+                    content={showContentPopupValue('아브렐슈드')[1]}
+                    id='clickPopup'
+                  />
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <AbrelRaid
+                    abrelRaidItem={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
+                  />
+                ))}
+              </Grid.Row>
+            </Grid>
+          </Segment>
+        </Segment>
       )}
 
       {addCharacterModal && (
-        <AddCharacter
+        <AddCharacterMobile
           addCharacterModal={addCharacterModal}
           closeAddCharacter={closeAddCharacter}
           userTodoData={userTodoData}

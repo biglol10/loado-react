@@ -1,6 +1,6 @@
-import axios from "axios";
-import { backendUrl, axiosConfigAuth } from "./ConstVar";
-import { toast } from "react-toastify";
+import axios from 'axios';
+import { backendUrl, axiosConfigAuth } from './ConstVar';
+import { toast } from 'react-toastify';
 
 async function viewDataMain(
   minusOne,
@@ -121,15 +121,29 @@ function alarmRestValueUtil(todoList, alarmTrue) {
   };
 }
 
-function toastMessage(msg, type) {
-  if (type === "error") {
-    return toast.error(msg, {
-      position: toast.POSITION.BOTTOM_LEFT,
-    });
-  } else if (type === "info") {
-    return toast.info(msg, {
-      position: toast.POSITION.BOTTOM_LEFT,
-    });
+function toastMessage(msg, type, deviceType = 'notMobile') {
+  if (deviceType === 'mobile') {
+    alert('came to mobile');
+    if (type === 'error') {
+      return toast.error(msg, {
+        position: toast.POSITION.TOP_LEFT,
+      });
+    } else if (type === 'info') {
+      return toast.info(msg, {
+        position: toast.POSITION.TOP_LEFT,
+      });
+    }
+  } else {
+    alert('came to not mobile');
+    if (type === 'error') {
+      return toast.error(msg, {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+    } else if (type === 'info') {
+      return toast.info(msg, {
+        position: toast.POSITION.BOTTOM_LEFT,
+      });
+    }
   }
 }
 

@@ -10,6 +10,21 @@
   padding-bottom: 20px !important;
 }
 
+#gridSegment {
+  padding: 0px;
+  background-color: #384862;
+  border: none;
+  height: 94vh;
+  margin-top: 0px;
+}
+
+#gridContainer {
+  width: 95%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+  border: none;
+}
+
 .headerValue > .header {
   color: white;
 }
@@ -55,6 +70,11 @@ div.eachRow:hover,
 
 .iconClass {
   cursor: pointer;
+}
+
+div#clickPopup {
+  padding: 8px;
+  border: none;
 }
 
 /* .eachRow {

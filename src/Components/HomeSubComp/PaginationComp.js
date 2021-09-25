@@ -1,9 +1,9 @@
-import React from "react";
-import { Pagination } from "semantic-ui-react";
+import React from 'react';
+import { Pagination } from 'semantic-ui-react';
 
-function PaginationComp({ pagination, activePage, pageChange }) {
+function PaginationComp({ pagination, activePage, pageChange, deviceType }) {
   return (
-    <div className="headerValueCenter">
+    <div className='headerValueCenter'>
       <Pagination
         // defaultActivePage={1}
         firstItem={null}
@@ -13,6 +13,7 @@ function PaginationComp({ pagination, activePage, pageChange }) {
         totalPages={pagination}
         activePage={activePage}
         onPageChange={(event, data) => pageChange(event, data)}
+        size={deviceType === 'mobile' && 'mini'}
       />
     </div>
   );
