@@ -219,9 +219,9 @@ function AddCharacter({
       setMobileDropDownList(fullList);
       return;
     }
-    const englishValue = characterEnglish[data.value];
+    // const englishValue = characterEnglish[data.value];
     const filteredList = fullList.filter((item) => {
-      return item.value.includes(englishValue);
+      return item.text.indexOf(data.value) > -1;
     });
     setMobileDropDownList(filteredList);
   };
