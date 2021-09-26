@@ -110,6 +110,12 @@ function HistoryModal({
             </Grid.Column>
             <Grid.Column width={14}>작업/업데이트 내역 화면 수정</Grid.Column>
           </Grid.Row>
+          <Grid.Row style={{ padding: '10px 0px' }}>
+            <Grid.Column className='updateItemDate' width={2}>
+              2021-09-26
+            </Grid.Column>
+            <Grid.Column width={14}>모바일웹 기능 개발</Grid.Column>
+          </Grid.Row>
         </Grid>
       </Modal.Content>
     </Modal>
