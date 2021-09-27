@@ -91,6 +91,6 @@ https://github.com/biglol10/loado-react/blob/main/UPDATE.md
 <br/><br/>
 
 #### * 모바일웹 기능 추가
-같은 URL로 모바일로 접속 시 모바일 화면에 맞는 UI 구성 표시
+같은 URL로 모바일로 접속 시 모바일 화면에 맞는 UI 구성 표시<br/>
 ![image](https://user-images.githubusercontent.com/46738034/134879884-5d08dc01-5bcd-4588-a6ae-5107b42830e6.png)
 <br/><br/>
