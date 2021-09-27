@@ -89,3 +89,8 @@ https://github.com/biglol10/loado-react/blob/main/UPDATE.md
 <br/>
 ![image](https://user-images.githubusercontent.com/46738034/133057838-5e898f04-805d-47c4-a443-b1a400475993.png)
 <br/><br/>
+
+#### * 모바일웹 기능 추가
+같은 URL로 모바일로 접속 시 모바일 화면에 맞는 UI 구성 표시
+![image](https://upload3.inven.co.kr/upload/2021/09/26/bbs/i14665846486.jpg)
+<br/><br/>
