@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, Modal, Image, Button } from 'semantic-ui-react';
-import TextField from '@material-ui/core/TextField';
-import { characterCdn } from '../../_data/characterDefinition';
+import React, { useState, useEffect } from "react";
+import { Grid, Modal, Image, Button } from "semantic-ui-react";
+import TextField from "@material-ui/core/TextField";
+import { characterCdn } from "../../_data/characterDefinition";
 
 function RestValueMobile({ item, userTodoData, setUserTodoData }) {
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     let element = document.getElementById(item._id);
-    const rightclickEvent = element.addEventListener('contextmenu', (event) => {
+    const rightclickEvent = element.addEventListener("contextmenu", (event) => {
       event.preventDefault();
       setShowModal(true);
     });
     return () => {
-      element.removeEventListener('contextmenu', rightclickEvent);
+      element.removeEventListener("contextmenu", rightclickEvent);
     };
   });
 
@@ -40,7 +40,7 @@ function RestValueMobile({ item, userTodoData, setUserTodoData }) {
 
   const valueChange = (e) => {
     e.preventDefault();
-    if (e.target.id === 'chaosChange') {
+    if (e.target.id === "chaosChange") {
       const changedValue = e.target.value;
       const valueOutput =
         chaosRestValueChange + (changedValue - chaosRestValueChange) * 10;
@@ -51,7 +51,7 @@ function RestValueMobile({ item, userTodoData, setUserTodoData }) {
 
       return;
     }
-    if (e.target.id === 'guardianChange') {
+    if (e.target.id === "guardianChange") {
       const changedValue = e.target.value;
       const valueOutput =
         guardianRestValueChange + (changedValue - guardianRestValueChange) * 10;
@@ -62,7 +62,7 @@ function RestValueMobile({ item, userTodoData, setUserTodoData }) {
 
       return;
     }
-    if (e.target.id === 'eponaChange') {
+    if (e.target.id === "eponaChange") {
       const changedValue = e.target.value;
       const valueOutput =
         eponaRestValueChange + (changedValue - eponaRestValueChange) * 10;
@@ -80,10 +80,10 @@ function RestValueMobile({ item, userTodoData, setUserTodoData }) {
       return anItem._id === item._id;
     });
     let newArr = [...userTodoData];
-    newArr[indexValue]['chaosRestValue'] = chaosRestValueChange;
-    newArr[indexValue]['guardianRestValue'] = guardianRestValueChange;
-    newArr[indexValue]['eponaRestValue'] = eponaRestValueChange;
-    newArr[indexValue]['attributeChanged'] = true;
+    newArr[indexValue]["chaosRestValue"] = chaosRestValueChange;
+    newArr[indexValue]["guardianRestValue"] = guardianRestValueChange;
+    newArr[indexValue]["eponaRestValue"] = eponaRestValueChange;
+    newArr[indexValue]["attributeChanged"] = true;
     setUserTodoData(newArr);
     closeModal();
   };
@@ -91,42 +91,42 @@ function RestValueMobile({ item, userTodoData, setUserTodoData }) {
   return (
     <>
       <Grid.Column id={item._id}>
-        C: {item.chaosRestValue}
+        카오스: {item.chaosRestValue}
         <br />
-        G: {item.guardianRestValue}
+        가디언: {item.guardianRestValue}
         <br />
-        E: {item.eponaRestValue}
+        에포나: {item.eponaRestValue}
       </Grid.Column>
       <Modal
-        size='mini'
+        size="mini"
         open={showModal}
         onClose={closeModal}
         closeIcon
         closeOnDimmerClick
       >
         <Modal.Header>
-          <Image src={characterCdn[item.character]} size='mini' avatar />
+          <Image src={characterCdn[item.character]} size="mini" avatar />
           {item.characterName}
         </Modal.Header>
         <Modal.Content>
           <TextField
-            id='chaosChange'
-            type='number'
-            label='카오스던전'
+            id="chaosChange"
+            type="number"
+            label="카오스던전"
             onChange={(e) => valueChange(e)}
             value={chaosRestValueChange}
           />
           <TextField
-            id='guardianChange'
-            type='number'
-            label='가디언토벌'
+            id="guardianChange"
+            type="number"
+            label="가디언토벌"
             onChange={(e) => valueChange(e)}
             value={guardianRestValueChange}
           />
           <TextField
-            id='eponaChange'
-            type='number'
-            label='에포나'
+            id="eponaChange"
+            type="number"
+            label="에포나"
             onChange={(e) => valueChange(e)}
             value={eponaRestValueChange}
           />
