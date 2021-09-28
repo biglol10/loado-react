@@ -124,6 +124,16 @@ function HistoryModal({
               아무나 06시 초기화를 할 수 없도록 암호화 진행. 즉, 소스 공개 가능
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
+              2021-09-28
+            </Grid.Column>
+            <Grid.Column width={14}>
+              <span style={{ color: "red" }}>[버그픽스]</span> 순서변경에서
+              버그가 발생하던 부분 해결. 사용자가 1회 케릭터 추가 또는 삭제 한번
+              해줘야 모든게 제대로 작동
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </Modal.Content>
     </Modal>
