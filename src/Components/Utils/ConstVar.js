@@ -1,6 +1,4 @@
-const backendUrl = "https://loado-app.herokuapp.com";
-// const backendUrl = "https://loado-backend.herokuapp.com";
-// const backendUrl = "http://localhost:5000";
+const backendUrl = process.env.REACT_APP_BACKENDURL;
 
 const axiosConfig = {
   headers: {
