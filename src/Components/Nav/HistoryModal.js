@@ -129,9 +129,11 @@ function HistoryModal({
               2021-09-28
             </Grid.Column>
             <Grid.Column width={14}>
-              <span style={{ color: "red" }}>[버그픽스]</span> 순서변경에서
+              1. <span style={{ color: "red" }}>[버그픽스]</span> 순서변경에서
               버그가 발생하던 부분 해결. 사용자가 1회 케릭터 추가 또는 삭제 한번
               해줘야 모든게 제대로 작동
+              <br />
+              2. 아이폰으로 접속 시 강제 줌인 되는 현상 수정
             </Grid.Column>
           </Grid.Row>
         </Grid>
