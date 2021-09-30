@@ -136,6 +136,16 @@ function HistoryModal({
               2. 아이폰으로 접속 시 강제 줌인 되는 현상 수정
             </Grid.Column>
           </Grid.Row>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
+              2021-09-30
+            </Grid.Column>
+            <Grid.Column width={14}>
+              1. 모바일 노트 기록 기능 추가
+              <br />
+              2. 숫자체크 또는 체크박스 사용자설정 유지하는 기능 개발완료
+            </Grid.Column>
+          </Grid.Row>
         </Grid>
       </Modal.Content>
     </Modal>

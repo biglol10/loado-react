@@ -14,8 +14,6 @@ import { Link, useHistory } from "react-router-dom";
 import { backendUrl, axiosConfig } from "../Utils/ConstVar";
 
 function Login() {
-  console.log("sadfasdfasf");
-  console.log(process.env.REACT_APP_BACKENDURL);
   const history = useHistory();
   const [loginMessage, setLoginMessage] = useState("로그인이 필요합니다");
   const [user, setUser] = useState({

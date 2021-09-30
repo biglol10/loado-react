@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import {
   Modal,
   Icon,
@@ -10,20 +10,15 @@ import {
   Button,
   Dropdown,
   Segment,
-} from 'semantic-ui-react';
-import {
-  characterCdn,
-  characterKorean,
-  characterEnglish,
-} from '../../_data/characterDefinition';
-import axios from 'axios';
+} from "semantic-ui-react";
+import { characterCdn, characterKorean } from "../../_data/characterDefinition";
+import axios from "axios";
 
-import { ToastContainer, toast } from 'react-toastify';
-import { backendUrl } from '../Utils/ConstVar';
-import cookie from 'js-cookie';
+import { ToastContainer, toast } from "react-toastify";
+import { backendUrl } from "../Utils/ConstVar";
+import cookie from "js-cookie";
 
-import './AddCharacter.css';
-import { ContactsOutlined } from '@material-ui/icons';
+import "./AddCharacter.css";
 
 function AddCharacter({
   addCharacterModal,
@@ -34,8 +29,8 @@ function AddCharacter({
   limit,
 }) {
   const [selectCharacterModal, setSelectCharacterModal] = useState(false);
-  const [selectedCharacter, setSelectedCharacter] = useState('');
-  const [characterName, setCharacterName] = useState('');
+  const [selectedCharacter, setSelectedCharacter] = useState("");
+  const [characterName, setCharacterName] = useState("");
   const [chaosRestValue, setChaosRestValue] = useState(0);
   const [guardianRestValue, setGuardianRestValue] = useState(0);
   const [eponaRestValue, setEponaRestValue] = useState(0);
@@ -54,10 +49,10 @@ function AddCharacter({
 
   const classSelected = (event) => {
     let selectedClass;
-    if (event.target.className.indexOf('image') > 0) {
+    if (event.target.className.indexOf("image") > 0) {
       selectedClass = event.target.dataset.options;
     } else {
-      selectedClass = event.target.className.split(' ')[2];
+      selectedClass = event.target.className.split(" ")[2];
     }
     setSelectedCharacter(selectedClass);
     setSelectCharacterModal(false);
@@ -65,8 +60,8 @@ function AddCharacter({
   };
 
   const closeAddCharacterModal = () => {
-    setSelectedCharacter('');
-    setCharacterName('');
+    setSelectedCharacter("");
+    setCharacterName("");
     setChaosRestValue(0);
     setGuardianRestValue(0);
     setEponaRestValue(0);
@@ -76,7 +71,7 @@ function AddCharacter({
   const changeInputCharName = (event, data) => {
     const insertedValue = data.value;
     if (insertedValue.length === 0) {
-      setCharacterName('');
+      setCharacterName("");
       return;
     }
     if (!regex.test(insertedValue) || insertedValue.length > 12) return;
@@ -86,7 +81,7 @@ function AddCharacter({
   const changeRestValue = (event, data) => {
     event.preventDefault();
     if (!regexNumber.test(event.target.value)) return;
-    if (event.target.id === 'chaosChange') {
+    if (event.target.id === "chaosChange") {
       const changedValue = event.target.value;
       const valueOutput = chaosRestValue + (changedValue - chaosRestValue) * 10;
       if (valueOutput < 0) setChaosRestValue(0);
@@ -94,7 +89,7 @@ function AddCharacter({
         setChaosRestValue(valueOutput);
       else setChaosRestValue(100);
     }
-    if (event.target.id === 'guardianChange') {
+    if (event.target.id === "guardianChange") {
       const changedValue = event.target.value;
       const valueOutput =
         guardianRestValue + (changedValue - guardianRestValue) * 10;
@@ -103,7 +98,7 @@ function AddCharacter({
         setGuardianRestValue(valueOutput);
       else setGuardianRestValue(100);
     }
-    if (event.target.id === 'eponaChange') {
+    if (event.target.id === "eponaChange") {
       const changedValue = event.target.value;
       const valueOutput = eponaRestValue + (changedValue - eponaRestValue) * 10;
       if (valueOutput < 0) setEponaRestValue(0);
@@ -144,7 +139,7 @@ function AddCharacter({
       .post(
         `${backendUrl}/loado/api/homeworks`,
         createdData,
-        axiosConfigAuth(cookie.get('loadoUserToken'))
+        axiosConfigAuth(cookie.get("loadoUserToken"))
       )
       .then((response) => {
         // setUserTodoData([...userTodoData, response.data.data]);
@@ -168,31 +163,31 @@ function AddCharacter({
 
   useEffect(() => {
     const classElements = document.getElementsByClassName(
-      'characterClassContent'
+      "characterClassContent"
     );
     let eventAdd;
     for (let index = 0; index < classElements.length; index++) {
-      eventAdd = classElements[index].addEventListener('click', (event) => {
+      eventAdd = classElements[index].addEventListener("click", (event) => {
         classSelected(event);
       });
     }
     return () => {
       for (let index = 0; index < classElements.length; index++) {
-        classElements[index].removeEventListener('click', eventAdd);
+        classElements[index].removeEventListener("click", eventAdd);
       }
     };
   });
 
   useEffect(() => {
-    const element = document.getElementById('characterNameInputId');
-    const enterEvent = element.addEventListener('keypress', (event) => {
-      if (event.key === 'Enter') {
+    const element = document.getElementById("characterNameInputId");
+    const enterEvent = element.addEventListener("keypress", (event) => {
+      if (event.key === "Enter") {
         console.log(buttonRef.current);
         if (buttonRef.current) buttonRef.current.click();
       }
     });
     return () => {
-      element.removeEventListener('keypress', enterEvent);
+      element.removeEventListener("keypress", enterEvent);
     };
   }, []);
 
@@ -219,7 +214,7 @@ function AddCharacter({
       setMobileDropDownList(fullList);
       return;
     }
-    // const englishValue = characterEnglish[data.value];
+
     const filteredList = fullList.filter((item) => {
       return item.text.indexOf(data.value) > -1;
     });
@@ -229,33 +224,33 @@ function AddCharacter({
   return (
     <>
       <Modal
-        size='mini'
+        size="mini"
         open={addCharacterModal}
         onClose={closeAddCharacterModal}
         closeIcon
         closeOnDimmerClick
         // centered={false}
       >
-        <Modal.Content style={{ backgroundColor: 'dimgray' }}>
-          <Header className='itemHeader' as='h4'>
+        <Modal.Content style={{ backgroundColor: "dimgray" }}>
+          <Header className="itemHeader" as="h4">
             {!selectedCharacter ? (
               <>
-                <span className='itemHeaderAttribute1'>클래스:</span>
+                <span className="itemHeaderAttribute1">클래스:</span>
                 <Icon
-                  name='add square'
-                  size='large'
-                  color='white'
+                  name="add square"
+                  size="large"
+                  color="white"
                   onClick={modalShow}
-                  style={{ cursor: 'pointer' }}
+                  style={{ cursor: "pointer" }}
                 />
               </>
             ) : (
               <>
-                <span className='itemHeaderAttribute2'>클래스:</span>
+                <span className="itemHeaderAttribute2">클래스:</span>
                 <span onClick={() => setSelectCharacterModal(true)}>
                   <Image
                     src={characterCdn[selectedCharacter]}
-                    size='mini'
+                    size="mini"
                     avatar
                   />
                   {characterKorean[selectedCharacter]}
@@ -263,29 +258,29 @@ function AddCharacter({
               </>
             )}
           </Header>
-          <Header className='itemHeader' as='h4'>
-            <span style={{ marginRight: '40px' }}>케릭명:</span>
+          <Header className="itemHeader" as="h4">
+            <span style={{ marginRight: "40px" }}>케릭명:</span>
             <Input
               transparent
-              placeholder='케릭터명'
-              style={{ color: 'white' }}
-              className='charNameInput'
+              placeholder="케릭터명"
+              style={{ color: "white" }}
+              className="charNameInput"
               value={characterName}
               ref={inputRef}
-              id='characterNameInputId'
+              id="characterNameInputId"
               onChange={(event, data) => changeInputCharName(event, data)}
             />
           </Header>
-          <Header className='itemHeaderRest' as='h4'>
+          <Header className="itemHeaderRest" as="h4">
             <List divided selection>
               <List.Item>
                 <Label horizontal>카오스던전</Label>
                 <Input
                   transparent
-                  style={{ color: 'white' }}
-                  className='charNameInput'
+                  style={{ color: "white" }}
+                  className="charNameInput"
                   value={chaosRestValue}
-                  id='chaosChange'
+                  id="chaosChange"
                   onChange={(event, data) => changeRestValue(event, data)}
                 />
               </List.Item>
@@ -293,10 +288,10 @@ function AddCharacter({
                 <Label horizontal>가디언던전</Label>
                 <Input
                   transparent
-                  style={{ color: 'white' }}
-                  className='charNameInput'
+                  style={{ color: "white" }}
+                  className="charNameInput"
                   value={guardianRestValue}
-                  id='guardianChange'
+                  id="guardianChange"
                   onChange={(event, data) => changeRestValue(event, data)}
                 />
               </List.Item>
@@ -304,32 +299,32 @@ function AddCharacter({
                 <Label horizontal>에포나</Label>
                 <Input
                   transparent
-                  style={{ color: 'white' }}
-                  className='charNameInput'
+                  style={{ color: "white" }}
+                  className="charNameInput"
                   value={eponaRestValue}
-                  id='eponaChange'
+                  id="eponaChange"
                   onChange={(event, data) => changeRestValue(event, data)}
                 />
               </List.Item>
             </List>
           </Header>
-          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <div style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
               circular
-              color='google plus'
-              icon='cancel'
+              color="google plus"
+              icon="cancel"
               onClick={closeAddCharacterModal}
             />
             <Button
               circular
-              color='twitter'
-              icon='check'
+              color="twitter"
+              icon="check"
               onClick={confirmAddCharacter}
             />
             <button
               ref={buttonRef}
               onClick={confirmAddCharacter}
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
           </div>
         </Modal.Content>
@@ -339,30 +334,30 @@ function AddCharacter({
           open={selectCharacterModal}
           onClose={closeSelectCharacter}
           // centered={false}
-          className='classSelectModal'
+          className="classSelectModal"
         >
           <Modal.Header
             style={{
-              backgroundColor: '#384862',
-              color: 'white',
-              borderBottom: '1px solid white',
+              backgroundColor: "#384862",
+              color: "white",
+              borderBottom: "1px solid white",
             }}
           >
             클래스선택
           </Modal.Header>
-          <Modal.Content style={{ backgroundColor: '#384862', color: 'white' }}>
+          <Modal.Content style={{ backgroundColor: "#384862", color: "white" }}>
             <Segment>
               <Input
-                icon='search'
-                iconPosition='left'
-                className='search'
+                icon="search"
+                iconPosition="left"
+                className="search"
                 ref={mobileInputRef}
                 onChange={(event, data) => filterDropDown(event, data)}
               />
               <br />
               <Dropdown open={true}>
                 <Dropdown.Menu>
-                  <Dropdown.Header icon='tags' content='직업' />
+                  <Dropdown.Header icon="tags" content="직업" />
                   <Dropdown.Menu scrolling>
                     {mobileDropDownList.map((option) => (
                       <Dropdown.Item

@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { backendUrl, axiosConfigAuth } from './ConstVar';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import { backendUrl, axiosConfigAuth } from "./ConstVar";
+import { toast } from "react-toastify";
 
 async function viewDataMain(
   minusOne,
@@ -89,6 +89,39 @@ async function applyChangesUtil(submitData, userCookie) {
   return errorOccured;
 }
 
+async function getUserCheckBoxConfiguration(userCookie) {
+  const result = await axios
+    .get(
+      `${backendUrl}/loado/api/userConfigure/viewbycheckbox`,
+      axiosConfigAuth(userCookie)
+    )
+    .then((response) => {
+      return response.data.viewByCheckBox;
+    })
+    .catch((err) => {
+      return false;
+    });
+  return result;
+}
+
+async function changeUserCheckBoxConfiguration(viewByCheckBox, userCookie) {
+  const result = await axios
+    .put(
+      `${backendUrl}/loado/api/userConfigure/viewbycheckbox`,
+      {
+        viewByCheckBox,
+      },
+      axiosConfigAuth(userCookie)
+    )
+    .then((response) => {
+      return response.data.success;
+    })
+    .catch((err) => {
+      return false;
+    });
+  return result;
+}
+
 function alarmRestValueUtil(todoList, alarmTrue) {
   let alarmList = [];
   let alarm = false;
@@ -121,25 +154,25 @@ function alarmRestValueUtil(todoList, alarmTrue) {
   };
 }
 
-function toastMessage(msg, type, deviceType = 'notMobile') {
-  if (deviceType === 'mobile') {
-    alert('came to mobile');
-    if (type === 'error') {
+function toastMessage(msg, type, deviceType = "notMobile") {
+  if (deviceType === "mobile") {
+    alert("came to mobile");
+    if (type === "error") {
       return toast.error(msg, {
         position: toast.POSITION.TOP_LEFT,
       });
-    } else if (type === 'info') {
+    } else if (type === "info") {
       return toast.info(msg, {
         position: toast.POSITION.TOP_LEFT,
       });
     }
   } else {
-    alert('came to not mobile');
-    if (type === 'error') {
+    alert("came to not mobile");
+    if (type === "error") {
       return toast.error(msg, {
         position: toast.POSITION.BOTTOM_LEFT,
       });
-    } else if (type === 'info') {
+    } else if (type === "info") {
       return toast.info(msg, {
         position: toast.POSITION.BOTTOM_LEFT,
       });
@@ -153,4 +186,6 @@ export {
   applyChangesUtil,
   alarmRestValueUtil,
   toastMessage,
+  getUserCheckBoxConfiguration,
+  changeUserCheckBoxConfiguration,
 };

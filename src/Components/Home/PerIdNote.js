@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, TextArea, Icon } from 'semantic-ui-react';
+import React, { useState, useEffect } from "react";
+import { Grid, TextArea, Icon } from "semantic-ui-react";
 
-function PerIdNote({ item, userTodoData, setUserTodoData }) {
+function PerIdNote({ item, userTodoData, setUserTodoData, deviceType }) {
   const [showTextArea, setShowTextArea] = useState(false);
   const [textValue, setTextValue] = useState(item.note);
 
@@ -10,13 +10,12 @@ function PerIdNote({ item, userTodoData, setUserTodoData }) {
       return anItem._id === id;
     });
     let newArr = [...userTodoData];
-    newArr[indexValue]['note'] = theText;
-    newArr[indexValue]['attributeChanged'] = true;
+    newArr[indexValue]["note"] = theText;
+    newArr[indexValue]["attributeChanged"] = true;
     setUserTodoData(newArr);
   };
 
   const changeText = (event) => {
-    console.log(event);
     if (event.target.value.length > 20) return;
     setTextValue(event.target.value);
     dontChangeCharacter(item._id, event.target.value);
@@ -26,15 +25,21 @@ function PerIdNote({ item, userTodoData, setUserTodoData }) {
     <Grid.Column>
       {!showTextArea ? (
         <>
-          {item.note}{' '}
+          {item.note}{" "}
           <Icon
             inverted
-            name='pencil square'
-            color='pink'
+            name="pencil square"
+            color="pink"
             onClick={() => setShowTextArea(!showTextArea)}
-            style={{ cursor: 'pointer' }}
+            style={{ cursor: "pointer" }}
           />
         </>
+      ) : deviceType === "mobile" ? (
+        <TextArea
+          style={{ width: "100%" }}
+          value={textValue}
+          onChange={(event) => changeText(event)}
+        />
       ) : (
         <TextArea value={textValue} onChange={(event) => changeText(event)} />
       )}
