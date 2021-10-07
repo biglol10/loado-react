@@ -171,7 +171,12 @@ function NavHeader() {
         </Menu.Item>
       </Menu>
 
-      {profileModal && <ProfileModal />}
+      {profileModal && (
+        <ProfileModal
+          profileModal={profileModal}
+          setProfileModal={setProfileModal}
+        />
+      )}
 
       {showUpdateHistoryModal && (
         <HistoryModal
