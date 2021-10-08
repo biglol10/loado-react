@@ -1,6 +1,7 @@
 import "./App.css";
 import "semantic-ui-css/semantic.min.css";
 import "react-toastify/dist/ReactToastify.css";
+import "cropperjs/dist/cropper.css";
 import { Grid, Segment } from "semantic-ui-react";
 import NavHeader from "./Components/Nav/NavHeader";
 import NavHeaderMobile from "./Components/Nav/NavHeaderMobile";

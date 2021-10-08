@@ -38,7 +38,7 @@
 
 .item .personIcon {
   color: white;
-  padding: 0 50px;
+  /* padding: 0 50px; */
   display: flex;
   cursor: pointer;
 }

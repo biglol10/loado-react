@@ -180,6 +180,24 @@ function toastMessage(msg, type, deviceType = "notMobile") {
   }
 }
 
+async function updateProfilePic(profilePic, userCookie) {
+  const result = await axios
+    .post(
+      `${backendUrl}/loado/api/userConfigure/uploadProfilePic`,
+      {
+        profilePic,
+      },
+      axiosConfigAuth(userCookie)
+    )
+    .then((response) => {
+      return response.data.success;
+    })
+    .catch((err) => {
+      return false;
+    });
+  return result;
+}
+
 export {
   viewDataMain,
   allViewDataMain,
@@ -188,4 +206,5 @@ export {
   toastMessage,
   getUserCheckBoxConfiguration,
   changeUserCheckBoxConfiguration,
+  updateProfilePic,
 };

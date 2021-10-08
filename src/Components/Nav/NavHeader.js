@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Menu, Header, Icon, Popup, Button, Divider } from "semantic-ui-react";
+import {
+  Menu,
+  Header,
+  Icon,
+  Popup,
+  Button,
+  Divider,
+  Image,
+  Label,
+} from "semantic-ui-react";
 import cookie from "js-cookie";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -15,6 +24,8 @@ function NavHeader() {
   let userIdString = cookie.get("loadoUserCookie");
   let userValue = userIdString && JSON.parse(userIdString);
   const history = useHistory();
+
+  const [accountUser, setAccountUser] = useState(null);
 
   const [showUpdateHistoryModal, setShowUpdateHistoryModal] = useState(false);
   const [changeRowModal, setChangeRowModal] = useState(false);
@@ -77,7 +88,10 @@ function NavHeader() {
           axiosConfigAuth(cookie.get("loadoUserToken"))
         )
         .then((response) => {
-          if (response.data.success) setNoticeAlert(response.data.newNotice);
+          if (response.data.success) {
+            setNoticeAlert(response.data.user.newNotice);
+            setAccountUser(response.data.user);
+          }
         })
         .catch((err) => {
           setNoticeAlert(false);
@@ -142,11 +156,30 @@ function NavHeader() {
             open={open}
             trigger={
               <Header size="small" className="personIcon">
-                <Icon name="user" />
-                {userValue && userValue.userName}
+                {accountUser?.profilePic ? (
+                  <div>
+                    <Image src={accountUser.profilePic} avatar />
+                    <span style={{ color: "white" }}>{userValue.userName}</span>
+                  </div>
+                ) : (
+                  <>
+                    <Icon name="user" />
+                    {userValue && userValue.userName}
+                  </>
+                )}
               </Header>
             }
           >
+            <Image
+              avatar
+              style={{ height: "70px", width: "70px", objectFit: "cover" }}
+              src={
+                accountUser?.profilePic
+                  ? accountUser.profilePic
+                  : "https://react.semantic-ui.com/images/wireframe/image.png"
+              }
+            />
+            <Divider />
             <p>프로필 이미지를 바꾸시겠습니까?</p>
             <Button
               color="violet"
@@ -175,6 +208,7 @@ function NavHeader() {
         <ProfileModal
           profileModal={profileModal}
           setProfileModal={setProfileModal}
+          profilePic={accountUser?.profilePic}
         />
       )}
 
