@@ -94,3 +94,9 @@ https://github.com/biglol10/loado-react/blob/main/UPDATE.md
 같은 URL로 모바일로 접속 시 모바일 화면에 맞는 UI 구성 표시<br/>
 ![image](https://user-images.githubusercontent.com/46738034/134879884-5d08dc01-5bcd-4588-a6ae-5107b42830e6.png)
 <br/><br/>
+
+#### * 프로필 사진 업데이트
+사용자가 자신의 프로필 사진을 업데이트 할 수 있도록 개발
+![image](https://user-images.githubusercontent.com/46738034/136589058-6c670035-1c72-4e54-9eb9-b3d7a8f1ee77.png)
+![image](https://user-images.githubusercontent.com/46738034/136589177-049019fb-25f2-4e93-b20e-13ffb5d0734d.png)
+<br/><br/>
