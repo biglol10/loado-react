@@ -85,7 +85,7 @@ function ChangePosition({ changeRowModal, setChangeRowModal }) {
       changedIndexArr.push(toIndex - 1);
       setChangedIndexArr(changedIndexArr);
 
-      console.log(changedIndexArr);
+      // console.log(changedIndexArr);
 
       setUserTodoData([]); // 정보가 남아서 초기화
       setUserTodoData(userTodoData);
