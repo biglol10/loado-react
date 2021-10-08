@@ -97,6 +97,8 @@ https://github.com/biglol10/loado-react/blob/main/UPDATE.md
 
 #### * 프로필 사진 업데이트
 사용자가 자신의 프로필 사진을 업데이트 할 수 있도록 개발
+<br/>
 ![image](https://user-images.githubusercontent.com/46738034/136589058-6c670035-1c72-4e54-9eb9-b3d7a8f1ee77.png)
+<br/>
 ![image](https://user-images.githubusercontent.com/46738034/136589177-049019fb-25f2-4e93-b20e-13ffb5d0734d.png)
 <br/><br/>
