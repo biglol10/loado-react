@@ -151,8 +151,8 @@ function HistoryModal({
               2021-10-09
             </Grid.Column>
             <Grid.Column width={14}>
-              이제 자신의 프로필 사진을 변경해보세요!!! 케릭터명을 클릭해서
-              프로필 이미지를 자르고 업로드 하실 수 있습니다
+              이제 자신의 프로필 사진을 변경해보세요!!! 계정명을 클릭해서 프로필
+              이미지를 자르고 업로드 하실 수 있습니다
             </Grid.Column>
           </Grid.Row>
         </Grid>
