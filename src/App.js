@@ -12,6 +12,7 @@ import Login from "./Components/Home/Login";
 import Register from "./Components/Home/Register";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { createMedia } from "@artsy/fresnel";
+import Dashboard from "./Dashboard/Dashboard";
 
 const AppMedia = createMedia({
   breakpoints: { zero: 0, mobile: 549, tablet: 850, computer: 1080 },
@@ -90,6 +91,10 @@ function App() {
                 </Grid.Row>
               </Grid> */}
             </>
+          </Route>
+          <Route path="/dashboard">
+            <NavHeader />
+            <Dashboard />
           </Route>
           <Route path="/login">
             <Login />
