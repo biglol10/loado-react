@@ -93,7 +93,7 @@ function NavHeaderMobile() {
     <>
       <Menu
         style={{
-          backgroundColor: 'lightcoral',
+          background: '-webkit-linear-gradient(right, #da0050, #8e2b88)',
           height: '6vh',
           borderRadius: '0px',
           marginBottom: '0px',

@@ -1,18 +1,18 @@
-import "./App.css";
-import "semantic-ui-css/semantic.min.css";
-import "react-toastify/dist/ReactToastify.css";
-import "cropperjs/dist/cropper.css";
-import { Grid, Segment } from "semantic-ui-react";
-import NavHeader from "./Components/Nav/NavHeader";
-import NavHeaderMobile from "./Components/Nav/NavHeaderMobile";
-import CharacterToDo from "./Components/Home/CharacterToDo";
-import CharacterToDoRow from "./Components/Home/CharacterToDoRow";
-import CharacterToDoRowMobile from "./Components/Home/CharacterToDoRowMobile";
-import Login from "./Components/Home/Login";
-import Register from "./Components/Home/Register";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { createMedia } from "@artsy/fresnel";
-import Dashboard from "./Dashboard/Dashboard";
+import './App.css';
+import 'semantic-ui-css/semantic.min.css';
+import 'react-toastify/dist/ReactToastify.css';
+import 'cropperjs/dist/cropper.css';
+import { Grid, Segment } from 'semantic-ui-react';
+import NavHeader from './Components/Nav/NavHeader';
+import NavHeaderMobile from './Components/Nav/NavHeaderMobile';
+import CharacterToDo from './Components/Home/CharacterToDo';
+import CharacterToDoRow from './Components/Home/CharacterToDoRow';
+import CharacterToDoRowMobile from './Components/Home/CharacterToDoRowMobile';
+import Login from './Components/Home/Login';
+import Register from './Components/Home/Register';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { createMedia } from '@artsy/fresnel';
+import Dashboard from './Components/Dashboard/Dashboard';
 
 const AppMedia = createMedia({
   breakpoints: { zero: 0, mobile: 549, tablet: 850, computer: 1080 },
@@ -26,36 +26,36 @@ function App() {
     <MediaContextProvider>
       <Router>
         <Switch>
-          <Route path="/userhomework">
+          <Route path='/userhomework'>
             <>
-              <Media between={["zero", "tablet"]}>
+              <Media between={['zero', 'tablet']}>
                 <Segment
                   style={{
-                    backgroundColor: "#384862",
-                    padding: "0px",
-                    border: "none",
-                    height: "100%",
-                    width: "100%",
+                    backgroundColor: '#384862',
+                    padding: '0px',
+                    border: 'none',
+                    height: '100%',
+                    width: '100%',
                   }}
                 >
                   <NavHeaderMobile />
                   <CharacterToDoRowMobile
                     limit={3}
-                    type="mobile"
-                    style={{ padding: "0px" }}
+                    type='mobile'
+                    style={{ padding: '0px' }}
                   />
                 </Segment>
               </Media>
-              <Media between={["tablet", "computer"]}>
-                <Segment id="biggerThanTablet">
+              <Media between={['tablet', 'computer']}>
+                <Segment id='biggerThanTablet'>
                   <NavHeader />
-                  <CharacterToDoRow limit={6} type="mobile" />
+                  <CharacterToDoRow limit={6} type='mobile' />
                 </Segment>
               </Media>
-              <Media greaterThanOrEqual="computer">
-                <Segment id="biggerThanTablet">
+              <Media greaterThanOrEqual='computer'>
+                <Segment id='biggerThanTablet'>
                   <NavHeader />
-                  <CharacterToDoRow limit={8} type="computer" />
+                  <CharacterToDoRow limit={8} type='computer' />
                 </Segment>
               </Media>
               {/* <Grid stackable style={{ border: "none" }}>
@@ -92,17 +92,17 @@ function App() {
               </Grid> */}
             </>
           </Route>
-          <Route path="/dashboard">
+          <Route path='/dashboard'>
             <NavHeader />
             <Dashboard />
           </Route>
-          <Route path="/login">
+          <Route path='/login'>
             <Login />
           </Route>
-          <Route path="/register">
+          <Route path='/register'>
             <Register />
           </Route>
-          <Route path="/" exact>
+          <Route path='/' exact>
             <Login />
           </Route>
         </Switch>

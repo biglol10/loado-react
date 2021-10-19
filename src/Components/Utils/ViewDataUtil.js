@@ -202,6 +202,21 @@ function waitForSomeTime(timeToDelay) {
   return new Promise((resolve) => setTimeout(resolve, timeToDelay));
 }
 
+async function getLoadoLogs(userCookie) {
+  const result = await axios
+    .get(
+      `${backendUrl}/loado/api/adminFeatures/adminData/dailyLogsData`,
+      axiosConfigAuth(userCookie)
+    )
+    .then((response) => {
+      return response.data;
+    })
+    .catch((err) => {
+      return false;
+    });
+  return result;
+}
+
 export {
   viewDataMain,
   allViewDataMain,
@@ -212,4 +227,5 @@ export {
   changeUserCheckBoxConfiguration,
   updateProfilePic,
   waitForSomeTime,
+  getLoadoLogs,
 };
