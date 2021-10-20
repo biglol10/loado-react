@@ -1,3 +1,39 @@
 .lineGraph {
   height: 100% !important;
 }
+
+.fullPage .dashboardHeader {
+  color: white;
+}
+
+.lineGraphAreaColumn {
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.barGraphAreaColumn {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#lineGraphArea {
+  width: 90%;
+  height: 100%;
+  background-color: white;
+}
+
+.barGraphAreaColumn {
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.barGraph {
+  background-color: white;
+  height: 100% !important;
+}

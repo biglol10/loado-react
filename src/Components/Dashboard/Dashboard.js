@@ -1,19 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import '../Home/CharacterToDo.css';
-import { Segment, Grid } from 'semantic-ui-react';
-import { Line } from 'react-chartjs-2';
-import cookie from 'js-cookie';
-import { getLoadoLogs } from '../Utils/ViewDataUtil';
+import React, { useState, useEffect } from "react";
+import "../Home/CharacterToDo.css";
+import { Segment, Grid, Header, Icon } from "semantic-ui-react";
+import { Line, Bar } from "react-chartjs-2";
+import cookie from "js-cookie";
+import { getLoadoLogs } from "../Utils/ViewDataUtil";
 
-import './Dashboard.css';
+import "./Dashboard.css";
 
 function Dashboard() {
   const [lineLabels, setlineLabels] = useState();
   const [lineData, setlineData] = useState();
+  const [barLabels, setBarLabels] = useState();
+  const [barData, setBarData] = useState();
+
+  const [userCount, setUserCount] = useState();
+  const [userLoadoCount, setUserLoadoCount] = useState();
+  const [loadologs, setLoadoLogs] = useState();
 
   useEffect(() => {
     async function getLoadoLogsFunction() {
-      let resultData = await getLoadoLogs(cookie.get('loadoUserToken'));
+      let resultData = await getLoadoLogs(cookie.get("loadoUserToken"));
       if (!resultData) return;
       resultData.log.sort(function (a, b) {
         const keyA = new Date(a.dateValue);
@@ -31,24 +37,42 @@ function Dashboard() {
       });
       setlineLabels(labels);
       setlineData(data);
+
+      setUserCount(resultData.userCount);
+      setUserLoadoCount(resultData.hwCount);
+      setLoadoLogs(resultData.logsCount);
+
+      const barLabels = [];
+      const barData = [];
+
+      console.log(resultData);
+
+      resultData.jobGroupingResult.map((item, idx) => {
+        if (idx > 7) return;
+        barLabels.push(item._id);
+        barData.push(item.characterCount);
+      });
+
+      setBarLabels(barLabels);
+      setBarData(barData);
     }
     getLoadoLogsFunction();
   }, []);
 
-  const data = {
+  const chartjsLineData = {
     labels: lineLabels,
     datasets: [
       {
-        label: '',
+        label: "",
         data: lineData,
         fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgba(255, 99, 132, 0.2)",
       },
     ],
   };
 
-  const options = {
+  const chartjsLineOptions = {
     scales: {
       y: {
         beginAtZero: true,
@@ -57,32 +81,119 @@ function Dashboard() {
     plugins: {
       title: {
         display: true,
-        text: '이용 현황',
+        text: "이용 현황",
       },
     },
   };
+
+  const charjsBarData = {
+    labels: barLabels,
+    datasets: [
+      {
+        label: "",
+        data: barData,
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const chartjsBarOptions = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+    plugins: {
+      title: {
+        display: true,
+        text: "직업 현황",
+      },
+    },
+  };
+
+  const data = {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
+        ],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+
   return (
     <Segment
-      className='fullPage'
-      style={{ height: '94vh', border: 'none', backgroundColor: '#384862' }}
+      className="fullPage"
+      style={{ height: "94vh", border: "none", backgroundColor: "#384862" }}
     >
       <Grid columns={2}>
         <Grid.Row>
-          <Grid.Column>
-            <span>asdf</span>
+          <Grid.Column style={{ margin: "auto", textAlign: "center" }}>
+            <Header as="h2" className="dashboardHeader">
+              <Icon name="users" />
+              등록된 사용자 수 : {userCount} 명
+            </Header>
+            <Header as="h2" className="dashboardHeader">
+              <Icon name="book" />
+              등록된 숙제 수 : {userLoadoCount} 개
+            </Header>
+            <Header as="h2" className="dashboardHeader">
+              <Icon name="pencil square" />
+              일주일 로그 수 : {loadologs} 개
+            </Header>
           </Grid.Column>
-          <Grid.Column
-            style={{
-              height: '350px',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <div
-              style={{ width: '90%', height: '100%', backgroundColor: 'white' }}
-            >
-              <Line data={data} options={options} className='lineGraph' />
+          <Grid.Column className="lineGraphAreaColumn">
+            <div id="lineGraphArea">
+              <Line
+                data={chartjsLineData}
+                options={chartjsLineOptions}
+                className="lineGraph"
+              />
+            </div>
+          </Grid.Column>
+        </Grid.Row>
+        <Grid.Row>
+          <Grid.Column width={16} className="barGraphAreaColumn">
+            {/* <Bar data={charjsBarData} options={chartjsBarOptions} /> */}
+            <div id="lineGraphArea">
+              <Bar
+                data={charjsBarData}
+                options={chartjsBarOptions}
+                className="barGraph"
+              />
             </div>
           </Grid.Column>
         </Grid.Row>
