@@ -7,6 +7,8 @@ import { getLoadoLogs } from "../Utils/ViewDataUtil";
 
 import "./Dashboard.css";
 
+import { characterKorean } from "../../_data/characterDefinition";
+
 function Dashboard() {
   const [lineLabels, setlineLabels] = useState();
   const [lineData, setlineData] = useState();
@@ -48,8 +50,8 @@ function Dashboard() {
       console.log(resultData);
 
       resultData.jobGroupingResult.map((item, idx) => {
-        if (idx > 7) return;
-        barLabels.push(item._id);
+        // if (idx > 15) return;
+        barLabels.push(characterKorean[item._id]);
         barData.push(item.characterCount);
       });
 
@@ -86,12 +88,28 @@ function Dashboard() {
     },
   };
 
-  const charjsBarData = {
+  const chartjsBarData = {
     labels: barLabels,
     datasets: [
       {
         label: "",
         data: barData,
+        backgroundColor: [
+          "rgba(255, 99, 132, 0.2)",
+          "rgba(54, 162, 235, 0.2)",
+          "rgba(255, 206, 86, 0.2)",
+          "rgba(75, 192, 192, 0.2)",
+          "rgba(153, 102, 255, 0.2)",
+          "rgba(255, 159, 64, 0.2)",
+        ],
+        borderColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+          "rgba(75, 192, 192, 1)",
+          "rgba(153, 102, 255, 1)",
+          "rgba(255, 159, 64, 1)",
+        ],
         borderWidth: 1,
       },
     ],
@@ -155,10 +173,7 @@ function Dashboard() {
   };
 
   return (
-    <Segment
-      className="fullPage"
-      style={{ height: "94vh", border: "none", backgroundColor: "#384862" }}
-    >
+    <Segment className="fullPage" id="dashboardPage" style={{ border: "none" }}>
       <Grid columns={2}>
         <Grid.Row>
           <Grid.Column style={{ margin: "auto", textAlign: "center" }}>
@@ -185,19 +200,22 @@ function Dashboard() {
             </div>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Grid.Column width={16} className="barGraphAreaColumn">
-            {/* <Bar data={charjsBarData} options={chartjsBarOptions} /> */}
-            <div id="lineGraphArea">
-              <Bar
-                data={charjsBarData}
-                options={chartjsBarOptions}
-                className="barGraph"
-              />
-            </div>
-          </Grid.Column>
-        </Grid.Row>
       </Grid>
+      <br />
+      <div
+        style={{
+          height: "500px",
+          width: "60%",
+          backgroundColor: "white",
+          margin: "0 auto",
+        }}
+      >
+        <Bar
+          data={chartjsBarData}
+          options={chartjsBarOptions}
+          className="lineGraph"
+        />
+      </div>
     </Segment>
   );
 }

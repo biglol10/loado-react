@@ -6,6 +6,18 @@
   color: white;
 }
 
+#dashboardPage {
+  background-image: url("https://coolbackgrounds.io/images/backgrounds/black/black-trianglify-b6181ec2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+@media screen and (min-width: 1900px) {
+  #dashboardPage {
+    height: 94vh;
+  }
+}
+
 .lineGraphAreaColumn {
   height: 350px;
   display: flex;
