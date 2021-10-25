@@ -1,0 +1,31 @@
+#divLoginPage {
+  position: relative;
+}
+
+#loginPage {
+  background-image: url('https://images.unsplash.com/photo-1539376248633-cf94fa8b7bd8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1470&q=80');
+  background-size: cover;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.custom-shape-divider-bottom-1634800167 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1634800167 svg {
+  position: relative;
+  display: block;
+  width: calc(300% + 1.3px);
+  height: 131px;
+}
+
+.custom-shape-divider-bottom-1634800167 .shape-fill {
+  fill: #ffffff;
+}
