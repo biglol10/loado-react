@@ -11,6 +11,7 @@
 }
 
 #dashboardPage {
+  border-radius: 0px;
   background-image: url("https://coolbackgrounds.io/images/backgrounds/black/black-trianglify-b6181ec2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
