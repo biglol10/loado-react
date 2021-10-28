@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Modal, Grid } from 'semantic-ui-react';
-import './HistoryModal.css';
+import React, { useEffect } from "react";
+import { Modal, Grid } from "semantic-ui-react";
+import "./HistoryModal.css";
 
 function HistoryModal({
   showUpdateHistoryModal,
@@ -19,11 +19,11 @@ function HistoryModal({
       closeOnDimmerClick
     >
       <Modal.Header
-        className='modalHeader'
+        className="modalHeader"
         style={{
-          backgroundColor: '#384862',
-          color: 'white',
-          borderBottom: '1px solid white',
+          backgroundColor: "#384862",
+          color: "white",
+          borderBottom: "1px solid white",
         }}
       >
         작업/업데이트 내역
@@ -44,8 +44,8 @@ function HistoryModal({
             </Grid.Column>
             <Grid.Column width={14}>가입 시 암호화 관련 설명 추가</Grid.Column>
           </Grid.Row> */}
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-08
             </Grid.Column>
             <Grid.Column width={14}>
@@ -53,8 +53,8 @@ function HistoryModal({
               등장 내부로직 수정
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-09
             </Grid.Column>
             <Grid.Column width={14}>
@@ -62,8 +62,8 @@ function HistoryModal({
               케릭터명 입력 후 엔터 시 케릭터가 추가되는 기능 추가
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-10
             </Grid.Column>
             <Grid.Column width={14}>
@@ -71,8 +71,8 @@ function HistoryModal({
               수정
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-12
             </Grid.Column>
             <Grid.Column width={14}>
@@ -83,8 +83,8 @@ function HistoryModal({
               저장하기 가능토록 수정
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-16
             </Grid.Column>
             <Grid.Column width={14}>
@@ -94,8 +94,8 @@ function HistoryModal({
               작업 내역 확인 후 깜빡거림 멈추는 기능 추가
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-21
             </Grid.Column>
             <Grid.Column width={14}>
@@ -104,40 +104,40 @@ function HistoryModal({
               개인휴식게이지반영 적용 요청
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-22
             </Grid.Column>
             <Grid.Column width={14}>작업/업데이트 내역 화면 수정</Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-26
             </Grid.Column>
             <Grid.Column width={14}>모바일웹 기능 개발</Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-27
             </Grid.Column>
             <Grid.Column width={14}>
               아무나 06시 초기화를 할 수 없도록 암호화 진행. 즉, 소스 공개 가능
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-28
             </Grid.Column>
             <Grid.Column width={14}>
-              1. <span style={{ color: 'red' }}>[버그픽스]</span> 순서변경에서
+              1. <span style={{ color: "red" }}>[버그픽스]</span> 순서변경에서
               버그가 발생하던 부분 해결. 사용자가 1회 케릭터 추가 또는 삭제 한번
               해줘야 모든게 제대로 작동
               <br />
               2. 아이폰으로 접속 시 강제 줌인 되는 현상 수정
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-09-30
             </Grid.Column>
             <Grid.Column width={14}>
@@ -146,13 +146,21 @@ function HistoryModal({
               2. 숫자체크 또는 체크박스 사용자설정 유지하는 기능 개발완료
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-10-09
             </Grid.Column>
             <Grid.Column width={14}>
               이제 자신의 프로필 사진을 변경해보세요!!! 계정명을 클릭해서 프로필
               이미지를 자르고 업로드 하실 수 있습니다
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
+              2021-10-28
+            </Grid.Column>
+            <Grid.Column width={14}>
+              특정 상황에서 페이징처리가 제대로 되지 않던 상황을 픽스했습니다
             </Grid.Column>
           </Grid.Row>
         </Grid>
