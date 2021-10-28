@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Grid, Image, Icon, Popup } from 'semantic-ui-react';
-import { characterCdn } from '../../_data/characterDefinition';
-import axios from 'axios';
-import cookie from 'js-cookie';
-import './CharacterAvatarCss.css';
-import { backendUrl } from '../Utils/ConstVar';
+import React, { useState, useEffect } from "react";
+import { Grid, Image, Icon, Popup } from "semantic-ui-react";
+import { characterCdn } from "../../_data/characterDefinition";
+import axios from "axios";
+import cookie from "js-cookie";
+import "./CharacterAvatarCss.css";
+import { backendUrl } from "../Utils/ConstVar";
 
 function CharacterAvatar({
   itemId,
@@ -20,6 +20,7 @@ function CharacterAvatar({
   userTodoData,
   setUserTodoData,
   deviceType,
+  activePage,
 }) {
   const [deleteIcon, showDeleteIcon] = useState(false);
 
@@ -27,7 +28,7 @@ function CharacterAvatar({
 
   const [dontChangeState, setDontChangeState] = useState(dontChange);
 
-  const [alarmState, setAlarmState] = useState('');
+  const [alarmState, setAlarmState] = useState("");
 
   const deleteCharacter = (id) => {
     // console.log(id);
@@ -42,16 +43,21 @@ function CharacterAvatar({
     axios
       .delete(
         `${backendUrl}/loado/api/homeworks/${itemId}`,
-        axiosConfigAuth(cookie.get('loadoUserToken'))
+        axiosConfigAuth(cookie.get("loadoUserToken"))
       )
       .then((response) => {
         if (
           response.data.totalLength > 0 &&
           response.data.totalLength % limit === 0
         ) {
-          viewPage(true, false);
+          if (activePage <= response.data.totalLength / limit) {
+            viewPage(activePage);
+          } else if (activePage > response.data.totalLength / limit) {
+            activePage = response.data.totalLength / limit;
+            viewPage(activePage);
+          }
         } else {
-          viewPage(false, false);
+          viewPage(activePage);
         }
       })
       .catch((err) => {
@@ -66,7 +72,7 @@ function CharacterAvatar({
     });
     let newArr = [...userTodoData];
     newArr[indexValue].dontChange = !dontChange;
-    newArr[indexValue]['attributeChanged'] = true;
+    newArr[indexValue]["attributeChanged"] = true;
     setDontChangeState(!dontChangeState);
     setUserTodoData(newArr);
     showDeleteIcon(false);
@@ -75,12 +81,12 @@ function CharacterAvatar({
   // 원래 1회 실행으로 useEffect에 []를 넣었지만 이걸 넣으니 되돌아가기가 안됨... 그래서 [] 빼보니 됨
   useEffect(() => {
     let element = document.getElementById(`${itemId}_${characterName}`);
-    const rightclickEvent = element.addEventListener('contextmenu', (event) => {
+    const rightclickEvent = element.addEventListener("contextmenu", (event) => {
       event.preventDefault();
       setShowDontChange(!showDontChange);
     });
     return () => {
-      element.removeEventListener('contextmenu', rightclickEvent);
+      element.removeEventListener("contextmenu", rightclickEvent);
     };
   });
 
@@ -89,14 +95,14 @@ function CharacterAvatar({
       <Grid.Column>
         <Image
           src={characterCdn[character]}
-          size='mini'
+          size="mini"
           avatar
           onClick={() => showDeleteIcon(!deleteIcon)}
         />
-        {deviceType === 'mobile' && <br />}
+        {deviceType === "mobile" && <br />}
         <span
           onClick={() => showDeleteIcon(!deleteIcon)}
-          className={alarmCharacter ? 'alarmLight' : ''}
+          className={alarmCharacter ? "alarmLight" : ""}
           id={`${itemId}_${characterName}`}
           data-options={itemId}
         >
@@ -104,18 +110,18 @@ function CharacterAvatar({
         </span>
         {(attributeChanged || weeklyAttributeChanged) && (
           <Icon
-            name='edit'
-            size='small'
-            style={{ color: 'springgreen', marginLeft: '3px' }}
+            name="edit"
+            size="small"
+            style={{ color: "springgreen", marginLeft: "3px" }}
           />
         )}
         {deleteIcon && (
           <Popup
             trigger={
               <Icon
-                name='trash'
-                color='red'
-                style={{ cursor: 'pointer', marginLeft: '1px' }}
+                name="trash"
+                color="red"
+                style={{ cursor: "pointer", marginLeft: "1px" }}
                 onClick={() => deleteCharacter(itemId)}
               />
             }
@@ -126,9 +132,9 @@ function CharacterAvatar({
           <Popup
             trigger={
               <Icon
-                name={dontChangeState ? 'bell' : 'bell slash'}
-                color='yellow'
-                style={{ cursor: 'pointer', marginLeft: '1px' }}
+                name={dontChangeState ? "bell" : "bell slash"}
+                color="yellow"
+                style={{ cursor: "pointer", marginLeft: "1px" }}
                 onClick={() => dontChangeCharacter(itemId)}
               />
             }

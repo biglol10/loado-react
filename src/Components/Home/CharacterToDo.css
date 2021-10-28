@@ -17,8 +17,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   border: none;
-  height: 94vh;
   margin-top: 0px;
+}
+
+@media screen and (min-width: 1500px) {
+  #gridSegment {
+    height: 94vh;
+  }
 }
 
 #gridContainer {

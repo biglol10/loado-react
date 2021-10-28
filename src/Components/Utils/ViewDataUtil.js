@@ -1,29 +1,23 @@
-import axios from 'axios';
-import { backendUrl, axiosConfigAuth } from './ConstVar';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import { backendUrl, axiosConfigAuth } from "./ConstVar";
+import { toast } from "react-toastify";
 
-async function viewDataMain(
-  minusOne,
-  plusOne,
-  plusPage,
-  limit,
-  activePage,
-  setActivePage,
-  userCookie
-) {
-  let searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${activePage}`;
+async function viewDataMain(limit, theActivePage, setActivePage, userCookie) {
+  let searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${theActivePage}`;
 
-  if (minusOne) {
-    searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${
-      activePage - 1
-    }`;
-    setActivePage(activePage - 1);
-  } else if (plusOne) {
-    searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${
-      Math.floor(plusPage / limit) + 1
-    }`;
-    setActivePage(Math.floor(plusPage / limit) + 1);
-  }
+  setActivePage(theActivePage);
+
+  // if (minusOne) {
+  //   searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${
+  //     whatPage - 1
+  //   }`;
+  //   setActivePage(whatPage - 1);
+  // } else if (plusOne) {
+  //   searchString = `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${
+  //     Math.floor(plusPage / limit) + 1
+  //   }`;
+  //   setActivePage(Math.floor(plusPage / limit) + 1);
+  // }
 
   const axiosResult = await axios
     .get(searchString, axiosConfigAuth(userCookie))
@@ -154,25 +148,25 @@ function alarmRestValueUtil(todoList, alarmTrue) {
   };
 }
 
-function toastMessage(msg, type, deviceType = 'notMobile') {
-  if (deviceType === 'mobile') {
-    alert('came to mobile');
-    if (type === 'error') {
+function toastMessage(msg, type, deviceType = "notMobile") {
+  if (deviceType === "mobile") {
+    alert("came to mobile");
+    if (type === "error") {
       return toast.error(msg, {
         position: toast.POSITION.TOP_LEFT,
       });
-    } else if (type === 'info') {
+    } else if (type === "info") {
       return toast.info(msg, {
         position: toast.POSITION.TOP_LEFT,
       });
     }
   } else {
-    alert('came to not mobile');
-    if (type === 'error') {
+    alert("came to not mobile");
+    if (type === "error") {
       return toast.error(msg, {
         position: toast.POSITION.BOTTOM_LEFT,
       });
-    } else if (type === 'info') {
+    } else if (type === "info") {
       return toast.info(msg, {
         position: toast.POSITION.BOTTOM_LEFT,
       });

@@ -73,16 +73,13 @@ function CharacterToDoRow({ limit, type }) {
     setAddCharacterModal(false);
   };
 
-  const viewPage = async (minusOne = false, plusOne = false, plusPage = 0) => {
+  const viewPage = async (theActivePage, plusPage = 0) => {
     setLoading(true);
     setUserTodoData([]);
 
     const resultData = await viewDataMain(
-      minusOne,
-      plusOne,
-      plusPage,
       limit,
-      activePage,
+      theActivePage,
       setActivePage,
       cookie.get("loadoUserToken")
     );
@@ -249,6 +246,7 @@ function CharacterToDoRow({ limit, type }) {
                           dontChange={item.dontChange}
                           userTodoData={userTodoData}
                           setUserTodoData={setUserTodoData}
+                          activePage={activePage}
                         />
                       ))}
                     </Grid.Row>
@@ -534,6 +532,7 @@ function CharacterToDoRow({ limit, type }) {
           axiosConfigAuth={axiosConfigAuth}
           viewPage={viewPage}
           limit={limit}
+          activePage={activePage}
         />
       )}
       <ToastContainer autoClose={3000} />
