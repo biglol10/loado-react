@@ -3,7 +3,7 @@ import { Grid, Image, Icon, Popup } from "semantic-ui-react";
 import { characterCdn } from "../../_data/characterDefinition";
 import axios from "axios";
 import cookie from "js-cookie";
-import "./CharacterAvatarCss.css";
+import "./CharacterAvatar.css";
 import { backendUrl } from "../Utils/ConstVar";
 
 function CharacterAvatar({
