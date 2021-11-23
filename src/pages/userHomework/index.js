@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./index.css";
+import "./userHomework.css";
 import AddCharacter from "../components/characterRelated/AddCharacter";
 
 import {
@@ -14,12 +14,13 @@ import {
 import RestValue from "../components/userHomework/RestValue";
 import CharacterAvatar from "../components/characterRelated/CharacterAvatar";
 import PerIdNote from "../components/userHomework/PerIdNote";
+import DungeonAndEpona from "../components/userHomework/DungeonAndEpona";
 import {
   ChaosDunValue,
   GuardianDunValue,
   EponaValue,
   WeeklyGuardian,
-} from "../components/userHomework/DungeonAndEpona";
+} from "../components/userHomework/DungeonAndEponaUtil";
 import {
   AbyssDun2,
   ArgosRaid,
@@ -281,86 +282,30 @@ function CharacterToDoRow({ limit, type }) {
                         />
                       ))}
                     </Grid.Row>
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/chaosDun.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>카오스던전</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <ChaosDunValue
-                          chaosItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                          viewByCheckBox={viewByCheckBox}
-                        />
-                      ))}
-                    </Grid.Row>
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/guardianDun.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>가디언토벌</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <GuardianDunValue
-                          guardianItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                          viewByCheckBox={viewByCheckBox}
-                        />
-                      ))}
-                    </Grid.Row>
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/epona.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>에포나</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <EponaValue
-                          eponaItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                          viewByCheckBox={viewByCheckBox}
-                        />
-                      ))}
-                    </Grid.Row>
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/guardianDun.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>주간가디언</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <WeeklyGuardian
-                          weeklyGuardianItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                          viewByCheckBox={viewByCheckBox}
-                        />
-                      ))}
-                    </Grid.Row>
+                    <DungeonAndEpona
+                      content="카오스던전"
+                      userTodoData={userTodoData}
+                      setUserTodoData={setUserTodoData}
+                      viewByCheckBox={viewByCheckBox}
+                    />
+                    <DungeonAndEpona
+                      content="가디언토벌"
+                      userTodoData={userTodoData}
+                      setUserTodoData={setUserTodoData}
+                      viewByCheckBox={viewByCheckBox}
+                    />
+                    <DungeonAndEpona
+                      content="에포나"
+                      userTodoData={userTodoData}
+                      setUserTodoData={setUserTodoData}
+                      viewByCheckBox={viewByCheckBox}
+                    />
+                    <DungeonAndEpona
+                      content="주간가디언"
+                      userTodoData={userTodoData}
+                      setUserTodoData={setUserTodoData}
+                      viewByCheckBox={viewByCheckBox}
+                    />
                     <Grid.Row className="eachRow">
                       <Grid.Column className="contentColumn">
                         <div>

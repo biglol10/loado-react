@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./index.css";
+import "./userHomeworkMobile.css";
 import AddCharacterMobile from "../components/characterRelated/AddCharacterMobile";
 
 import { Segment, Grid, Icon, Dimmer, Loader, Popup } from "semantic-ui-react";
@@ -10,7 +10,7 @@ import {
   GuardianDunValue,
   EponaValue,
   WeeklyGuardian,
-} from "../components/userHomework/DungeonAndEpona";
+} from "../components/userHomework/DungeonAndEponaUtil";
 import {
   AbyssDun2,
   ArgosRaid,
@@ -309,8 +309,8 @@ function CharacterToDoRowMobile({ limit, type }) {
                   <Popup
                     on="click"
                     pinned
-                    trigger={showContentPopupValue("가디언던전")[0]}
-                    content={showContentPopupValue("가디언던전")[1]}
+                    trigger={showContentPopupValue("가디언토벌")[0]}
+                    content={showContentPopupValue("가디언토벌")[1]}
                     id="clickPopup"
                   />
                 </Grid.Column>

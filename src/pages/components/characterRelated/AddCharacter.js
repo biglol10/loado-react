@@ -254,7 +254,7 @@ function AddCharacter({
                 />
               </List.Item>
               <List.Item>
-                <Label horizontal>가디언던전</Label>
+                <Label horizontal>가디언토벌</Label>
                 <Input
                   transparent
                   style={{ color: "white" }}

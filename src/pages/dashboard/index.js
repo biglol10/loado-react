@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../userHomework/index.css";
+import "../userHomework/userHomework.css";
 import { Segment, Grid, Header, Icon } from "semantic-ui-react";
 import { Line, Bar } from "react-chartjs-2";
 import cookie from "js-cookie";
 import { getLoadoLogs } from "../components/util/ViewDataUtil";
 
-import "./index.css";
+import "./dashboard.css";
 
 import { characterKorean } from "../../_data/characterDefinition";
 
