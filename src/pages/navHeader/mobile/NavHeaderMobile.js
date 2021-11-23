@@ -11,12 +11,12 @@ import {
 import cookie from 'js-cookie';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { backendUrl, axiosConfig, axiosConfigAuth } from '../Utils/ConstVar';
+import { backendUrl, axiosConfig, axiosConfigAuth } from '../../components/util/ConstVar';
 
-import HistoryModal from '../Nav/HistoryModal';
-import ChangePosition from '../HomeSubComp/ChangePosition';
+import HistoryModal from '../../components/updatehistory/HistoryModal';
+import ChangePosition from '../../components/characterRelated/ChangePosition';
 
-import './NavHeader.css';
+import './NavHeaderMobile.css';
 
 function NavHeaderMobile() {
   let userIdString = cookie.get('loadoUserCookie');

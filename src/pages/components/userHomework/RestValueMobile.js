@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Modal, Image, Button } from "semantic-ui-react";
 import TextField from "@material-ui/core/TextField";
-import { characterCdn } from "../../_data/characterDefinition";
+import { characterCdn } from "../../../_data/characterDefinition";
 
 function RestValueMobile({ item, userTodoData, setUserTodoData }) {
   const [showModal, setShowModal] = useState(false);

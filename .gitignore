@@ -5,7 +5,7 @@
 /.pnp
 .pnp.js
 
-/src/Components/Utils/ConstVar.js
+# /src/pages/components/util/ConstVar.js
 
 # testing
 /coverage

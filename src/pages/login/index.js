@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
   Form,
@@ -11,17 +11,16 @@ import {
 import axios from 'axios';
 import cookie from 'js-cookie';
 import { Link, useHistory } from 'react-router-dom';
-import { backendUrl, axiosConfig } from '../Utils/ConstVar';
+import { backendUrl, axiosConfig } from '../components/util/ConstVar';
 
-import './Login.css';
+import './index.css';
 
-function Register() {
+function Login() {
   const history = useHistory();
-  const [loginMessage, setLoginMessage] = useState('회원가입');
+  const [loginMessage, setLoginMessage] = useState('로그인이 필요합니다');
   const [user, setUser] = useState({
-    id: '',
+    id: cookie.get('loginId') ? cookie.get('loginId') : '',
     password: '',
-    name: '',
   });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,11 +31,10 @@ function Register() {
     e.preventDefault();
     axios
       .post(
-        `${backendUrl}/loado/api/users/register`,
+        `${backendUrl}/loado/api/users/login`,
         {
           userId: user.id,
           password: user.password,
-          name: user.name,
         },
         axiosConfig
       )
@@ -53,9 +51,17 @@ function Register() {
         }
       })
       .catch((err) => {
+        // console.log(err.request);
+        // console.log(err.response);
+        // console.log(err.message);
         setLoginMessage(err.response.data.error);
       });
   };
+
+  useEffect(() => {
+    let loginCookie = cookie.get('loadoUserToken');
+    loginCookie && history.push('/userhomework');
+  }, []);
 
   return (
     <div id='divLoginPage'>
@@ -90,27 +96,17 @@ function Register() {
                 name='password'
                 onChange={handleChange}
               />
-              <Form.Input
-                fluid
-                icon='quote left'
-                iconPosition='left'
-                placeholder='이름'
-                name='name'
-                onChange={handleChange}
-                value={user.name}
-              />
 
               <Button color='teal' fluid size='large' type='submit'>
-                가입
+                로그인
               </Button>
             </Segment>
           </Form>
           <Message>
-            비밀번호를 잊어버리시면 복구가 불가능합니다
-            <br />
-            [비밀번호는 암호화되어 저장됩니다]
-            <br />
-            [예시: .....APvs6TgQOG5d8byxYdLJOD0O6Am.....]
+            계정이 없으신가요?{' '}
+            <a href='#' onClick={() => history.push('/register')}>
+              가입
+            </a>
           </Message>
         </Grid.Column>
       </Grid>
@@ -141,4 +137,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

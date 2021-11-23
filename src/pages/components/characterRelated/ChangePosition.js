@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Grid, Image, Header, Label } from 'semantic-ui-react';
 import cookie from 'js-cookie';
-import { characterCdn, characterKorean } from '../../_data/characterDefinition';
+import { characterCdn, characterKorean } from '../../../_data/characterDefinition';
 
-import { allViewDataMain, applyChangesUtil } from '../Utils/ViewDataUtil';
+import { allViewDataMain, applyChangesUtil } from '../util/ViewDataUtil';
 
 function ChangePosition({ changeRowModal, setChangeRowModal }) {
   const [userTodoData, setUserTodoData] = useState();
@@ -33,7 +33,6 @@ function ChangePosition({ changeRowModal, setChangeRowModal }) {
   useEffect(() => {
     async function callData() {
       const resultData = await allViewDataMain(cookie.get('loadoUserToken'));
-      console.log(resultData.viewData.data);
       setUserTodoData(resultData.viewData.data);
     }
     callData();
@@ -47,7 +46,6 @@ function ChangePosition({ changeRowModal, setChangeRowModal }) {
     }
 
     function dragOver(e) {
-      //   console.log("Event: ", "dragover");
       //   nothing happens and the reason
       // for that is basically the drag over event is getting in the way.
       // So we want the read the only reason I have drag over here is to prevent the default action.

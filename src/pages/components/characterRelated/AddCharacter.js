@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, innerRef } from "react";
 import {
   Modal,
   Icon,
+  Grid,
   Image,
   Header,
   Input,
   Label,
   List,
   Button,
-  Dropdown,
-  Segment,
 } from "semantic-ui-react";
-import { characterCdn, characterKorean } from "../../_data/characterDefinition";
+import { characterCdn, characterKorean } from "../../../_data/characterDefinition";
 import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
-import { backendUrl } from "../Utils/ConstVar";
+import { backendUrl } from "../util/ConstVar";
 import cookie from "js-cookie";
 
 import "./AddCharacter.css";
@@ -27,6 +26,7 @@ function AddCharacter({
   axiosConfigAuth,
   viewPage,
   limit,
+  activePage,
 }) {
   const [selectCharacterModal, setSelectCharacterModal] = useState(false);
   const [selectedCharacter, setSelectedCharacter] = useState("");
@@ -39,7 +39,6 @@ function AddCharacter({
 
   const inputRef = useRef();
   const buttonRef = useRef();
-  const mobileInputRef = useRef();
 
   const closeSelectCharacter = () => setSelectCharacterModal(false);
 
@@ -147,9 +146,10 @@ function AddCharacter({
           response.data.totalLength > 0 &&
           userTodoData.length % limit === 0
         ) {
-          viewPage(false, true, response.data.totalLength);
+          activePage = Math.floor(response.data.totalLength / limit) + 1;
+          viewPage(activePage);
         } else {
-          viewPage(false, false);
+          viewPage(activePage);
         }
         closeAddCharacterModal();
       })
@@ -182,7 +182,6 @@ function AddCharacter({
     const element = document.getElementById("characterNameInputId");
     const enterEvent = element.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
-        console.log(buttonRef.current);
         if (buttonRef.current) buttonRef.current.click();
       }
     });
@@ -190,36 +189,6 @@ function AddCharacter({
       element.removeEventListener("keypress", enterEvent);
     };
   }, []);
-
-  // for mobile
-  const [fullList, setFullList] = useState([]);
-  const [mobileDropDownList, setMobileDropDownList] = useState([]);
-  useEffect(() => {
-    const aList = [];
-    for (var key in characterCdn) {
-      const addItem = {
-        key,
-        text: characterKorean[key],
-        value: key,
-        image: { avatar: true, src: characterCdn[key] },
-      };
-      aList.push(addItem);
-    }
-    setFullList(aList);
-    setMobileDropDownList(aList);
-    if (mobileInputRef.current) mobileInputRef.current.focus();
-  }, [selectCharacterModal]);
-  const filterDropDown = (event, data) => {
-    if (!data.value) {
-      setMobileDropDownList(fullList);
-      return;
-    }
-
-    const filteredList = fullList.filter((item) => {
-      return item.text.indexOf(data.value) > -1;
-    });
-    setMobileDropDownList(filteredList);
-  };
 
   return (
     <>
@@ -329,53 +298,254 @@ function AddCharacter({
           </div>
         </Modal.Content>
       </Modal>
-      {selectCharacterModal && (
-        <Modal
-          open={selectCharacterModal}
-          onClose={closeSelectCharacter}
-          // centered={false}
-          className="classSelectModal"
+      <Modal
+        open={selectCharacterModal}
+        onClose={closeSelectCharacter}
+        closeOnDimmerClick
+        // centered={false}
+        className="classSelectModal"
+      >
+        <Modal.Header
+          style={{
+            backgroundColor: "#384862",
+            color: "white",
+            borderBottom: "1px solid white",
+          }}
         >
-          <Modal.Header
-            style={{
-              backgroundColor: "#384862",
-              color: "white",
-              borderBottom: "1px solid white",
-            }}
-          >
-            클래스선택
-          </Modal.Header>
-          <Modal.Content style={{ backgroundColor: "#384862", color: "white" }}>
-            <Segment>
-              <Input
-                icon="search"
-                iconPosition="left"
-                className="search"
-                ref={mobileInputRef}
-                onChange={(event, data) => filterDropDown(event, data)}
-              />
-              <br />
-              <Dropdown open={true}>
-                <Dropdown.Menu>
-                  <Dropdown.Header icon="tags" content="직업" />
-                  <Dropdown.Menu scrolling>
-                    {mobileDropDownList.map((option) => (
-                      <Dropdown.Item
-                        key={option.value}
-                        {...option}
-                        onClick={(event, data) => {
-                          setSelectedCharacter(data.value);
-                          setSelectCharacterModal(false);
-                        }}
-                      />
-                    ))}
-                  </Dropdown.Menu>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Segment>
-          </Modal.Content>
-        </Modal>
-      )}
+          클래스
+        </Modal.Header>
+        <Modal.Content style={{ backgroundColor: "#384862", color: "white" }}>
+          <Grid columns={6}>
+            <Grid.Row>
+              <Grid.Column className="characterClassHeader">
+                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+                  전사
+                </Header>
+              </Grid.Column>
+              <Grid.Column
+                className="characterClassContent berserker"
+                name="berserker"
+              >
+                <Image
+                  src={characterCdn.berserker}
+                  size="mini"
+                  avatar
+                  data-options="berserker"
+                />
+                버서커
+              </Grid.Column>
+              <Grid.Column className="characterClassContent warlord">
+                <Image
+                  src={characterCdn.warlord}
+                  size="mini"
+                  avatar
+                  data-options="warlord"
+                />
+                워로드
+              </Grid.Column>
+              <Grid.Column className="characterClassContent destroyer">
+                <Image
+                  src={characterCdn.destroyer}
+                  size="mini"
+                  avatar
+                  data-options="destroyer"
+                />
+                디스트로이어
+              </Grid.Column>
+              <Grid.Column className="characterClassContent holyknight">
+                <Image
+                  src={characterCdn.holyknight}
+                  size="mini"
+                  avatar
+                  data-options="holyknight"
+                />
+                홀리나이트
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column className="characterClassHeader">
+                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+                  무도가
+                </Header>
+              </Grid.Column>
+              <Grid.Column className="characterClassContent battlemaster">
+                <Image
+                  src={characterCdn.battlemaster}
+                  size="mini"
+                  avatar
+                  data-options="battlemaster"
+                />
+                배틀마스터
+              </Grid.Column>
+              <Grid.Column className="characterClassContent infighter">
+                <Image
+                  src={characterCdn.infighter}
+                  size="mini"
+                  avatar
+                  data-options="infighter"
+                />
+                인파이터
+              </Grid.Column>
+              <Grid.Column className="characterClassContent soulmaster">
+                <Image
+                  src={characterCdn.soulmaster}
+                  size="mini"
+                  avatar
+                  data-options="soulmaster"
+                />
+                기공사
+              </Grid.Column>
+              <Grid.Column className="characterClassContent lancemaster">
+                <Image
+                  src={characterCdn.lancemaster}
+                  size="mini"
+                  avatar
+                  data-options="lancemaster"
+                />
+                창술사
+              </Grid.Column>
+              <Grid.Column className="characterClassContent striker">
+                <Image
+                  src={characterCdn.striker}
+                  size="mini"
+                  avatar
+                  data-options="striker"
+                />
+                스트라이커
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column className="characterClassHeader">
+                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+                  헌터
+                </Header>
+              </Grid.Column>
+              <Grid.Column className="characterClassContent devilhunter">
+                <Image
+                  src={characterCdn.devilhunter}
+                  size="mini"
+                  avatar
+                  data-options="devilhunter"
+                />
+                데빌헌터
+              </Grid.Column>
+              <Grid.Column className="characterClassContent blaster">
+                <Image
+                  src={characterCdn.blaster}
+                  size="mini"
+                  avatar
+                  data-options="blaster"
+                />
+                블래스터
+              </Grid.Column>
+              <Grid.Column className="characterClassContent hawkeye">
+                <Image
+                  src={characterCdn.hawkeye}
+                  size="mini"
+                  avatar
+                  data-options="hawkeye"
+                />
+                호크아이
+              </Grid.Column>
+              <Grid.Column className="characterClassContent scouter">
+                <Image
+                  src={characterCdn.scouter}
+                  size="mini"
+                  avatar
+                  data-options="scouter"
+                />
+                스카우터
+              </Grid.Column>
+              <Grid.Column className="characterClassContent gunslinger">
+                <Image
+                  src={characterCdn.gunslinger}
+                  size="mini"
+                  avatar
+                  data-options="gunslinger"
+                />
+                건슬링어
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column className="characterClassHeader">
+                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+                  마법사
+                </Header>
+              </Grid.Column>
+              <Grid.Column className="characterClassContent summoner">
+                <Image
+                  src={characterCdn.summoner}
+                  size="mini"
+                  avatar
+                  data-options="summoner"
+                />
+                서머너
+              </Grid.Column>
+              <Grid.Column className="characterClassContent arcana">
+                <Image
+                  src={characterCdn.arcana}
+                  size="mini"
+                  avatar
+                  data-options="arcana"
+                />
+                아르카나
+              </Grid.Column>
+              <Grid.Column className="characterClassContent bard">
+                <Image
+                  src={characterCdn.bard}
+                  size="mini"
+                  avatar
+                  data-options="bard"
+                />
+                바드
+              </Grid.Column>
+              <Grid.Column className="characterClassContent sorceress">
+                <Image
+                  src={characterCdn.sorceress}
+                  size="mini"
+                  avatar
+                  data-options="sorceress"
+                />
+                소서리스
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column className="characterClassHeader">
+                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+                  암살자
+                </Header>
+              </Grid.Column>
+              <Grid.Column className="characterClassContent blade">
+                <Image
+                  src={characterCdn.blade}
+                  size="mini"
+                  avatar
+                  data-options="blade"
+                />
+                블레이드
+              </Grid.Column>
+              <Grid.Column className="characterClassContent demonic">
+                <Image
+                  src={characterCdn.demonic}
+                  size="mini"
+                  avatar
+                  data-options="demonic"
+                />
+                데모닉
+              </Grid.Column>
+              <Grid.Column className="characterClassContent reaper">
+                <Image
+                  src={characterCdn.reaper}
+                  size="mini"
+                  avatar
+                  data-options="reaper"
+                />
+                리퍼
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </Modal.Content>
+      </Modal>
       <ToastContainer autoClose={3000} />
     </>
   );

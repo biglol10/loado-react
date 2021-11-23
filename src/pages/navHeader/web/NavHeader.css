@@ -1,0 +1,48 @@
+.newNoticeAlert {
+  animation: newNotice 1s ease;
+  animation-iteration-count: 10;
+}
+
+@keyframes newNotice {
+  from {
+    color: #34495e;
+  }
+
+  to {
+    color: white;
+  }
+}
+
+#navTitle {
+  margin-right: 100px;
+  margin-left: 50px;
+  color: white;
+  cursor: pointer;
+}
+
+#navTitleMobile {
+  color: white;
+  cursor: pointer;
+}
+
+.item .headerItem {
+  color: white;
+  padding: 0 25px;
+  cursor: pointer;
+}
+
+.personIconItem {
+  margin-left: auto;
+  margin-right: 50px;
+}
+
+.item .personIcon {
+  color: white;
+  /* padding: 0 50px; */
+  display: flex;
+  cursor: pointer;
+}
+
+#profilePicId {
+  border-radius: 500rem !important;
+}

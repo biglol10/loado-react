@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
-import "./CharacterToDo.css";
-import AddCharacterMobile from "../Utils/AddCharacterMobile";
+import "./index.css";
+import AddCharacterMobile from "../components/characterRelated/AddCharacterMobile";
 
 import { Segment, Grid, Icon, Dimmer, Loader, Popup } from "semantic-ui-react";
-import RestValueMobile from "../GridItem/RestValueMobile";
-import CharacterAvatar from "./CharacterAvatar";
+import RestValueMobile from "../components/userHomework/RestValueMobile";
+import CharacterAvatar from "../components/characterRelated/CharacterAvatar";
 import {
   ChaosDunValue,
   GuardianDunValue,
   EponaValue,
   WeeklyGuardian,
-} from "../GridItem/DungeonAndEpona";
+} from "../components/userHomework/DungeonAndEpona";
 import {
   AbyssDun2,
   ArgosRaid,
@@ -18,14 +18,14 @@ import {
   BiakissRaid,
   KukseitnRaid,
   AbrelRaid,
-} from "../GridItem/AbyssAndRaid";
+} from "../components/userHomework/AbyssAndRaid";
 import axios from "axios";
 import cookie from "js-cookie";
 
 import { ToastContainer } from "react-toastify";
 import { useHistory } from "react-router-dom";
 
-import { backendUrl, axiosConfigAuth } from "../Utils/ConstVar";
+import { backendUrl, axiosConfigAuth } from "../components/util/ConstVar";
 import {
   viewDataMain,
   applyChangesUtil,
@@ -33,13 +33,13 @@ import {
   toastMessage,
   getUserCheckBoxConfiguration,
   changeUserCheckBoxConfiguration,
-} from "../Utils/ViewDataUtil";
-import AddAndChange from "../HomeSubComp/AddAndChange";
-import PaginationComp from "../HomeSubComp/PaginationComp";
-import SettingChange from "../HomeSubComp/SettingChange";
-import AlarmAndNoteMobile from "../HomeSubComp/AlarmAndNoteMobile";
-import { showContentPopupValue } from "../Utils/ContentDefinition";
-import PerIdNote from "./PerIdNote";
+} from "../components/util/ViewDataUtil";
+import AddAndChange from "../components/userHomework/AddAndChange";
+import PaginationComp from "../components/userHomework/PaginationComp";
+import SettingChange from "../components/userHomework/SettingChange";
+import AlarmAndNoteMobile from "../components/userHomework/AlarmAndNoteMobile";
+import { showContentPopupValue } from "../components/util/ContentDefinition";
+import PerIdNote from "../components/userHomework/PerIdNote";
 
 function CharacterToDoRowMobile({ limit, type }) {
   const [userTodoData, setUserTodoData] = useState([]);

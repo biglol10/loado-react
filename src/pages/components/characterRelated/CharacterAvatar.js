@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Grid, Image, Icon, Popup } from "semantic-ui-react";
-import { characterCdn } from "../../_data/characterDefinition";
+import { characterCdn } from "../../../_data/characterDefinition";
 import axios from "axios";
 import cookie from "js-cookie";
 import "./CharacterAvatar.css";
-import { backendUrl } from "../Utils/ConstVar";
+import { backendUrl } from "../util/ConstVar";
 
 function CharacterAvatar({
   itemId,
@@ -31,7 +31,6 @@ function CharacterAvatar({
   const [alarmState, setAlarmState] = useState("");
 
   const deleteCharacter = (id) => {
-    // console.log(id);
     // const indexValue = userTodoData.findIndex((anItem) => {
     //   return anItem._id === id;
     // });
