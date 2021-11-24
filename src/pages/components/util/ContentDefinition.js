@@ -17,7 +17,7 @@ const showContentPopupValue = (content) => {
   const contentKeyKorToEng = {
     휴식게이지: 'calendar',
     카오스던전: 'chaosDun',
-    가디언던전: 'guardianDun',
+    가디언토벌: 'guardianDun',
     에포나: 'epona',
     주간가디언: 'guardianDun',
     어비스던전: 'abyss2types',

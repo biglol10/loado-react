@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../Home/CharacterToDo.css";
+import "../userHomework/userHomework.css";
 import { Segment, Grid, Header, Icon } from "semantic-ui-react";
 import { Line, Bar } from "react-chartjs-2";
 import cookie from "js-cookie";
-import { getLoadoLogs } from "../Utils/ViewDataUtil";
+import { getLoadoLogs } from "../components/util/ViewDataUtil";
 
-import "./Dashboard.css";
+import "./dashboard.css";
 
 import { characterKorean } from "../../_data/characterDefinition";
 
@@ -46,8 +46,6 @@ function Dashboard() {
 
       const barLabels = [];
       const barData = [];
-
-      console.log(resultData);
 
       resultData.jobGroupingResult.map((item, idx) => {
         // if (idx > 15) return;

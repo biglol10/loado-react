@@ -9,8 +9,8 @@ import {
   Image,
 } from "semantic-ui-react";
 import Cropper from "react-cropper";
-import uploadPic from "../Utils/uploadPicToCloudinary";
-import { updateProfilePic, waitForSomeTime } from "../Utils/ViewDataUtil";
+import uploadPic from "../../components/util/uploadPicToCloudinary";
+import { updateProfilePic, waitForSomeTime } from "./ViewDataUtil";
 import cookie from "js-cookie";
 
 function ProfileModal({ profileModal, setProfileModal, profilePic }) {

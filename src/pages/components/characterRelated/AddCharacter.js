@@ -10,11 +10,11 @@ import {
   List,
   Button,
 } from "semantic-ui-react";
-import { characterCdn, characterKorean } from "../../_data/characterDefinition";
+import { characterCdn, characterKorean } from "../../../_data/characterDefinition";
 import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
-import { backendUrl } from "../Utils/ConstVar";
+import { backendUrl } from "../util/ConstVar";
 import cookie from "js-cookie";
 
 import "./AddCharacter.css";
@@ -182,7 +182,6 @@ function AddCharacter({
     const element = document.getElementById("characterNameInputId");
     const enterEvent = element.addEventListener("keypress", (event) => {
       if (event.key === "Enter") {
-        console.log(buttonRef.current);
         if (buttonRef.current) buttonRef.current.click();
       }
     });
@@ -255,7 +254,7 @@ function AddCharacter({
                 />
               </List.Item>
               <List.Item>
-                <Label horizontal>가디언던전</Label>
+                <Label horizontal>가디언토벌</Label>
                 <Input
                   transparent
                   style={{ color: "white" }}
