@@ -5,13 +5,13 @@ import 'cropperjs/dist/cropper.css';
 import { Grid, Segment } from 'semantic-ui-react';
 import NavHeader from './pages/navHeader/web/NavHeader';
 import NavHeaderMobile from './pages/navHeader/mobile/NavHeaderMobile';
-import CharacterToDoRow from './pages/userHomework/index';
-import CharacterToDoRowMobile from './pages/userHomeworkMobile/index';
-import Login from './pages/login/index';
-import Register from './pages/register/index';
+import CharacterToDoRow from './pages/userHomework';
+import CharacterToDoRowMobile from './pages/userHomeworkMobile';
+import Login from './pages/login';
+import Register from './pages/register';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createMedia } from '@artsy/fresnel';
-import Dashboard from './pages/dashboard/index';
+import Dashboard from './pages/dashboard';
 
 const AppMedia = createMedia({
   breakpoints: { zero: 0, mobile: 549, tablet: 850, computer: 1080 },
