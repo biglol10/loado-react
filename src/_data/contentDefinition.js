@@ -10,6 +10,7 @@ const contentKeyKorToEng = {
     비아키스: 'biakiss',
     쿠크세이튼: 'kukuseitn',
     아브렐슈드: 'abrel',
+    오레하2종: 'abyss2types'
 };
 
 export default contentKeyKorToEng;
