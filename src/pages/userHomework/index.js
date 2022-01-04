@@ -284,6 +284,8 @@ function CharacterToDoRow({ limit, type }) {
                     ))}
 
                     {Array.from([
+                      "어비스6종",
+                      "낙원3종",
                       "오레하2종",
                       "아르고스",
                       "발탄",

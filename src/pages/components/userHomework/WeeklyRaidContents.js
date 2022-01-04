@@ -2,6 +2,8 @@ import React from "react";
 import { Grid, Image } from "semantic-ui-react";
 
 import {
+  AbyssDun6Types,
+  AbyssDun3Nakwon,
   AbyssDun2,
   ArgosRaid,
   BaltanRaid,
@@ -25,6 +27,22 @@ function WeeklyRaidContents({ content, userTodoData, setUserTodoData }) {
           <span>{content}</span>
         </div>
       </Grid.Column>
+      {content === "어비스6종" &&
+        userTodoData.map((item, idx) => (
+          <AbyssDun6Types
+            abyssDun6TypesItem={item}
+            userTodoData={userTodoData}
+            setUserTodoData={setUserTodoData}
+          />
+        ))}
+      {content === "낙원3종" &&
+        userTodoData.map((item, idx) => (
+          <AbyssDun3Nakwon
+            abyssDun3NakwonItem={item}
+            userTodoData={userTodoData}
+            setUserTodoData={setUserTodoData}
+          />
+        ))}
       {content === "오레하2종" &&
         userTodoData.map((item, idx) => (
           <AbyssDun2
