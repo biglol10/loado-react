@@ -9,26 +9,13 @@ import {
   Icon,
   Dimmer,
   Loader,
-  Image,
 } from "semantic-ui-react";
 import RestValue from "../components/userHomework/RestValue";
 import CharacterAvatar from "../components/characterRelated/CharacterAvatar";
 import PerIdNote from "../components/userHomework/PerIdNote";
 import DungeonAndEpona from "../components/userHomework/DungeonAndEpona";
-import {
-  ChaosDunValue,
-  GuardianDunValue,
-  EponaValue,
-  WeeklyGuardian,
-} from "../components/userHomework/DungeonAndEponaUtil";
-import {
-  AbyssDun2,
-  ArgosRaid,
-  BaltanRaid,
-  BiakissRaid,
-  KukseitnRaid,
-  AbrelRaid,
-} from "../components/userHomework/AbyssAndRaid";
+import WeeklyRaidContents from "../components/userHomework/WeeklyRaidContents";
+
 import axios from "axios";
 import cookie from "js-cookie";
 
@@ -282,49 +269,38 @@ function CharacterToDoRow({ limit, type }) {
                         />
                       ))}
                     </Grid.Row>
-                    <DungeonAndEpona
-                      content="카오스던전"
-                      userTodoData={userTodoData}
-                      setUserTodoData={setUserTodoData}
-                      viewByCheckBox={viewByCheckBox}
-                    />
-                    <DungeonAndEpona
-                      content="가디언토벌"
-                      userTodoData={userTodoData}
-                      setUserTodoData={setUserTodoData}
-                      viewByCheckBox={viewByCheckBox}
-                    />
-                    <DungeonAndEpona
-                      content="에포나"
-                      userTodoData={userTodoData}
-                      setUserTodoData={setUserTodoData}
-                      viewByCheckBox={viewByCheckBox}
-                    />
-                    <DungeonAndEpona
-                      content="주간가디언"
-                      userTodoData={userTodoData}
-                      setUserTodoData={setUserTodoData}
-                      viewByCheckBox={viewByCheckBox}
-                    />
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/abyss2types.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>오레하2종</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <AbyssDun2
-                          abyssDun2Item={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                        />
-                      ))}
-                    </Grid.Row>
+                    {Array.from([
+                      "카오스던전",
+                      "가디언토벌",
+                      "에포나",
+                      "주간가디언",
+                    ]).map((item, idx) => (
+                      <DungeonAndEpona
+                        content={item}
+                        userTodoData={userTodoData}
+                        setUserTodoData={setUserTodoData}
+                        viewByCheckBox={viewByCheckBox}
+                      />
+                    ))}
+
+                    {Array.from([
+                      "어비스6종",
+                      "낙원3종",
+                      "오레하2종",
+                      "아르고스",
+                      "발탄",
+                      "비아키스",
+                      "쿠크세이튼",
+                      "아브렐슈드",
+                    ]).map((item, idx) => (
+                      <WeeklyRaidContents
+                        content={item}
+                        userTodoData={userTodoData}
+                        setUserTodoData={setUserTodoData}
+                        viewByCheckBox={viewByCheckBox}
+                      />
+                    ))}
+
                     {/* 원정대 주간 컨탠츠는 안 보이게 하기로 결정 */}
                     {/* <Grid.Row className="eachRow">
                     <Grid.Column className="contentColumn">
@@ -366,101 +342,6 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row> */}
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/argos.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>아르고스</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <ArgosRaid
-                          argosRaidItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                        />
-                      ))}
-                    </Grid.Row>
-                    <Grid.Row className="eachRow baltanRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/baltan.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>발탄</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <BaltanRaid
-                          baltanRaidItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                        />
-                      ))}
-                    </Grid.Row>
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/biakiss.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>비아키스</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <BiakissRaid
-                          biakissRaidItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                        />
-                      ))}
-                    </Grid.Row>
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/kukuseitn.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>쿠크세이튼</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <KukseitnRaid
-                          kukseitnRaidItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                        />
-                      ))}
-                    </Grid.Row>
-                    <Grid.Row className="abrelRow">
-                      <Grid.Column className="contentColumn">
-                        <div>
-                          <Image
-                            src="./images/loa_icons/abrel.png"
-                            avatar
-                            className="contentImage"
-                          />
-                          <span>아브렐슈드</span>
-                        </div>
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <AbrelRaid
-                          abrelRaidItem={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                        />
-                      ))}
-                    </Grid.Row>
                   </Grid>
                 </Segment>
               </Grid.Column>

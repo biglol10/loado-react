@@ -72,7 +72,7 @@ function Login() {
         id="loginPage"
       >
         <Grid.Column style={{ maxWidth: 500 }}>
-          <Header as="h2" textAlign="center" style={{ color: "#394855" }}>
+          <Header as="h2" textAlign="center" style={{ color: "tomato" }}>
             <Image src="https://react.semantic-ui.com/logo.png" />{" "}
             {loginMessage}
           </Header>

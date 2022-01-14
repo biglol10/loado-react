@@ -2,8 +2,8 @@
 
 .fullPage {
   color: white;
-  /* height: 93vh; */
-  /* background-color: #384862; */
+  height: 94vh;
+  background-color: #384862;
   margin: 0 !important;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
@@ -12,10 +12,10 @@
 
 #gridSegment {
   padding: 0px;
-  /* background-color: #384862; */
-  background-image: url("https://coolbackgrounds.io/images/backgrounds/black/black-trianglify-b6181ec2.jpg");
+  background-color: #384862;
+  /* background-image: url("https://coolbackgrounds.io/images/backgrounds/black/black-trianglify-b6181ec2.jpg");
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: cover; */
   border: none;
   margin-top: 0px;
 }

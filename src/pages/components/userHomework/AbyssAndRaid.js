@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Grid, Checkbox, Dropdown, Label } from 'semantic-ui-react';
+import React, { useState } from "react";
+import { Grid, Checkbox, Dropdown, Label } from "semantic-ui-react";
 
 const changeDatafunction = (
   event,
@@ -17,12 +17,68 @@ const changeDatafunction = (
   let newArr = [...userTodoData];
   newArr[indexValue][changeItem] = data.checked;
   let attrChanged =
-    changeItem === 'abyssDungeonWeekly'
-      ? 'weeklyAttributeChanged'
-      : 'attributeChanged';
+    changeItem === "abyssDungeonWeekly"
+      ? "weeklyAttributeChanged"
+      : "attributeChanged";
   newArr[indexValue][attrChanged] = true;
   setUserTodoData(newArr);
 };
+
+function AbyssDun6Types({ abyssDun6TypesItem, userTodoData, setUserTodoData }) {
+  const [abyssDun6Types, setAbyssDun6Types] = useState(
+    abyssDun6TypesItem.abyssDungeon6Types
+  );
+
+  return (
+    <Grid.Column>
+      <Checkbox
+        name="AbyssDun6Types"
+        onChange={(event, data) =>
+          changeDatafunction(
+            event,
+            data,
+            setAbyssDun6Types,
+            userTodoData,
+            setUserTodoData,
+            abyssDun6TypesItem,
+            "abyssDungeon6Types"
+          )
+        }
+        checked={abyssDun6Types}
+      />
+    </Grid.Column>
+  );
+}
+
+function AbyssDun3Nakwon({
+  abyssDun3NakwonItem,
+  userTodoData,
+  setUserTodoData,
+}) {
+  const [abyssDun3Nakwon, setAbyssDun3Nakwon] = useState(
+    abyssDun3NakwonItem.abyssDungeon3Nakwon
+  );
+
+  return (
+    <Grid.Column>
+      <Checkbox
+        name="AbyssDun3Nakwon"
+        onChange={(event, data) =>
+          changeDatafunction(
+            event,
+            data,
+            setAbyssDun3Nakwon,
+            userTodoData,
+            setUserTodoData,
+            abyssDun3NakwonItem,
+            "abyssDungeon3Nakwon"
+          )
+        }
+        checked={abyssDun3Nakwon}
+      />
+    </Grid.Column>
+  );
+}
 
 function AbyssDun2({ abyssDun2Item, userTodoData, setUserTodoData }) {
   const [abyssDun2, setAbyssDun2] = useState(abyssDun2Item.abyssDungeon2);
@@ -30,7 +86,7 @@ function AbyssDun2({ abyssDun2Item, userTodoData, setUserTodoData }) {
   return (
     <Grid.Column>
       <Checkbox
-        name='AbyssDun2'
+        name="AbyssDun2"
         onChange={(event, data) =>
           changeDatafunction(
             event,
@@ -39,7 +95,7 @@ function AbyssDun2({ abyssDun2Item, userTodoData, setUserTodoData }) {
             userTodoData,
             setUserTodoData,
             abyssDun2Item,
-            'abyssDungeon2'
+            "abyssDungeon2"
           )
         }
         checked={abyssDun2}
@@ -53,9 +109,9 @@ function AbyssRaid({ idx, abyssRaidItem, userTodoData, setUserTodoData }) {
 
   return (
     idx === 0 && (
-      <Grid.Column style={{ display: 'flex' }}>
+      <Grid.Column style={{ display: "flex" }}>
         <Checkbox
-          name='AbyssRaid'
+          name="AbyssRaid"
           onChange={(event, data) =>
             changeDatafunction(
               event,
@@ -64,7 +120,7 @@ function AbyssRaid({ idx, abyssRaidItem, userTodoData, setUserTodoData }) {
               userTodoData,
               setUserTodoData,
               abyssRaidItem,
-              'abyssDungeonWeekly'
+              "abyssDungeonWeekly"
             )
           }
           checked={abyssRaid}
@@ -81,8 +137,8 @@ function RehearsalAndDejavu({
   idx,
 }) {
   const options_combo1 = [
-    { key: 'kukuseitn', text: '쿠크리허설', value: 'kukuseitn' },
-    { key: 'abrel', text: '아브렐데쟈뷰', value: 'abrel' },
+    { key: "kukuseitn", text: "쿠크리허설", value: "kukuseitn" },
+    { key: "abrel", text: "아브렐데쟈뷰", value: "abrel" },
   ];
   const [rehearsalAndDejavu, setRehearsalAndDejavu] = useState(
     rehearsalAndDejavuItem.rehearsalAndDejavu
@@ -104,7 +160,7 @@ function RehearsalAndDejavu({
       <>
         <Grid.Column width={3}>
           <Dropdown
-            placeholder='쿠크/아브렐'
+            placeholder="쿠크/아브렐"
             fluid
             multiple
             selection
@@ -124,7 +180,7 @@ function ArgosRaid({ argosRaidItem, userTodoData, setUserTodoData }) {
   return (
     <Grid.Column>
       <Checkbox
-        name='ArgosRaid'
+        name="ArgosRaid"
         onChange={(event, data) =>
           changeDatafunction(
             event,
@@ -133,7 +189,7 @@ function ArgosRaid({ argosRaidItem, userTodoData, setUserTodoData }) {
             userTodoData,
             setUserTodoData,
             argosRaidItem,
-            'argos'
+            "argos"
           )
         }
         checked={argosRaid}
@@ -148,7 +204,7 @@ function BaltanRaid({ baltanRaidItem, userTodoData, setUserTodoData }) {
   return (
     <Grid.Column>
       <Checkbox
-        name='BaltanRaid'
+        name="BaltanRaid"
         onChange={(event, data) =>
           changeDatafunction(
             event,
@@ -157,7 +213,7 @@ function BaltanRaid({ baltanRaidItem, userTodoData, setUserTodoData }) {
             userTodoData,
             setUserTodoData,
             baltanRaidItem,
-            'baltan'
+            "baltan"
           )
         }
         checked={baltanRaid}
@@ -172,7 +228,7 @@ function BiakissRaid({ biakissRaidItem, userTodoData, setUserTodoData }) {
   return (
     <Grid.Column>
       <Checkbox
-        name='BiakissRaid'
+        name="BiakissRaid"
         onChange={(event, data) =>
           changeDatafunction(
             event,
@@ -181,7 +237,7 @@ function BiakissRaid({ biakissRaidItem, userTodoData, setUserTodoData }) {
             userTodoData,
             setUserTodoData,
             biakissRaidItem,
-            'biakiss'
+            "biakiss"
           )
         }
         checked={biakissRaid}
@@ -196,7 +252,7 @@ function KukseitnRaid({ kukseitnRaidItem, userTodoData, setUserTodoData }) {
   return (
     <Grid.Column>
       <Checkbox
-        name='KukseitnRaid'
+        name="KukseitnRaid"
         onChange={(event, data) =>
           changeDatafunction(
             event,
@@ -205,7 +261,7 @@ function KukseitnRaid({ kukseitnRaidItem, userTodoData, setUserTodoData }) {
             userTodoData,
             setUserTodoData,
             kukseitnRaidItem,
-            'kukuseitn'
+            "kukuseitn"
           )
         }
         checked={kukseitnRaid}
@@ -220,7 +276,7 @@ function AbrelRaid({ abrelRaidItem, userTodoData, setUserTodoData }) {
   return (
     <Grid.Column>
       <Checkbox
-        name='AbrelRaid'
+        name="AbrelRaid"
         onChange={(event, data) =>
           changeDatafunction(
             event,
@@ -229,7 +285,7 @@ function AbrelRaid({ abrelRaidItem, userTodoData, setUserTodoData }) {
             userTodoData,
             setUserTodoData,
             abrelRaidItem,
-            'abrel'
+            "abrel"
           )
         }
         checked={abrelRaid}
@@ -239,6 +295,8 @@ function AbrelRaid({ abrelRaidItem, userTodoData, setUserTodoData }) {
 }
 
 export {
+  AbyssDun6Types,
+  AbyssDun3Nakwon,
   AbyssDun2,
   AbyssRaid,
   RehearsalAndDejavu,

@@ -172,7 +172,7 @@ function Dashboard() {
 
   return (
     <Segment className="fullPage" id="dashboardPage" style={{ border: "none" }}>
-      <Grid columns={2}>
+      <Grid columns={2} style={{ display: "none" }}>
         <Grid.Row>
           <Grid.Column style={{ margin: "auto", textAlign: "center" }}>
             <Header as="h2" className="dashboardHeader">
