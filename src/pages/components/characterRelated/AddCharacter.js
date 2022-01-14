@@ -10,7 +10,10 @@ import {
   List,
   Button,
 } from "semantic-ui-react";
-import { characterCdn, characterKorean } from "../../../_data/characterDefinition";
+import {
+  characterCdn,
+  characterKorean,
+} from "../../../_data/characterDefinition";
 import axios from "axios";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -541,6 +544,22 @@ function AddCharacter({
                   data-options="reaper"
                 />
                 리퍼
+              </Grid.Column>
+            </Grid.Row>
+            <Grid.Row>
+              <Grid.Column className="characterClassHeader">
+                <Header as="h4" style={{ marginTop: "6px", color: "white" }}>
+                  스페셜리스트
+                </Header>
+              </Grid.Column>
+              <Grid.Column className="characterClassContent drawer">
+                <Image
+                  src={characterCdn.drawer}
+                  size="mini"
+                  avatar
+                  data-options="drawer"
+                />
+                도화가
               </Grid.Column>
             </Grid.Row>
           </Grid>
