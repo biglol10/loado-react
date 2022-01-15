@@ -13,6 +13,7 @@ import {
   Segment,
   Container,
 } from "semantic-ui-react";
+import axios from "axios";
 
 import "./AddItemToView.css";
 
@@ -50,6 +51,8 @@ function AddItemToView({ addItemPriceModal, setAddItemTrend }) {
     itemListState.push(itemList.filter((item) => item.item === item_name)[0]);
     setItemListState(itemListState);
   };
+
+  const saveUserItem = () => {};
 
   return (
     <>
@@ -112,6 +115,7 @@ function AddItemToView({ addItemPriceModal, setAddItemTrend }) {
                   inverted
                   color="purple"
                   style={{ width: "100%", height: "38px" }}
+                  onClick={() => saveUserItem()}
                 >
                   저장
                 </Button>
