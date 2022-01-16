@@ -23,3 +23,14 @@
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+.noselect.selectedItemSegment {
+  height: 100px;
+  overflow-y: auto;
+}
+
+.noselect.itemListSegment {
+  background-color: #a3e4d7;
+  height: 550px;
+  overflow-y: auto;
+}
