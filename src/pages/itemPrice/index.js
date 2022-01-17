@@ -2,10 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Container, Header, Icon, Image, Button } from "semantic-ui-react";
 import ReactApexChart from "react-apexcharts";
 
+import { backendUrl, axiosConfigAuth } from "../components/util/ConstVar";
 import AddItemToView from "../components/ItemPrice/AddItemToView";
 
 function ItemPrice() {
   const [addItemTrend, setAddItemTrend] = useState(false);
+
+  const closeAddItemTrend = () => {
+    setAddItemTrend(false);
+  };
 
   const testVar = {
     series: [
@@ -135,10 +140,14 @@ function ItemPrice() {
           </div>
         </Container>
       </Container>
-      <AddItemToView
-        addItemPriceModal={addItemTrend}
-        setAddItemTrend={setAddItemTrend}
-      />
+      {addItemTrend && (
+        <AddItemToView
+          addItemPriceModal={addItemTrend}
+          setAddItemTrend={setAddItemTrend}
+          axiosConfigAuth={axiosConfigAuth}
+          closeAddItemTrend={closeAddItemTrend}
+        />
+      )}
     </>
   );
 }
