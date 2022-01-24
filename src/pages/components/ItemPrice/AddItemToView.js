@@ -26,11 +26,17 @@ function AddItemToView({
   setAddItemTrend,
   axiosConfigAuth,
   closeAddItemTrend,
+  setUserItemCollection,
+  setLoadingState,
 }) {
   const [itemSearch, setItemSearch] = useState("");
   const [buttonText, setButtonText] = useState("저장");
   const [itemListState, setItemListState] = useState(itemList);
   const [itemCollection, setItemCollection] = useState([]);
+
+  useEffect(() => {
+    setLoadingState(false);
+  }, []);
 
   const itemSearchChange = (textValue) => {
     if (textValue.length === 0) {
@@ -67,6 +73,7 @@ function AddItemToView({
     setItemSearch("");
     setItemListState([]);
     setItemCollection([]);
+    setUserItemCollection(itemCollection);
     closeAddItemTrend();
   };
 
@@ -109,6 +116,7 @@ function AddItemToView({
       })
       .catch((err) => {
         console.log("fail");
+        console.log(err);
         setButtonText("실패");
       });
   };
@@ -146,7 +154,7 @@ function AddItemToView({
                     avatar
                   />
                 )}
-                {itemName}
+                {itemName.replaceAll("I_", "")}
                 <Icon name="delete" />
               </Label>
             ))}
@@ -215,7 +223,7 @@ function AddItemToView({
                               avatar
                             />
                           )}
-                          {item.item}
+                          {item.item.replaceAll("I_", "")}
                         </span>
                       </div>
                       <Icon

@@ -126,7 +126,7 @@ function Dashboard() {
     plugins: {
       title: {
         display: true,
-        text: "직업 현황",
+        text: "케릭터 현황",
       },
     },
   };
@@ -202,8 +202,8 @@ function Dashboard() {
       <br />
       <div
         style={{
-          height: "500px",
-          width: "60%",
+          height: "600px",
+          width: "70%",
           backgroundColor: "white",
           margin: "0 auto",
         }}

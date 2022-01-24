@@ -182,7 +182,7 @@ function NavHeader() {
             휴식게이지반영
           </Header>
         </Menu.Item> */}
-        {accountUser?.role === "admin" && (
+        {/* {accountUser?.role === "admin" && (
           <Menu.Item>
             <Header
               size="small"
@@ -193,7 +193,18 @@ function NavHeader() {
               대시보드
             </Header>
           </Menu.Item>
-        )}
+        )} */}
+
+        <Menu.Item>
+          <Header
+            size="small"
+            className="headerItem"
+            onClick={() => history.push("/dashboard")}
+          >
+            <Icon name="dashboard" />
+            대시보드
+          </Header>
+        </Menu.Item>
 
         <Menu.Item className="personIconItem">
           <Popup
