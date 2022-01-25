@@ -27,6 +27,7 @@ function ItemPrice() {
   };
 
   const searchItemCollection = () => {
+    console.log('came to searchItemCollection')
     axios
       .get(
         `${backendUrl}/loado/api/itemPrice/userItemInterest`,
@@ -255,7 +256,7 @@ function ItemPrice() {
               textAlign: 'center',
             }}
           >
-            {loadingState &&
+            {
               userItemCollection &&
               itemPriceTrend &&
               userItemCollection.map((item, idx) => (
@@ -283,6 +284,7 @@ function ItemPrice() {
           closeAddItemTrend={closeAddItemTrend}
           setUserItemCollection={setUserItemCollection}
           setLoadingState={setLoadingState}
+          searchItemCollection={searchItemCollection}
         />
       )}
     </>

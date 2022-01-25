@@ -28,6 +28,7 @@ function AddItemToView({
   closeAddItemTrend,
   setUserItemCollection,
   setLoadingState,
+  searchItemCollection
 }) {
   const [itemSearch, setItemSearch] = useState('');
   const [buttonText, setButtonText] = useState('저장');
@@ -73,7 +74,8 @@ function AddItemToView({
     setItemSearch('');
     setItemListState([]);
     setItemCollection([]);
-    setUserItemCollection(itemCollection);
+    // setUserItemCollection(itemCollection);
+    searchItemCollection();
     closeAddItemTrend();
   };
 
