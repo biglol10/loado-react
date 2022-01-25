@@ -162,12 +162,11 @@ function NavHeader() {
               <Menu.Item
                 name="inbox"
                 onClick={() => history.push("/itemPrice")}
-                disabled
               >
                 <Label color="teal">
                   <Icon name="line graph" />
                 </Label>
-                아이템시세(개발중)
+                아이템시세
               </Menu.Item>
             </Menu>
           </Popup>

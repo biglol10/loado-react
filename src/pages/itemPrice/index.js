@@ -1,18 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Header, Icon, Image, Button } from 'semantic-ui-react';
-import ReactApexChart from 'react-apexcharts';
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  Header,
+  Icon,
+  Image,
+  Button,
+  Segment,
+} from "semantic-ui-react";
+import ReactApexChart from "react-apexcharts";
 
 import {
   backendUrl,
   axiosConfigAuth,
   getLineColorFromImage,
   numberWithCommas,
-} from '../components/util/ConstVar';
-import AddItemToView from '../components/ItemPrice/AddItemToView';
+} from "../components/util/ConstVar";
+import AddItemToView from "../components/ItemPrice/AddItemToView";
+import { imageItemMatch, itemList } from "../../_data/itemImageMatch";
 
-import axios from 'axios';
-import cookie from 'js-cookie';
-import moment from 'moment';
+import axios from "axios";
+import cookie from "js-cookie";
+import moment from "moment";
 
 function ItemPrice() {
   const [addItemTrend, setAddItemTrend] = useState(false);
@@ -26,33 +34,29 @@ function ItemPrice() {
     setAddItemTrend(false);
   };
 
-  const searchItemCollection = () => {
-    console.log('came to searchItemCollection')
-    axios
-      .get(
-        `${backendUrl}/loado/api/itemPrice/userItemInterest`,
-        axiosConfigAuth(cookie.get('loadoUserToken'))
-      )
-      .then((response) => {
-        if (response.data.success) {
-          setUserItemCollection(
-            response.data.userInterest.map((item) => item.replaceAll('I_', ''))
-          );
-        }
-      })
-      .catch((err) => {
-        console.log('error');
-        console.log(err);
-      });
-  };
-
   useEffect(() => {
     searchItemCollection();
   }, []);
 
+  const searchItemCollection = () => {
+    setLoadingState(false);
+
+    axios
+      .get(
+        `${backendUrl}/loado/api/itemPrice/userItemInterest`,
+        axiosConfigAuth(cookie.get("loadoUserToken"))
+      )
+      .then((response) => {
+        if (response.data.success) {
+          setUserItemCollection(response.data.userInterest);
+        }
+      })
+      .catch((err) => {
+        alert("에러가 발생했습니다");
+      });
+  };
+
   useEffect(() => {
-    console.log('userItemCollection is');
-    console.log(userItemCollection);
     if (userItemCollection.length !== 0) {
       axios
         .post(
@@ -60,12 +64,10 @@ function ItemPrice() {
           {
             userItemCollection,
           },
-          axiosConfigAuth(cookie.get('loadoUserToken'))
+          axiosConfigAuth(cookie.get("loadoUserToken"))
         )
         .then((response) => {
           if (response.data.success) {
-            console.log('response success');
-            console.log(response.data.itemCollectionPrice);
             setUserItemCollection(userItemCollection);
             setItemPriceTrend(response.data.itemCollectionPrice);
             setLoadingState(true);
@@ -77,18 +79,16 @@ function ItemPrice() {
   const dataApply = (key, dataArr) => {
     if (!dataArr || dataArr.length === 0) return;
 
-    let minusOneDateValue = '';
+    let minusOneDateValue = "";
     if (dataArr.length < 2) {
       minusOneDateValue = moment(dataArr[0].createdDttm)
-        .add(-1, 'days')
-        .format('YYYY-MM-DD');
+        .add(-1, "days")
+        .format("YYYY-MM-DD");
       dataArr.push({
         createdDttm: minusOneDateValue,
         itemPriceAverage: 0,
       });
       dataArr = dataArr.sort((a, b) => a.itemPriceAverage - b.itemPriceAverage);
-      console.log('멸화');
-      console.log(dataArr);
     }
 
     let max = Math.max.apply(
@@ -121,11 +121,11 @@ function ItemPrice() {
 
     const options = {
       chart: {
-        height: 350,
-        type: 'line',
+        height: 300,
+        type: "line",
         dropShadow: {
           enabled: true,
-          color: '#000',
+          color: "#000",
           top: 18,
           left: 7,
           blur: 10,
@@ -140,7 +140,7 @@ function ItemPrice() {
           },
         },
       },
-      colors: [getLineColorFromImage(), '#545454'],
+      colors: [getLineColorFromImage(), "#545454"],
       dataLabels: {
         enabled: true,
         enabledOnSeries: undefined,
@@ -149,16 +149,16 @@ function ItemPrice() {
         },
       },
       stroke: {
-        curve: 'smooth',
+        curve: "smooth",
       },
-      title: {
-        text: `${key.replaceAll('I_', '')}`,
-        align: 'left',
-      },
+      // title: {
+      //   text: `${key.replaceAll("I_", "")}`,
+      //   align: "left",
+      // },
       grid: {
-        borderColor: '#e7e7e7',
+        borderColor: "#e7e7e7",
         row: {
-          colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+          colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
           opacity: 0.5,
         },
       },
@@ -168,12 +168,12 @@ function ItemPrice() {
       xaxis: {
         categories: dataArr.map((item) => item.createdDttm.substring(5)),
         title: {
-          text: '날짜',
+          text: "",
         },
       },
       yaxis: {
         title: {
-          text: 'Gold',
+          text: "Gold",
         },
         labels: {
           formatter: function (val, index) {
@@ -184,8 +184,8 @@ function ItemPrice() {
         max: Math.floor(max + interval),
       },
       legend: {
-        position: 'top',
-        horizontalAlign: 'right',
+        position: "top",
+        horizontalAlign: "right",
         floating: true,
         offsetY: -25,
         offsetX: -5,
@@ -212,33 +212,33 @@ function ItemPrice() {
     <>
       <Container
         style={{
-          backgroundColor: '#384862',
-          margin: '0px !important',
-          height: '94vh',
-          width: '100%',
+          backgroundColor: "#384862",
+          margin: "0px !important",
+          height: "94vh",
+          width: "100%",
         }}
       >
         <Container
           style={{
-            backgroundColor: '#384862',
-            margin: '0px !important',
-            width: '100%',
+            backgroundColor: "#384862",
+            margin: "0px !important",
+            width: "100%",
           }}
         >
-          <div style={{ paddingTop: '15px' }}>
-            <Header as='h2' icon textAlign='center' color='orange'>
-              <Image src='./images/loa_icons/goldImage2.png' avatar />
+          <div style={{ paddingTop: "15px" }}>
+            <Header as="h2" icon textAlign="center" color="orange">
+              <Image src="./images/loa_icons/goldImage2.png" avatar />
               <Header.Content>아이템시세</Header.Content>
             </Header>
           </div>
 
-          <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-            <Button inverted color='teal' onClick={() => setAddItemTrend(true)}>
+          <div style={{ display: "flex", justifyContent: "space-around" }}>
+            <Button inverted color="teal" onClick={() => setAddItemTrend(true)}>
               아이템 추가
             </Button>
             <Button
               inverted
-              color='olive'
+              color="olive"
               onClick={() => searchItemCollection()}
             >
               조회
@@ -250,28 +250,58 @@ function ItemPrice() {
 
           <div
             style={{
-              width: '90%',
-              backgroundColor: 'white',
-              margin: '0 auto',
-              textAlign: 'center',
+              width: "90%",
+              backgroundColor: "rgb(56, 72, 98)",
+              margin: "0 auto",
+              textAlign: "center",
+              border: "10px solid bisque",
+              borderRadius: "5px",
             }}
           >
-            {
+            {loadingState &&
               userItemCollection &&
               itemPriceTrend &&
               userItemCollection.map((item, idx) => (
-                <ReactApexChart
-                  options={dataApply(item, itemPriceTrend[item])}
-                  series={dataApply2(item, itemPriceTrend[item])}
-                  type='line'
-                  height={350}
+                <Segment
                   style={{
-                    marginLeft: '5px',
-                    marginRight: '5px',
-                    width: '30%',
-                    display: 'inline-block',
+                    marginLeft: "5px",
+                    marginRight: "5px",
+                    width: "30%",
+                    display: "inline-block",
                   }}
-                />
+                >
+                  <Header as="h4" style={{ marginBottom: "3px" }}>
+                    {item.indexOf("각인서") > -1 ? (
+                      <Image src="./images/loa_icons/legendBook.PNG" avatar />
+                    ) : (
+                      <Image
+                        src={
+                          imageItemMatch[
+                            item
+                              .replaceAll("(", "")
+                              .replaceAll(")", "")
+                              .replaceAll(":", "")
+                              .replaceAll(" ", "")
+                          ]
+                        }
+                        avatar
+                      />
+                    )}
+                    {item}
+                  </Header>
+                  <ReactApexChart
+                    options={dataApply(item, itemPriceTrend[item])}
+                    series={dataApply2(item, itemPriceTrend[item])}
+                    type="line"
+                    height={350}
+                    style={{
+                      marginLeft: "5px",
+                      marginRight: "5px",
+                      width: "100%",
+                      display: "inline-block",
+                    }}
+                  />
+                </Segment>
               ))}
           </div>
         </Container>
