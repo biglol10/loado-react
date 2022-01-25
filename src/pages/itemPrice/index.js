@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Header, Icon, Image, Button } from 'semantic-ui-react';
+import {
+  Container,
+  Header,
+  Icon,
+  Image,
+  Button,
+  Segment,
+} from 'semantic-ui-react';
 import ReactApexChart from 'react-apexcharts';
 
 import {
@@ -9,6 +16,7 @@ import {
   numberWithCommas,
 } from '../components/util/ConstVar';
 import AddItemToView from '../components/ItemPrice/AddItemToView';
+import { imageItemMatch, itemList } from '../../_data/itemImageMatch';
 
 import axios from 'axios';
 import cookie from 'js-cookie';
@@ -26,8 +34,13 @@ function ItemPrice() {
     setAddItemTrend(false);
   };
 
+  useEffect(() => {
+    searchItemCollection();
+  }, []);
+
   const searchItemCollection = () => {
-    console.log('came to searchItemCollection')
+    setLoadingState(false);
+
     axios
       .get(
         `${backendUrl}/loado/api/itemPrice/userItemInterest`,
@@ -35,24 +48,15 @@ function ItemPrice() {
       )
       .then((response) => {
         if (response.data.success) {
-          setUserItemCollection(
-            response.data.userInterest.map((item) => item.replaceAll('I_', ''))
-          );
+          setUserItemCollection(response.data.userInterest);
         }
       })
       .catch((err) => {
-        console.log('error');
-        console.log(err);
+        alert('에러가 발생했습니다');
       });
   };
 
   useEffect(() => {
-    searchItemCollection();
-  }, []);
-
-  useEffect(() => {
-    console.log('userItemCollection is');
-    console.log(userItemCollection);
     if (userItemCollection.length !== 0) {
       axios
         .post(
@@ -64,8 +68,6 @@ function ItemPrice() {
         )
         .then((response) => {
           if (response.data.success) {
-            console.log('response success');
-            console.log(response.data.itemCollectionPrice);
             setUserItemCollection(userItemCollection);
             setItemPriceTrend(response.data.itemCollectionPrice);
             setLoadingState(true);
@@ -87,8 +89,6 @@ function ItemPrice() {
         itemPriceAverage: 0,
       });
       dataArr = dataArr.sort((a, b) => a.itemPriceAverage - b.itemPriceAverage);
-      console.log('멸화');
-      console.log(dataArr);
     }
 
     let max = Math.max.apply(
@@ -121,7 +121,7 @@ function ItemPrice() {
 
     const options = {
       chart: {
-        height: 350,
+        height: 300,
         type: 'line',
         dropShadow: {
           enabled: true,
@@ -151,10 +151,10 @@ function ItemPrice() {
       stroke: {
         curve: 'smooth',
       },
-      title: {
-        text: `${key.replaceAll('I_', '')}`,
-        align: 'left',
-      },
+      // title: {
+      //   text: '${key.replaceAll("I_", "")}',
+      //   align: "left",
+      // },
       grid: {
         borderColor: '#e7e7e7',
         row: {
@@ -168,7 +168,7 @@ function ItemPrice() {
       xaxis: {
         categories: dataArr.map((item) => item.createdDttm.substring(5)),
         title: {
-          text: '날짜',
+          text: '',
         },
       },
       yaxis: {
@@ -251,27 +251,57 @@ function ItemPrice() {
           <div
             style={{
               width: '90%',
-              backgroundColor: 'white',
+              backgroundColor: 'rgb(56, 72, 98)',
               margin: '0 auto',
               textAlign: 'center',
+              border: '10px solid bisque',
+              borderRadius: '5px',
             }}
           >
-            {
+            {loadingState &&
               userItemCollection &&
               itemPriceTrend &&
               userItemCollection.map((item, idx) => (
-                <ReactApexChart
-                  options={dataApply(item, itemPriceTrend[item])}
-                  series={dataApply2(item, itemPriceTrend[item])}
-                  type='line'
-                  height={350}
+                <Segment
                   style={{
                     marginLeft: '5px',
                     marginRight: '5px',
                     width: '30%',
                     display: 'inline-block',
                   }}
-                />
+                >
+                  <Header as='h4' style={{ marginBottom: '3px' }}>
+                    {item.indexOf('각인서') > -1 ? (
+                      <Image src='./images/loa_icons/legendBook.PNG' avatar />
+                    ) : (
+                      <Image
+                        src={
+                          imageItemMatch[
+                            item
+                              .replaceAll('(', '')
+                              .replaceAll(')', '')
+                              .replaceAll(':', '')
+                              .replaceAll(' ', '')
+                          ]
+                        }
+                        avatar
+                      />
+                    )}
+                    {item}
+                  </Header>
+                  <ReactApexChart
+                    options={dataApply(item, itemPriceTrend[item])}
+                    series={dataApply2(item, itemPriceTrend[item])}
+                    type='line'
+                    height={350}
+                    style={{
+                      marginLeft: '5px',
+                      marginRight: '5px',
+                      width: '100%',
+                      display: 'inline-block',
+                    }}
+                  />
+                </Segment>
               ))}
           </div>
         </Container>
@@ -282,8 +312,6 @@ function ItemPrice() {
           setAddItemTrend={setAddItemTrend}
           axiosConfigAuth={axiosConfigAuth}
           closeAddItemTrend={closeAddItemTrend}
-          setUserItemCollection={setUserItemCollection}
-          setLoadingState={setLoadingState}
           searchItemCollection={searchItemCollection}
         />
       )}
