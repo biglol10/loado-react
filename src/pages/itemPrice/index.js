@@ -227,7 +227,7 @@ function ItemPrice() {
         >
           <div style={{ paddingTop: '15px' }}>
             <Header as='h2' icon textAlign='center' color='orange'>
-              <Image src='./images/loa_icons/goldImage2.png' avatar />
+              <Image src='./images/loa_icons/goldImage2.PNG' avatar />
               <Header.Content>아이템시세</Header.Content>
             </Header>
           </div>
