@@ -152,7 +152,7 @@ function ItemPrice() {
         curve: "smooth",
       },
       // title: {
-      //   text: `${key.replaceAll("I_", "")}`,
+      //   text: '${key.replaceAll("I_", "")}',
       //   align: "left",
       // },
       grid: {
@@ -312,8 +312,6 @@ function ItemPrice() {
           setAddItemTrend={setAddItemTrend}
           axiosConfigAuth={axiosConfigAuth}
           closeAddItemTrend={closeAddItemTrend}
-          setUserItemCollection={setUserItemCollection}
-          setLoadingState={setLoadingState}
           searchItemCollection={searchItemCollection}
         />
       )}

@@ -26,18 +26,12 @@ function AddItemToView({
   setAddItemTrend,
   axiosConfigAuth,
   closeAddItemTrend,
-  setUserItemCollection,
-  setLoadingState,
-  searchItemCollection
+  searchItemCollection,
 }) {
   const [itemSearch, setItemSearch] = useState('');
   const [buttonText, setButtonText] = useState('저장');
   const [itemListState, setItemListState] = useState(itemList);
   const [itemCollection, setItemCollection] = useState([]);
-
-  useEffect(() => {
-    setLoadingState(false);
-  }, []);
 
   const itemSearchChange = (textValue) => {
     if (textValue.length === 0) {
