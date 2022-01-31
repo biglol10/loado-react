@@ -16,6 +16,7 @@ import {
   numberWithCommas,
 } from "../components/util/ConstVar";
 import AddItemToView from "../components/ItemPrice/AddItemToView";
+import FullTrendView from "../components/ItemPrice/FullTrendView";
 import { imageItemMatch, itemList } from "../../_data/itemImageMatch";
 
 import axios from "axios";
@@ -24,6 +25,8 @@ import moment from "moment";
 
 function ItemPrice() {
   const [addItemTrend, setAddItemTrend] = useState(false);
+  const [seeFullLogTrendModal, setSeeFullLogTrendModal] = useState(false);
+  const [fullLogTrendItem, setFullLogTrendItem] = useState("");
 
   const [userItemCollection, setUserItemCollection] = useState([]);
   const [loadingState, setLoadingState] = useState(false);
@@ -32,6 +35,10 @@ function ItemPrice() {
 
   const closeAddItemTrend = () => {
     setAddItemTrend(false);
+  };
+
+  const closeFullLogTrendItem = () => {
+    setSeeFullLogTrendModal(false);
   };
 
   useEffect(() => {
@@ -208,6 +215,12 @@ function ItemPrice() {
     return series;
   };
 
+  const seeFullLog = (itemName) => {
+    setFullLogTrendItem("");
+    setFullLogTrendItem(itemName);
+    setSeeFullLogTrendModal(true);
+  };
+
   return (
     <>
       <Container
@@ -227,7 +240,7 @@ function ItemPrice() {
         >
           <div style={{ paddingTop: "15px" }}>
             <Header as="h2" icon textAlign="center" color="orange">
-              <Image src="./images/loa_icons/goldImage2.png" avatar />
+              <Image src="./images/loa_icons/goldImage2.PNG" avatar />
               <Header.Content>아이템시세</Header.Content>
             </Header>
           </div>
@@ -270,7 +283,12 @@ function ItemPrice() {
                     display: "inline-block",
                   }}
                 >
-                  <Header as="h4" style={{ marginBottom: "3px" }}>
+                  <Header
+                    as="h4"
+                    style={{ marginBottom: "3px", cursor: "pointer" }}
+                    onClick={() => seeFullLog(item)}
+                    className="noselect"
+                  >
                     {item.indexOf("각인서") > -1 ? (
                       <Image src="./images/loa_icons/legendBook.PNG" avatar />
                     ) : (
@@ -313,6 +331,13 @@ function ItemPrice() {
           axiosConfigAuth={axiosConfigAuth}
           closeAddItemTrend={closeAddItemTrend}
           searchItemCollection={searchItemCollection}
+        />
+      )}
+      {seeFullLogTrendModal && fullLogTrendItem && (
+        <FullTrendView
+          seeFullLogTrendModal={seeFullLogTrendModal}
+          itemName={fullLogTrendItem}
+          closeFullLogTrendItem={closeFullLogTrendItem}
         />
       )}
     </>
