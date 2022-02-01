@@ -30,6 +30,7 @@ https://github.com/biglol10/loado-react/blob/main/UPDATE.md
 8. 케릭터 추가/삭제에 따른 페이징처리
 9. 케릭터 당 노트 기록 기능 추가 (20자 이내)
 10. 개인 휴식게이지 반영
+11. 관심있는 아이템 시세 조회 
 
 <br/>
 
@@ -101,4 +102,14 @@ https://github.com/biglol10/loado-react/blob/main/UPDATE.md
 ![image](https://user-images.githubusercontent.com/46738034/136589058-6c670035-1c72-4e54-9eb9-b3d7a8f1ee77.png)
 <br/>
 ![image](https://user-images.githubusercontent.com/46738034/136589177-049019fb-25f2-4e93-b20e-13ffb5d0734d.png)
+<br/><br/>
+
+#### * 관심있는 아이템 시세 조회
+사용자가 관심있어 하는 아이템에 대한 시세를 일주일 + 6시간 단위로 볼 수 있는 기능
+<br/>
+![image](https://user-images.githubusercontent.com/46738034/151933822-034232f7-f3c5-4b25-97d0-02870f6d639f.png)
+<br/>
+![image](https://user-images.githubusercontent.com/46738034/151933971-dd1dc8af-d721-4f71-a8d1-f45d6333f9b1.png)
+<br/>
+![image](https://user-images.githubusercontent.com/46738034/151934074-223601f9-d217-4dcf-94b2-7ca099c6cfa6.png)
 <br/><br/>
