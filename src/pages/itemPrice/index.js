@@ -23,7 +23,9 @@ import axios from "axios";
 import cookie from "js-cookie";
 import moment from "moment";
 
-function ItemPrice() {
+import "./ItemPrice.css";
+
+function ItemPrice({ type }) {
   const [addItemTrend, setAddItemTrend] = useState(false);
   const [seeFullLogTrendModal, setSeeFullLogTrendModal] = useState(false);
   const [fullLogTrendItem, setFullLogTrendItem] = useState("");
@@ -230,6 +232,7 @@ function ItemPrice() {
           height: "94vh",
           width: "100%",
         }}
+        id="itemPriceContainer"
       >
         <Container
           style={{
@@ -267,7 +270,7 @@ function ItemPrice() {
               backgroundColor: "rgb(56, 72, 98)",
               margin: "0 auto",
               textAlign: "center",
-              border: "10px solid bisque",
+              border: `${type !== "mobile" && "10px solid bisque"}`,
               borderRadius: "5px",
             }}
           >
@@ -279,7 +282,7 @@ function ItemPrice() {
                   style={{
                     marginLeft: "5px",
                     marginRight: "5px",
-                    width: "30%",
+                    width: `${type === "mobile" ? "100%" : "30%"}`,
                     display: "inline-block",
                   }}
                 >

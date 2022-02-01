@@ -139,14 +139,21 @@ function NavHeaderMobile() {
               </Header>
             }
           >
-            <p>개인휴식게이지 반영</p>
+            <h4>개인휴식게이지 반영</h4>
             <Button
               color='teal'
               content='휴게반영'
               onClick={() => restValueBatch()}
             />
             <Divider />
-            <p>로그아웃 하시겠습니까?</p>
+            <h4>아이템시세</h4>
+            <Button
+              color='blue'
+              content='시세보기'
+              onClick={() => history.push('/itemPrice')}
+            />
+            <Divider />
+            <h4>로그아웃 하시겠습니까?</h4>
             <Button
               color='red'
               content='로그아웃'

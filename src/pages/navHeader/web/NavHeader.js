@@ -168,6 +168,15 @@ function NavHeader() {
                 </Label>
                 아이템시세
               </Menu.Item>
+              <Menu.Item
+                name="inbox"
+                onClick={() => history.push("/itemPrice")}
+              >
+                <Label color="red">
+                  <Icon name="play" />
+                </Label>
+                강화시뮬레이션
+              </Menu.Item>
             </Menu>
           </Popup>
         </Menu.Item>

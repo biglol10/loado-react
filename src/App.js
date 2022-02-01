@@ -97,8 +97,16 @@ function App() {
             <Dashboard />
           </Route>
           <Route path="/itemPrice">
-            <NavHeader />
-            <ItemPrice />
+            <>
+              <Media between={["zero", "tablet"]}>
+                <NavHeaderMobile />
+                <ItemPrice type="mobile" />
+              </Media>
+              <Media greaterThanOrEqual="computer">
+                <NavHeader />
+                <ItemPrice type="computer" />
+              </Media>
+            </>
           </Route>
           <Route path="/login">
             <Login />
