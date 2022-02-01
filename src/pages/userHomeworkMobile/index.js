@@ -64,16 +64,13 @@ function CharacterToDoRowMobile({ limit, type }) {
     setAddCharacterModal(false);
   };
 
-  const viewPage = async (minusOne = false, plusOne = false, plusPage = 0) => {
+  const viewPage = async (theActivePage = "") => {
     setLoading(true);
     setUserTodoData([]);
 
     const resultData = await viewDataMain(
-      minusOne,
-      plusOne,
-      plusPage,
       limit,
-      activePage,
+      theActivePage ? theActivePage : activePage,
       setActivePage,
       cookie.get("loadoUserToken")
     );
@@ -240,6 +237,8 @@ function CharacterToDoRowMobile({ limit, type }) {
                     userTodoData={userTodoData}
                     setUserTodoData={setUserTodoData}
                     deviceType="mobile"
+                    activePage={activePage}
+                    setActivePage={setActivePage}
                   />
                 ))}
               </Grid.Row>

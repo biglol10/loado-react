@@ -61,13 +61,13 @@ function CharacterToDoRow({ limit, type }) {
     setAddCharacterModal(false);
   };
 
-  const viewPage = async (theActivePage, plusPage = 0) => {
+  const viewPage = async (theActivePage = "") => {
     setLoading(true);
     setUserTodoData([]);
 
     const resultData = await viewDataMain(
       limit,
-      theActivePage,
+      theActivePage ? theActivePage : activePage,
       setActivePage,
       cookie.get("loadoUserToken")
     );

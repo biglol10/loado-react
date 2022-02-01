@@ -21,6 +21,7 @@ function CharacterAvatar({
   setUserTodoData,
   deviceType,
   activePage,
+  setActivePage
 }) {
   const [deleteIcon, showDeleteIcon] = useState(false);
 
