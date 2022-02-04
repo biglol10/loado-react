@@ -72,6 +72,7 @@ const itemList = [
   { item: '안정된 상태 각인서', idx: 69 },
   { item: '만개 각인서', idx: 70 },
   { item: '회귀 각인서', idx: 71 },
+  { item: '멈출 수 없는 충동 각인서', idx: 72 },
 ];
 
 const imageItemMatch = {
