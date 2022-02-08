@@ -17,6 +17,7 @@ import {
 } from "../components/util/ConstVar";
 import AddItemToView from "../components/ItemPrice/AddItemToView";
 import FullTrendView from "../components/ItemPrice/FullTrendView";
+import ConditionSegment from "../components/ItemPrice/ConditionSegment";
 import { imageItemMatch, itemList } from "../../_data/itemImageMatch";
 
 import axios from "axios";
@@ -24,6 +25,8 @@ import cookie from "js-cookie";
 import moment from "moment";
 
 import "./ItemPrice.css";
+
+import TextField from "@mui/material/TextField";
 
 function ItemPrice({ type }) {
   const [addItemTrend, setAddItemTrend] = useState(false);
@@ -248,18 +251,10 @@ function ItemPrice({ type }) {
             </Header>
           </div>
 
-          <div style={{ display: "flex", justifyContent: "space-around" }}>
-            <Button inverted color="teal" onClick={() => setAddItemTrend(true)}>
-              아이템 추가
-            </Button>
-            <Button
-              inverted
-              color="olive"
-              onClick={() => searchItemCollection()}
-            >
-              조회
-            </Button>
-          </div>
+          <ConditionSegment
+            setAddItemTrend={setAddItemTrend}
+            searchItemCollection={searchItemCollection}
+          />
 
           <br />
           <br />
