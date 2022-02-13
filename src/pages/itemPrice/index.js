@@ -276,6 +276,7 @@ function ItemPrice({ type }) {
           <ConditionSegment
             setAddItemTrend={setAddItemTrend}
             searchItemCollection={searchItemCollection}
+            type={type}
           />
 
           <br />
@@ -294,53 +295,59 @@ function ItemPrice({ type }) {
             {loadingState &&
               userItemCollection &&
               itemPriceTrend &&
-              userItemCollection.map((item, idx) => (
-                <Segment
-                  style={{
-                    marginLeft: '5px',
-                    marginRight: '5px',
-                    width: `${type === 'mobile' ? '100%' : '30%'}`,
-                    display: 'inline-block',
-                  }}
-                >
-                  <Header
-                    as='h4'
-                    style={{ marginBottom: '3px', cursor: 'pointer' }}
-                    onClick={() => seeFullLog(item)}
-                    className='noselect'
-                  >
-                    {item.indexOf('각인서') > -1 ? (
-                      <Image src='./images/loa_icons/legendBook.PNG' avatar />
-                    ) : (
-                      <Image
-                        src={
-                          imageItemMatch[
-                            item
-                              .replaceAll('(', '')
-                              .replaceAll(')', '')
-                              .replaceAll(':', '')
-                              .replaceAll(' ', '')
-                          ]
-                        }
-                        avatar
+              userItemCollection.map(
+                (item, idx) =>
+                  itemPriceTrend[item] && (
+                    <Segment
+                      style={{
+                        marginLeft: '5px',
+                        marginRight: '5px',
+                        width: `${type === 'mobile' ? '100%' : '30%'}`,
+                        display: 'inline-block',
+                      }}
+                    >
+                      <Header
+                        as='h4'
+                        style={{ marginBottom: '3px', cursor: 'pointer' }}
+                        onClick={() => seeFullLog(item)}
+                        className='noselect'
+                      >
+                        {item.indexOf('각인서') > -1 ? (
+                          <Image
+                            src='./images/loa_icons/legendBook.PNG'
+                            avatar
+                          />
+                        ) : (
+                          <Image
+                            src={
+                              imageItemMatch[
+                                item
+                                  .replaceAll('(', '')
+                                  .replaceAll(')', '')
+                                  .replaceAll(':', '')
+                                  .replaceAll(' ', '')
+                              ]
+                            }
+                            avatar
+                          />
+                        )}
+                        {item}
+                      </Header>
+                      <ReactApexChart
+                        options={dataApply(item, itemPriceTrend[item])}
+                        series={dataApply2(item, itemPriceTrend[item])}
+                        type='line'
+                        height={350}
+                        style={{
+                          marginLeft: '5px',
+                          marginRight: '5px',
+                          width: '100%',
+                          display: 'inline-block',
+                        }}
                       />
-                    )}
-                    {item}
-                  </Header>
-                  <ReactApexChart
-                    options={dataApply(item, itemPriceTrend[item])}
-                    series={dataApply2(item, itemPriceTrend[item])}
-                    type='line'
-                    height={350}
-                    style={{
-                      marginLeft: '5px',
-                      marginRight: '5px',
-                      width: '100%',
-                      display: 'inline-block',
-                    }}
-                  />
-                </Segment>
-              ))}
+                    </Segment>
+                  )
+              )}
           </div>
         </Container>
       </Container>

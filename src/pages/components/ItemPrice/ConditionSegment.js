@@ -4,7 +4,7 @@ import { Button, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 import TextField from '@mui/material/TextField';
 
-function ConditionSegment({ setAddItemTrend, searchItemCollection }) {
+function ConditionSegment({ setAddItemTrend, searchItemCollection, type }) {
   const [dateValue, setDateValue] = useState({
     startDate: moment().add(-6, 'days').format('YYYY-MM-DD'),
     endDate: moment().format('YYYY-MM-DD'),
@@ -21,50 +21,80 @@ function ConditionSegment({ setAddItemTrend, searchItemCollection }) {
   };
 
   return (
-    <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-      <Button
-        inverted
-        color='teal'
-        onClick={() => setAddItemTrend(true)}
-        style={{ height: '50%' }}
-      >
-        아이템 추가
-      </Button>
+    <>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Button
+          inverted
+          color='teal'
+          onClick={() => setAddItemTrend(true)}
+          style={{ height: '50%' }}
+        >
+          아이템 추가
+        </Button>
 
-      <Segment>
-        <TextField
-          id='startDate'
-          label='시작일자'
-          type='date'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={dateValue.startDate}
-          onChange={(event) => changeDate(event.target.value, 'startDate')}
-        />
+        {type !== 'mobile' && (
+          <Segment>
+            <TextField
+              id='startDate'
+              label='시작일자'
+              type='date'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={dateValue.startDate}
+              onChange={(event) => changeDate(event.target.value, 'startDate')}
+            />
 
-        <TextField
-          id='endDate'
-          label='종료일자'
-          type='date'
-          InputLabelProps={{
-            shrink: true,
-          }}
-          value={dateValue.endDate}
-          onChange={(event) => changeDate(event.target.value, 'endDate')}
-        />
-      </Segment>
-      <Button
-        inverted
-        color='olive'
-        onClick={() =>
-          searchItemCollection(dateValue.startDate, dateValue.endDate)
-        }
-        style={{ height: '50%' }}
-      >
-        조회
-      </Button>
-    </div>
+            <TextField
+              id='endDate'
+              label='종료일자'
+              type='date'
+              InputLabelProps={{
+                shrink: true,
+              }}
+              value={dateValue.endDate}
+              onChange={(event) => changeDate(event.target.value, 'endDate')}
+            />
+          </Segment>
+        )}
+
+        <Button
+          inverted
+          color='olive'
+          onClick={() =>
+            searchItemCollection(dateValue.startDate, dateValue.endDate)
+          }
+          style={{ height: '50%' }}
+        >
+          조회
+        </Button>
+      </div>
+      {type === 'mobile' && (
+        <Segment style={{ display: 'flex', justifyContent: 'center' }}>
+          <TextField
+            id='startDate'
+            label='시작일자'
+            type='date'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={dateValue.startDate}
+            onChange={(event) => changeDate(event.target.value, 'startDate')}
+          />
+
+          <TextField
+            id='endDate'
+            label='종료일자'
+            type='date'
+            InputLabelProps={{
+              shrink: true,
+            }}
+            value={dateValue.endDate}
+            onChange={(event) => changeDate(event.target.value, 'endDate')}
+          />
+        </Segment>
+      )}
+    </>
   );
 }
 

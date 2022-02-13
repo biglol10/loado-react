@@ -46,90 +46,6 @@ function HistoryModal({
           </Grid.Row> */}
           <Grid.Row style={{ padding: '10px 0px' }}>
             <Grid.Column className='updateItemDate' width={2}>
-              2021-09-10
-            </Grid.Column>
-            <Grid.Column width={14}>
-              유지보수 및 코드 분석을 위해 내부 코드 리팩토링 진행 및 간결하게
-              수정
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
-              2021-09-12
-            </Grid.Column>
-            <Grid.Column width={14}>
-              1. 9월10일 업데이트 후 첫 로그인 시 화면에 아무것도 안 뜨던 현상
-              수정, 컨탠츠에 마우스 올리면 행의 색갈이 바뀌도록 수정
-              <br />
-              2. 카던, 가디언, 에포나에 숫자로 선택할 필요없이 체크로 선택하여
-              저장하기 가능토록 수정
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
-              2021-09-16
-            </Grid.Column>
-            <Grid.Column width={14}>
-              1. 케릭터 순서 변경 기능 추가 (우측 상단 이름 클릭 후 순서변경)
-              <br />
-              2. 깜빡거림으로 사용자가 업데이트 내용을 확인할 수 있도록 추가 및
-              작업 내역 확인 후 깜빡거림 멈추는 기능 추가
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
-              2021-09-21
-            </Grid.Column>
-            <Grid.Column width={14}>
-              어플리케이션 업그레이드 비용 지불 및 다음날부터 내부에서 06시
-              휴식게이지 반영되도록 수정 (잘 안될 수도 있음), 안되면
-              개인휴식게이지반영 적용 요청
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
-              2021-09-22
-            </Grid.Column>
-            <Grid.Column width={14}>작업/업데이트 내역 화면 수정</Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
-              2021-09-26
-            </Grid.Column>
-            <Grid.Column width={14}>모바일웹 기능 개발</Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
-              2021-09-27
-            </Grid.Column>
-            <Grid.Column width={14}>
-              아무나 06시 초기화를 할 수 없도록 암호화 진행. 즉, 소스 공개 가능
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
-              2021-09-28
-            </Grid.Column>
-            <Grid.Column width={14}>
-              1. <span style={{ color: 'red' }}>[버그픽스]</span> 순서변경에서
-              버그가 발생하던 부분 해결. 사용자가 1회 케릭터 추가 또는 삭제 한번
-              해줘야 모든게 제대로 작동
-              <br />
-              2. 아이폰으로 접속 시 강제 줌인 되는 현상 수정
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
-              2021-09-30
-            </Grid.Column>
-            <Grid.Column width={14}>
-              1. 모바일 노트 기록 기능 추가
-              <br />
-              2. 숫자체크 또는 체크박스 사용자설정 유지하는 기능 개발완료
-            </Grid.Column>
-          </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
               2021-10-09
             </Grid.Column>
             <Grid.Column width={14}>
@@ -156,6 +72,15 @@ function HistoryModal({
               <br />
               3. 한 페이지에 즉구가격이 전부 "-" 로 되어있을 때 발생하던 에러
               수정했습니다 (페이지이동처리)
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row style={{ padding: '10px 0px' }}>
+            <Grid.Column className='updateItemDate' width={2}>
+              2022-02-13
+            </Grid.Column>
+            <Grid.Column width={14}>
+              1. 날짜 조건 추가 (최대 2주 간격조회 가능)... 자잘한 기능을 더
+              수정할 예정
             </Grid.Column>
           </Grid.Row>
         </Grid>
