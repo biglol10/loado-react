@@ -14,11 +14,11 @@ https://github.com/biglol10/loado-react/blob/main/UPDATE.md
 
 홍보 URL
 <br/>
-https://www.inven.co.kr/board/lostark/4811/3023904
+https://www.inven.co.kr/board/lostark/4811/3023904   조회수: 11,258 | 추천수: 83 | 댓글: 40
 <br/>
-https://www.inven.co.kr/board/lostark/4811/3184415
+https://www.inven.co.kr/board/lostark/4811/3184415   조회수: 8,630 | 추천수: 42 | 댓글: 15
 <br/>
-https://www.inven.co.kr/board/lostark/4811/4124077
+https://www.inven.co.kr/board/lostark/4811/4124077   조회수: 36,211 | 추천수: 209 | 댓글: 119
 <br/>
 
 ---
