@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { Modal, Grid } from 'semantic-ui-react';
-import './HistoryModal.css';
+import React, { useEffect } from "react";
+import { Modal, Grid } from "semantic-ui-react";
+import "./HistoryModal.css";
 
 function HistoryModal({
   showUpdateHistoryModal,
@@ -19,11 +19,11 @@ function HistoryModal({
       closeOnDimmerClick
     >
       <Modal.Header
-        className='modalHeader'
+        className="modalHeader"
         style={{
-          backgroundColor: '#384862',
-          color: 'white',
-          borderBottom: '1px solid white',
+          backgroundColor: "#384862",
+          color: "white",
+          borderBottom: "1px solid white",
         }}
       >
         작업/업데이트 내역
@@ -44,8 +44,8 @@ function HistoryModal({
             </Grid.Column>
             <Grid.Column width={14}>가입 시 암호화 관련 설명 추가</Grid.Column>
           </Grid.Row> */}
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-10-09
             </Grid.Column>
             <Grid.Column width={14}>
@@ -53,16 +53,16 @@ function HistoryModal({
               이미지를 자르고 업로드 하실 수 있습니다
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2021-10-28
             </Grid.Column>
             <Grid.Column width={14}>
               특정 상황에서 페이징처리가 제대로 되지 않던 상황을 픽스했습니다
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2022-02-04
             </Grid.Column>
             <Grid.Column width={14}>
@@ -74,13 +74,21 @@ function HistoryModal({
               수정했습니다 (페이지이동처리)
             </Grid.Column>
           </Grid.Row>
-          <Grid.Row style={{ padding: '10px 0px' }}>
-            <Grid.Column className='updateItemDate' width={2}>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
               2022-02-13
             </Grid.Column>
             <Grid.Column width={14}>
               1. 날짜 조건 추가 (최대 2주 간격조회 가능)... 자잘한 기능을 더
               수정할 예정
+            </Grid.Column>
+          </Grid.Row>
+          <Grid.Row style={{ padding: "10px 0px" }}>
+            <Grid.Column className="updateItemDate" width={2}>
+              2022-02-13
+            </Grid.Column>
+            <Grid.Column width={14}>
+              1. 월별 조회기능 추가 (아이템 클릭 후 월별 트랜드 클릭)
             </Grid.Column>
           </Grid.Row>
         </Grid>
