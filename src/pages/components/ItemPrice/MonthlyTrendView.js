@@ -72,9 +72,22 @@ function MonthlyTrendView({
     border-color: red;
   `;
 
-  const ReturnChart = (type) => {
-    alert(type);
-    if (type !== "mobile") {
+  const ReturnChart = () => (
+    <ReactApexChart
+      options={dataApply(itemName, itemPriceTrend, true)}
+      series={dataApply2(itemName, itemPriceTrend)}
+      type="line"
+      height={350}
+      style={{
+        marginLeft: "5px",
+        marginRight: "5px",
+        display: "block",
+      }}
+    />
+  );
+
+  const ReturnChartMobile = () => {
+    if (itemPriceTrend.length < 11) {
       return (
         <ReactApexChart
           options={dataApply(itemName, itemPriceTrend, true)}
@@ -87,34 +100,90 @@ function MonthlyTrendView({
             display: "block",
           }}
         />
+      );
+    } else if (itemPriceTrend.length < 21) {
+      const halfIndex = Math.ceil(itemPriceTrend.length / 2);
+      const firstHalf = itemPriceTrend.filter((item, idx) => idx <= halfIndex);
+      const nextHalf = itemPriceTrend.filter((item, idx) => idx > halfIndex);
+
+      return (
+        <>
+          <ReactApexChart
+            options={dataApply(itemName, firstHalf, true)}
+            series={dataApply2(itemName, firstHalf)}
+            type="line"
+            height={350}
+            style={{
+              marginLeft: "5px",
+              marginRight: "5px",
+              display: "block",
+            }}
+          />
+          <br />
+          <ReactApexChart
+            options={dataApply(itemName, nextHalf, true)}
+            series={dataApply2(itemName, nextHalf)}
+            type="line"
+            height={350}
+            style={{
+              marginLeft: "5px",
+              marginRight: "5px",
+              display: "block",
+            }}
+          />
+        </>
       );
     } else {
-      const hanlfIndex = Math.ceil(itemPriceTrend.length / 2);
-      let max = Math.max.apply(
-        null,
-        itemPriceTrend.map((item) => item.itemPriceAverage)
-      );
-      let min = Math.max.apply(
-        null,
-        itemPriceTrend.map((item) => item.itemPriceAverage)
-      );
+      const divideIndex = Math.ceil(itemPriceTrend.length / 3);
 
-      const firstHalfArr = itemPriceTrend.splice(0, hanlfIndex);
-      console.log(firstHalfArr);
-      const nextHalfArr = itemPriceTrend.splice(-hanlfIndex);
+      const firstDivide = itemPriceTrend.filter(
+        (item, idx) => idx < divideIndex
+      );
+      const nextDivide = itemPriceTrend.filter(
+        (item, idx) => idx >= divideIndex && idx < divideIndex * 2
+      );
+      const finalDivide = itemPriceTrend.filter(
+        (item, idx) => idx >= divideIndex * 2
+      );
 
       return (
-        <ReactApexChart
-          options={dataApply(itemName, itemPriceTrend, true)}
-          series={dataApply2(itemName, itemPriceTrend)}
-          type="line"
-          height={350}
-          style={{
-            marginLeft: "5px",
-            marginRight: "5px",
-            display: "block",
-          }}
-        />
+        <>
+          <ReactApexChart
+            options={dataApply(itemName, firstDivide, true)}
+            series={dataApply2(itemName, firstDivide)}
+            type="line"
+            height={350}
+            style={{
+              marginLeft: "5px",
+              marginRight: "5px",
+              display: "block",
+            }}
+          />
+          <br />
+          <ReactApexChart
+            options={dataApply(itemName, nextDivide, true)}
+            series={dataApply2(itemName, nextDivide)}
+            type="line"
+            height={350}
+            style={{
+              marginLeft: "5px",
+              marginRight: "5px",
+              display: "block",
+            }}
+          />
+          <br />
+          <ReactApexChart
+            options={dataApply(itemName, finalDivide, true)}
+            series={dataApply2(itemName, finalDivide)}
+            type="line"
+            height={350}
+            style={{
+              marginLeft: "5px",
+              marginRight: "5px",
+              display: "block",
+            }}
+          />
+        </>
       );
     }
   };
@@ -151,7 +220,7 @@ function MonthlyTrendView({
           </LocalizationProvider>
           <Button
             color="orange"
-            style={{ marginLeft: "50px" }}
+            style={{ marginLeft: `${type !== "mobile" ? "50px" : "10px"}` }}
             onClick={searchItemMonthlyTrend}
           >
             <Icon name="search" />
@@ -200,7 +269,7 @@ function MonthlyTrendView({
               )}
               {itemName}
             </Header>
-            {ReturnChart(type)}
+            {type === "mobile" ? ReturnChartMobile() : ReturnChart()}
             {/* <ReactApexChart
               options={dataApply(itemName, itemPriceTrend, true)}
               series={dataApply2(itemName, itemPriceTrend)}

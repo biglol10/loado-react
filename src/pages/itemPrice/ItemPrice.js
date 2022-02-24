@@ -107,9 +107,7 @@ function ItemPrice({ type }) {
     key,
     dataArr,
     monthlyView = false,
-    deviceType = "computer",
-    maxValue = 0,
-    minValue = 0
+    deviceType = "computer"
   ) => {
     if (!dataArr || dataArr.length === 0) return;
 
@@ -127,21 +125,6 @@ function ItemPrice({ type }) {
       dataArr = dataArr.sort((a, b) => a.itemPriceAverage - b.itemPriceAverage);
     }
 
-    // let max =
-    //   deviceType !== "mobile"
-    //     ? Math.max.apply(
-    //         null,
-    //         dataArr.map((item) => item.itemPriceAverage)
-    //       )
-    //     : maxValue;
-    // let min =
-    //   deviceType !== "mobile"
-    //     ? Math.min.apply(
-    //         null,
-    //         dataArr.map((item) => item.itemPriceAverage)
-    //       )
-    //     : minValue;
-
     let max = Math.max.apply(
       null,
       dataArr.map((item) => item.itemPriceAverage)
@@ -151,11 +134,6 @@ function ItemPrice({ type }) {
       null,
       dataArr.map((item) => item.itemPriceAverage)
     );
-
-    if (deviceType === "mobile" && monthlyView === true) {
-      console.log(`max: ${max} and min: ${min}`);
-      console.log(dataArr);
-    }
 
     if (max === min) {
       max =
