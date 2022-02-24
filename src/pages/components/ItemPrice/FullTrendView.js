@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Modal, Grid, Image, Table, Header, Segment } from "semantic-ui-react";
+import {
+  Modal,
+  Grid,
+  Image,
+  Table,
+  Header,
+  Segment,
+  Button,
+  Icon,
+} from "semantic-ui-react";
 import axios from "axios";
 import cookie from "js-cookie";
 
@@ -8,6 +17,7 @@ import "./AddItemToView.css";
 import { imageItemMatch } from "../../../_data/itemImageMatch";
 import { axiosConfigAuth, backendUrl } from "../util/ConstVar";
 import { numberWithCommas } from "../../components/util/ConstVar";
+import MonthlyTrendView from "./MonthlyTrendView";
 
 import "./FullTrendView.css";
 
@@ -15,6 +25,9 @@ function FullTrendView({
   seeFullLogTrendModal,
   itemName,
   closeFullLogTrendItem,
+  dataApply,
+  dataApply2,
+  type,
 }) {
   const closeModal = () => {
     closeFullLogTrendItem();
@@ -26,6 +39,7 @@ function FullTrendView({
     averageValue: 0,
     medianValue: 0,
   });
+  const [viewMonthlyModal, setViewMonthlyModal] = useState(false);
 
   useEffect(() => {
     setLoading(false);
@@ -154,10 +168,27 @@ function FullTrendView({
                   <span style={{ color: "#F1C40F", marginLeft: "2px" }}>G</span>
                 </Header>
               </Segment>
+              <Button color="orange" onClick={() => setViewMonthlyModal(true)}>
+                <Icon name="line graph" />
+                월별
+                <br />
+                트랜드
+              </Button>
             </Grid.Column>
           </Grid>
         </Modal.Content>
       </Modal>
+
+      {viewMonthlyModal && (
+        <MonthlyTrendView
+          itemName={itemName}
+          viewMonthlyModal={viewMonthlyModal}
+          setViewMonthlyModal={setViewMonthlyModal}
+          dataApply={dataApply}
+          dataApply2={dataApply2}
+          type={type}
+        />
+      )}
     </>
   );
 }

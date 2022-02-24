@@ -103,8 +103,17 @@ function ItemPrice({ type }) {
     }
   }, [userItemCollection]);
 
-  const dataApply = (key, dataArr) => {
+  const dataApply = (
+    key,
+    dataArr,
+    monthlyView = false,
+    deviceType = "computer",
+    maxValue = 0,
+    minValue = 0
+  ) => {
     if (!dataArr || dataArr.length === 0) return;
+
+    const createdDttmValueCut = !monthlyView ? 5 : 8;
 
     let minusOneDateValue = "";
     if (dataArr.length < 2) {
@@ -118,14 +127,35 @@ function ItemPrice({ type }) {
       dataArr = dataArr.sort((a, b) => a.itemPriceAverage - b.itemPriceAverage);
     }
 
+    // let max =
+    //   deviceType !== "mobile"
+    //     ? Math.max.apply(
+    //         null,
+    //         dataArr.map((item) => item.itemPriceAverage)
+    //       )
+    //     : maxValue;
+    // let min =
+    //   deviceType !== "mobile"
+    //     ? Math.min.apply(
+    //         null,
+    //         dataArr.map((item) => item.itemPriceAverage)
+    //       )
+    //     : minValue;
+
     let max = Math.max.apply(
       null,
       dataArr.map((item) => item.itemPriceAverage)
     );
+
     let min = Math.min.apply(
       null,
       dataArr.map((item) => item.itemPriceAverage)
     );
+
+    if (deviceType === "mobile" && monthlyView === true) {
+      console.log(`max: ${max} and min: ${min}`);
+      console.log(dataArr);
+    }
 
     if (max === min) {
       max =
@@ -193,7 +223,9 @@ function ItemPrice({ type }) {
         size: 1,
       },
       xaxis: {
-        categories: dataArr.map((item) => item.createdDttm.substring(5)),
+        categories: dataArr.map((item) =>
+          item.createdDttm.substring(createdDttmValueCut)
+        ),
         title: {
           text: "",
         },
@@ -358,6 +390,9 @@ function ItemPrice({ type }) {
           seeFullLogTrendModal={seeFullLogTrendModal}
           itemName={fullLogTrendItem}
           closeFullLogTrendItem={closeFullLogTrendItem}
+          dataApply={dataApply}
+          dataApply2={dataApply2}
+          type={type}
         />
       )}
     </>
