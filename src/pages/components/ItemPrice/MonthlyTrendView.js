@@ -200,7 +200,6 @@ function MonthlyTrendView({
         <div style={{ display: "flex" }}>
           <LocalizationProvider dateAdapter={AdapterDateFns} locale={koLocale}>
             <DatePicker
-              id="monthPickerUniqueId"
               views={["month"]}
               label="날짜"
               minDate={new Date("2022/01/01")}
@@ -270,17 +269,6 @@ function MonthlyTrendView({
               {itemName}
             </Header>
             {type === "mobile" ? ReturnChartMobile() : ReturnChart()}
-            {/* <ReactApexChart
-              options={dataApply(itemName, itemPriceTrend, true)}
-              series={dataApply2(itemName, itemPriceTrend)}
-              type="line"
-              height={350}
-              style={{
-                marginLeft: "5px",
-                marginRight: "5px",
-                display: "block",
-              }}
-            /> */}
           </Segment>
         ) : (
           <span></span>
