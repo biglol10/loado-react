@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   Modal,
   Icon,
   Grid,
   Image,
-  Header,
   Input,
   Label,
-  List,
   Button,
   Divider,
   Segment,
-  Container,
-} from "semantic-ui-react";
-import axios from "axios";
-import cookie from "js-cookie";
+} from 'semantic-ui-react';
+import axios from 'axios';
+import cookie from 'js-cookie';
 
-import "./AddItemToView.css";
+import './AddItemToView.css';
 
-import { imageItemMatch, itemList } from "../../../_data/itemImageMatch";
-import { backendUrl } from "../util/ConstVar";
+import { imageItemMatch, itemList } from '../../../_data/itemImageMatch';
+import { backendUrl } from '../util/ConstVar';
 
 function AddItemToView({
   addItemPriceModal,
@@ -28,7 +25,7 @@ function AddItemToView({
   closeAddItemTrend,
   searchItemCollection,
 }) {
-  const [itemSearch, setItemSearch] = useState("");
+  const [itemSearch, setItemSearch] = useState('');
   const [itemListState, setItemListState] = useState(itemList);
   const [itemCollection, setItemCollection] = useState([]);
   const [saveLoading, setSaveLoading] = useState(false);
@@ -62,11 +59,14 @@ function AddItemToView({
   };
 
   const closeModal = () => {
-    setItemSearch("");
+    setItemSearch('');
     setItemListState([]);
     setItemCollection([]);
 
-    searchItemCollection();
+    const startDate = localStorage.getItem('itemSearchStartDate');
+    const endDate = localStorage.getItem('itemSearchEndDate');
+
+    searchItemCollection(startDate, endDate);
     closeAddItemTrend();
   };
 
@@ -74,7 +74,7 @@ function AddItemToView({
     axios
       .get(
         `${backendUrl}/loado/api/itemPrice/userItemInterest`,
-        axiosConfigAuth(cookie.get("loadoUserToken"))
+        axiosConfigAuth(cookie.get('loadoUserToken'))
       )
       .then((response) => {
         if (response.data.success) {
@@ -82,7 +82,7 @@ function AddItemToView({
         }
       })
       .catch((err) => {
-        console.log("error");
+        console.log('error');
         console.log(err);
       });
   }, []);
@@ -100,7 +100,7 @@ function AddItemToView({
       .post(
         `${backendUrl}/loado/api/itemPrice/userItemInterest`,
         postData,
-        axiosConfigAuth(cookie.get("loadoUserToken"))
+        axiosConfigAuth(cookie.get('loadoUserToken'))
       )
       .then((response) => {
         setSaveLoading(false);
@@ -119,33 +119,33 @@ function AddItemToView({
         closeIcon
         closeOnDimmerClick
       >
-        <Modal.Content style={{ backgroundColor: "white" }}>
-          <Segment className="noselect selectedItemSegment">
+        <Modal.Content style={{ backgroundColor: 'white' }}>
+          <Segment className='noselect selectedItemSegment'>
             {itemCollection?.map((itemName) => (
               <Label
-                as="a"
-                style={{ margin: "1px 2px" }}
+                as='a'
+                style={{ margin: '1px 2px' }}
                 data-item_name={itemName}
                 onClick={(e) => deleteItemCollection(e)}
               >
-                {itemName.indexOf("각인서") > -1 ? (
-                  <Image src="./images/loa_icons/legendBook.PNG" avatar />
+                {itemName.indexOf('각인서') > -1 ? (
+                  <Image src='./images/loa_icons/legendBook.PNG' avatar />
                 ) : (
                   <Image
                     src={
                       imageItemMatch[
                         itemName
-                          .replaceAll("(", "")
-                          .replaceAll(")", "")
-                          .replaceAll(":", "")
-                          .replaceAll(" ", "")
+                          .replaceAll('(', '')
+                          .replaceAll(')', '')
+                          .replaceAll(':', '')
+                          .replaceAll(' ', '')
                       ]
                     }
                     avatar
                   />
                 )}
-                {itemName.replaceAll("I_", "")}
-                <Icon name="delete" />
+                {itemName.replaceAll('I_', '')}
+                <Icon name='delete' />
               </Label>
             ))}
           </Segment>
@@ -153,31 +153,31 @@ function AddItemToView({
           <Divider />
           <Grid
             style={{
-              width: "101%",
-              marginRight: "0px !important",
+              width: '101%',
+              marginRight: '0px !important',
             }}
           >
             <Grid.Row>
               <Grid.Column width={13}>
                 <Input
-                  icon="search"
-                  placeholder="아이템 검색"
+                  icon='search'
+                  placeholder='아이템 검색'
                   value={itemSearch}
                   onChange={(e) => itemSearchChange(e.target.value)}
-                  style={{ width: "100%", height: "38px" }}
+                  style={{ width: '100%', height: '38px' }}
                 />
               </Grid.Column>
-              <Grid.Column width={3} style={{ paddingRight: "0px" }}>
+              <Grid.Column width={3} style={{ paddingRight: '0px' }}>
                 <Button
                   inverted
-                  color="purple"
-                  style={{ width: "100%", height: "38px", padding: "10px" }}
+                  color='purple'
+                  style={{ width: '100%', height: '38px', padding: '10px' }}
                   onClick={() => saveUserItem()}
                 >
                   {!saveLoading ? (
-                    <Icon name="check" />
+                    <Icon name='check' />
                   ) : (
-                    <Icon name="upload" />
+                    <Icon name='upload' />
                   )}
                 </Button>
               </Grid.Column>
@@ -185,10 +185,10 @@ function AddItemToView({
           </Grid>
 
           <Divider />
-          <Segment.Group raised className="noselect itemListSegment">
+          <Segment.Group raised className='noselect itemListSegment'>
             <ul
-              id="itemList"
-              style={{ listStyle: "none", display: "block", cursor: "pointer" }}
+              id='itemList'
+              style={{ listStyle: 'none', display: 'block', cursor: 'pointer' }}
             >
               <Divider hidden />
               {itemListState
@@ -196,11 +196,11 @@ function AddItemToView({
                 .map((item, idx) => (
                   <>
                     <li onClick={() => addItemCollection(item.item, item.idx)}>
-                      <div className="title">
-                        <span style={{ fontWeight: "bold", fontSize: "large" }}>
-                          {item.item.indexOf("각인서") > -1 ? (
+                      <div className='title'>
+                        <span style={{ fontWeight: 'bold', fontSize: 'large' }}>
+                          {item.item.indexOf('각인서') > -1 ? (
                             <Image
-                              src="./images/loa_icons/legendBook.PNG"
+                              src='./images/loa_icons/legendBook.PNG'
                               avatar
                             />
                           ) : (
@@ -208,22 +208,22 @@ function AddItemToView({
                               src={
                                 imageItemMatch[
                                   item.item
-                                    .replaceAll("(", "")
-                                    .replaceAll(")", "")
-                                    .replaceAll(":", "")
-                                    .replaceAll(" ", "")
+                                    .replaceAll('(', '')
+                                    .replaceAll(')', '')
+                                    .replaceAll(':', '')
+                                    .replaceAll(' ', '')
                                 ]
                               }
                               avatar
                             />
                           )}
-                          {item.item.replaceAll("I_", "")}
+                          {item.item.replaceAll('I_', '')}
                         </span>
                       </div>
                       <Icon
-                        className="itemAdd"
-                        size="large"
-                        name="add circle"
+                        className='itemAdd'
+                        size='large'
+                        name='add circle'
                       />
                     </li>
                     {idx === itemListState.length - 1 ? (

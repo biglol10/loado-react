@@ -17,7 +17,7 @@ const axiosConfigAuth = (userCookie) => {
 };
 
 const numberWithCommas = (x) => {
-  return x.toLocaleString('en-US');
+  return x ? x.toLocaleString('en-US') : 0;
 };
 
 const getLineColorFromImage = () => {
