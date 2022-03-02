@@ -1,0 +1,66 @@
+@mixin animation($name) {
+  animation-name: $name;
+  animation-timing-function: ease;
+  animation-delay: 1s;
+  animation-iteration-count: 10;
+}
+
+@mixin keyframe($animation_name) {
+  @keyframes #{$animation_name} {
+    @content;
+  }
+}
+
+@include keyframe(newNotice) {
+  from {
+    color: #34495e;
+  }
+  to {
+    color: white;
+  }
+}
+
+.newNoticeAlert {
+  @include animation(newNotice);
+}
+
+#NavHeaderMenu {
+  background: -webkit-linear-gradient(right, #da0050, #8e2b88);
+  height: 6vh;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+#navTitle {
+  margin-right: 100px;
+  margin-left: 50px;
+  color: white;
+  cursor: pointer;
+}
+#navTitleMobile {
+  color: white;
+  cursor: pointer;
+}
+.headerItem {
+  color: white !important;
+  padding: 0 25px;
+  cursor: pointer;
+}
+.personIcon {
+  color: white;
+  display: flex;
+  cursor: pointer;
+}
+.personIconItem {
+  margin-left: auto;
+  margin-right: 50px;
+}
+#profilePicId {
+  border-radius: 500rem !important;
+  margin: 0 auto;
+  height: 150px;
+  width: 150px;
+}
+.cardTextLine {
+  font-weight: bold;
+}

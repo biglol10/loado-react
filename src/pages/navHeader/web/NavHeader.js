@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Menu,
   Header,
@@ -9,24 +9,25 @@ import {
   Image,
   Card,
   Label,
-} from 'semantic-ui-react';
-import cookie from 'js-cookie';
-import { useHistory } from 'react-router-dom';
-import axios from 'axios';
+} from "semantic-ui-react";
+import cookie from "js-cookie";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
 import {
   backendUrl,
   axiosConfig,
   axiosConfigAuth,
-} from '../../components/util/ConstVar';
+} from "../../components/util/ConstVar";
 
-import HistoryModal from '../../components/updatehistory/HistoryModal';
-import ChangePosition from '../../components/characterRelated/ChangePosition';
-import ProfileModal from '../../components/util/ProfileModal';
+import HistoryModal from "../../components/updatehistory/HistoryModal";
+import ChangePosition from "../../components/characterRelated/ChangePosition";
+import ProfileModal from "../../components/util/ProfileModal";
 
-import './NavHeader.css';
+import "./NavHeader.css";
+import Style from "./NavHeader.module.scss";
 
 function NavHeader() {
-  let userIdString = cookie.get('loadoUserCookie');
+  let userIdString = cookie.get("loadoUserCookie");
   let userValue = userIdString && JSON.parse(userIdString);
   const history = useHistory();
 
@@ -41,11 +42,11 @@ function NavHeader() {
   const [noticeAlert, setNoticeAlert] = useState(false);
 
   const logoutUser = (userId) => {
-    cookie.set('loginId', userId);
-    cookie.remove('loadoUserCookie');
-    cookie.remove('loadoUserToken');
-    cookie.remove('token');
-    history.push('/login');
+    cookie.set("loginId", userId);
+    cookie.remove("loadoUserCookie");
+    cookie.remove("loadoUserToken");
+    cookie.remove("token");
+    history.push("/login");
   };
 
   const restValueBatch = async () => {
@@ -56,7 +57,7 @@ function NavHeader() {
         window.location.reload();
       })
       .catch((err) => {
-        alert('휴식게이지를 반영하지 못했습니다');
+        alert("휴식게이지를 반영하지 못했습니다");
       });
   };
 
@@ -75,7 +76,7 @@ function NavHeader() {
       .post(
         `${backendUrl}/loado/api/users/changeNotification`,
         {},
-        axiosConfigAuth(cookie.get('loadoUserToken'))
+        axiosConfigAuth(cookie.get("loadoUserToken"))
       )
       .then((response) => {
         if (response.data.success) return;
@@ -91,7 +92,7 @@ function NavHeader() {
         .post(
           `${backendUrl}/loado/api/users/checkNotification`,
           {},
-          axiosConfigAuth(cookie.get('loadoUserToken'))
+          axiosConfigAuth(cookie.get("loadoUserToken"))
         )
         .then((response) => {
           if (response.data.success) {
@@ -108,63 +109,59 @@ function NavHeader() {
 
   return (
     <>
-      <Menu
-        style={{
-          background: '-webkit-linear-gradient(right, #da0050, #8e2b88)',
-          height: '6vh',
-          borderRadius: '0px',
-          marginBottom: '0px',
-        }}
-        borderless
-      >
+      <Menu borderless id={Style.NavHeaderMenu}>
         <Menu.Item>
           <Header
-            size='large'
-            id='navTitle'
+            size="large"
+            id={Style.navTitle}
             onClick={() =>
               window.open(
-                'https://github.com/biglol10/loado-react/blob/main/README.md'
+                "https://github.com/biglol10/loado-react/blob/main/README.md"
               )
             }
           >
-            <span style={{ fontStyle: 'italic' }}>
-              <Icon name='game' />
+            <span style={{ fontStyle: "italic" }}>
+              <Icon name="game" />
               LoaDo
             </span>
           </Header>
         </Menu.Item>
         <Menu.Item>
           <Header
-            size='small'
+            size="small"
             onClick={() => setShowUpdateHistoryModal(!showUpdateHistoryModal)}
-            className={noticeAlert ? 'newNoticeAlert headerItem' : 'headerItem'}
+            className={
+              noticeAlert
+                ? `${Style.newNoticeAlert} ${Style.headerItem}`
+                : `${Style.headerItem}`
+            }
           >
-            <Icon name='cube' />
+            <Icon name="cube" />
             작업 내역
           </Header>
         </Menu.Item>
 
         <Menu.Item>
           <Popup
-            on='click'
-            position='top right'
+            on="click"
+            position="top right"
             onClose={() => setOpenAdditionalMenu(false)}
             onOpen={() => setOpenAdditionalMenu(true)}
             open={openAdditionalMenu}
             trigger={
-              <Header size='small' className='headerItem'>
-                <Icon name='chevron circle down' />
+              <Header size="small" className={Style.headerItem}>
+                <Icon name="chevron circle down" />
                 추가기능
               </Header>
             }
           >
             <Menu vertical>
               <Menu.Item
-                name='inbox'
-                onClick={() => history.push('/itemPrice')}
+                name="inbox"
+                onClick={() => history.push("/itemPrice")}
               >
-                <Label color='teal'>
-                  <Icon name='line graph' />
+                <Label color="teal">
+                  <Icon name="line graph" />
                 </Label>
                 아이템시세
               </Menu.Item>
@@ -206,32 +203,32 @@ function NavHeader() {
 
         <Menu.Item>
           <Header
-            size='small'
-            className='headerItem'
-            onClick={() => history.push('/dashboard')}
+            size="small"
+            className={Style.headerItem}
+            onClick={() => history.push("/dashboard")}
           >
-            <Icon name='dashboard' />
+            <Icon name="dashboard" />
             대시보드
           </Header>
         </Menu.Item>
 
-        <Menu.Item className='personIconItem'>
+        <Menu.Item className={Style.personIconItem}>
           <Popup
-            on='click'
-            position='top right'
+            on="click"
+            position="top right"
             onClose={() => setOpen(false)}
             onOpen={() => setOpen(true)}
             open={open}
             trigger={
-              <Header size='small' className='personIcon'>
+              <Header size="small" className={Style.personIcon}>
                 {accountUser?.profilePic ? (
                   <div>
                     <Image src={accountUser.profilePic} avatar />
-                    <span style={{ color: 'white' }}>{userValue.userName}</span>
+                    <span style={{ color: "white" }}>{userValue.userName}</span>
                   </div>
                 ) : (
                   <>
-                    <Icon name='user' />
+                    <Icon name="user" />
                     {userValue && userValue.userName}
                   </>
                 )}
@@ -245,42 +242,36 @@ function NavHeader() {
                 src={
                   accountUser?.profilePic
                     ? accountUser.profilePic
-                    : 'https://react.semantic-ui.com/images/wireframe/image.png'
+                    : "https://react.semantic-ui.com/images/wireframe/image.png"
                 }
-                style={{
-                  margin: '0 auto',
-                  height: '150px',
-                  width: '150px',
-                  borderRadius: '500rem !important',
-                }}
-                id='profilePicId'
+                id={Style.profilePicId}
               />
               <Card.Content>
                 <Card.Header>{userValue && userValue.userName}</Card.Header>
                 <Divider hidden />
                 <Card.Description>
-                  <p style={{ fontWeight: 'bold' }}>
+                  <p className={Style.cardTextLine}>
                     프로필 이미지를 바꾸시겠습니까?
                   </p>
                   <Button
-                    color='violet'
-                    content='프로필변경'
+                    color="violet"
+                    content="프로필변경"
                     onClick={openProfileModal}
                   />
                   <Divider />
-                  <p style={{ fontWeight: 'bold' }}>
+                  <p className={Style.cardTextLine}>
                     케릭터 순서를 바꾸시겠습니까?
                   </p>
                   <Button
-                    color='blue'
-                    content='순서변경'
+                    color="blue"
+                    content="순서변경"
                     onClick={openChangeRowModal}
                   />
                   <Divider />
-                  <p style={{ fontWeight: 'bold' }}>로그아웃 하시겠습니까?</p>
+                  <p className={Style.cardTextLine}>로그아웃 하시겠습니까?</p>
                   <Button
-                    color='red'
-                    content='로그아웃'
+                    color="red"
+                    content="로그아웃"
                     onClick={() => logoutUser(userValue.userId)}
                   />
                 </Card.Description>
