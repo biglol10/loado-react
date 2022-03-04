@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import "./userHomework.css";
-import AddCharacter from "../components/characterRelated/AddCharacter";
+import axios from "axios";
+import cookie from "js-cookie";
 
+import { ToastContainer } from "react-toastify";
+import { useHistory } from "react-router-dom";
 import {
   Segment,
   Grid,
@@ -10,19 +12,20 @@ import {
   Dimmer,
   Loader,
 } from "semantic-ui-react";
+
+// subComponents
+import AddCharacter from "../components/characterRelated/AddCharacter";
 import RestValue from "../components/userHomework/RestValue";
 import CharacterAvatar from "../components/characterRelated/CharacterAvatar";
 import PerIdNote from "../components/userHomework/PerIdNote";
 import DungeonAndEpona from "../components/userHomework/DungeonAndEpona";
 import WeeklyRaidContents from "../components/userHomework/WeeklyRaidContents";
+import AddAndChange from "../components/userHomework/AddAndChange";
+import PaginationComp from "../components/userHomework/PaginationComp";
+import SettingChange from "../components/userHomework/SettingChange";
+import AlarmAndNote from "../components/userHomework/AlarmAndNote";
 
-import axios from "axios";
-import cookie from "js-cookie";
-
-import { ToastContainer } from "react-toastify";
-import { useHistory } from "react-router-dom";
-
-import { backendUrl, axiosConfigAuth } from "../components/util/ConstVar";
+// util functions
 import {
   viewDataMain,
   applyChangesUtil,
@@ -31,12 +34,12 @@ import {
   getUserCheckBoxConfiguration,
   changeUserCheckBoxConfiguration,
 } from "../components/util/ViewDataUtil";
-import AddAndChange from "../components/userHomework/AddAndChange";
-import PaginationComp from "../components/userHomework/PaginationComp";
-import SettingChange from "../components/userHomework/SettingChange";
-import AlarmAndNote from "../components/userHomework/AlarmAndNote";
 
-function CharacterToDoRow({ limit, type }) {
+import { backendUrl, axiosConfigAuth } from "../components/util/ConstVar";
+
+import "./userHomework.css";
+
+function CharacterToDoRow({ limit }) {
   const [userTodoData, setUserTodoData] = useState([]);
 
   const [addCharacterModal, setAddCharacterModal] = useState(false);
@@ -48,6 +51,12 @@ function CharacterToDoRow({ limit, type }) {
   const [pagination, setPagination] = useState(0);
 
   const [viewByCheckBox, setViewByCheckBox] = useState();
+
+  // for alarm animation
+  const [alarmTrue, setAlarmTrue] = useState(true);
+
+  // for note per list
+  const [showNote, setShowNote] = useState(false);
 
   const history = useHistory();
 
@@ -100,11 +109,10 @@ function CharacterToDoRow({ limit, type }) {
 
   const pageChange = async (event, data) => {
     setLoading(true);
-    setActivePage(data.activePage);
-
     // 샙트님 이거 2페이지에 있는 캐릭터 바꾸면 1페이지 같은 자리 있는것두 바뀌는거 같아여
     // 이거 안 해주면 현재 페이지에서 바꾼 ID위치의 정보가 그대로 남아서 사용자에게 모든 페이지의 변경사항이 반영되는 것처럼 보임
     setUserTodoData([]);
+    setActivePage(data.activePage);
 
     await axios
       .get(
@@ -130,12 +138,6 @@ function CharacterToDoRow({ limit, type }) {
       setViewByCheckBox(viewByCheckBox);
     }
   };
-
-  // for alarm animation
-  const [alarmTrue, setAlarmTrue] = useState(true);
-
-  // for note per list
-  const [showNote, setShowNote] = useState(false);
 
   const alarmRestValue = (todoList) => {
     const alarmDataResult = alarmRestValueUtil(todoList, alarmTrue);
@@ -173,134 +175,113 @@ function CharacterToDoRow({ limit, type }) {
           </Dimmer>
         </Segment>
       ) : (
-        <Segment id="gridSegment">
-          <Grid className="fullPage">
-            <Container id="gridContainer">
-              <Grid.Column width={16}>
-                <Segment
-                  basic
-                  className="contentHeader"
-                  style={{ marginBottom: "0px" }}
-                >
-                  <SettingChange
-                    viewByCheckBox={viewByCheckBox}
-                    setViewByCheckBox={setViewByCheckBox}
-                    changeUserCheckBoxConfigurationFunction={
-                      changeUserCheckBoxConfigurationFunction
-                    }
+        <>
+          <Segment id="settingsAndPagination">
+            <SettingChange
+              viewByCheckBox={viewByCheckBox}
+              setViewByCheckBox={setViewByCheckBox}
+              changeUserCheckBoxConfigurationFunction={
+                changeUserCheckBoxConfigurationFunction
+              }
+            />
+            <PaginationComp
+              pagination={pagination}
+              activePage={activePage}
+              pageChange={pageChange}
+            />
+            <AddAndChange
+              addCharacter={addCharacter}
+              applyChanges={applyChanges}
+            />
+          </Segment>
+
+          <Segment id="homeworkSegment">
+            <Grid columns={limit + 1}>
+              <Grid.Row className={`${!showNote && "characterListRow"}`}>
+                <Grid.Column className="contentColumn">
+                  <AlarmAndNote
+                    alarmTrue={alarmTrue}
+                    alarmRestValue={alarmRestValue}
+                    userTodoData={userTodoData}
+                    showNote={showNote}
+                    setShowNote={setShowNote}
                   />
-                  <PaginationComp
-                    pagination={pagination}
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <CharacterAvatar
+                    itemId={item._id}
+                    character={item.character}
+                    characterName={item.characterName}
+                    attributeChanged={item.attributeChanged}
+                    weeklyAttributeChanged={item.weeklyAttributeChanged}
+                    axiosConfigAuth={axiosConfigAuth}
+                    viewPage={viewPage}
+                    alarmCharacter={item.alarmCharacter}
+                    limit={limit}
+                    dontChange={item.dontChange}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
                     activePage={activePage}
-                    pageChange={pageChange}
                   />
-                  <AddAndChange
-                    addCharacter={addCharacter}
-                    applyChanges={applyChanges}
+                ))}
+              </Grid.Row>
+              {showNote && (
+                <Grid.Row className="characterListNoteRow">
+                  <Grid.Column />
+                  {userTodoData.map((item, idx) => (
+                    <PerIdNote
+                      item={item}
+                      userTodoData={userTodoData}
+                      setUserTodoData={setUserTodoData}
+                    />
+                  ))}
+                </Grid.Row>
+              )}
+              <Grid.Row className="eachRow">
+                <Grid.Column className="contentColumn">
+                  <Icon name="calendar check outline" />
+                  휴식게이지
+                </Grid.Column>
+                {userTodoData.map((item, idx) => (
+                  <RestValue
+                    item={item}
+                    userTodoData={userTodoData}
+                    setUserTodoData={setUserTodoData}
                   />
-                </Segment>
-                <Segment
-                  basic
-                  style={{ backgroundColor: "dimgray", marginTop: "0px" }}
-                >
-                  <Grid columns={limit + 1}>
-                    <Grid.Row
-                      style={{
-                        borderBottom: !showNote && "0.05rem inset ivory",
-                      }}
-                    >
-                      <Grid.Column className="contentColumn">
-                        <AlarmAndNote
-                          alarmTrue={alarmTrue}
-                          alarmRestValue={alarmRestValue}
-                          userTodoData={userTodoData}
-                          showNote={showNote}
-                          setShowNote={setShowNote}
-                        />
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <CharacterAvatar
-                          itemId={item._id}
-                          character={item.character}
-                          characterName={item.characterName}
-                          attributeChanged={item.attributeChanged}
-                          weeklyAttributeChanged={item.weeklyAttributeChanged}
-                          axiosConfigAuth={axiosConfigAuth}
-                          viewPage={viewPage}
-                          alarmCharacter={item.alarmCharacter}
-                          limit={limit}
-                          dontChange={item.dontChange}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                          activePage={activePage}
-                        />
-                      ))}
-                    </Grid.Row>
-                    {showNote && (
-                      <Grid.Row
-                        style={{
-                          padding: 0,
-                          borderBottom: "0.05rem inset ivory",
-                          paddingBottom: "7px",
-                        }}
-                      >
-                        <Grid.Column />
-                        {userTodoData.map((item, idx) => (
-                          <PerIdNote
-                            item={item}
-                            userTodoData={userTodoData}
-                            setUserTodoData={setUserTodoData}
-                          />
-                        ))}
-                      </Grid.Row>
-                    )}
-                    <Grid.Row className="eachRow">
-                      <Grid.Column className="contentColumn">
-                        <Icon name="calendar check outline" />
-                        휴식게이지
-                      </Grid.Column>
-                      {userTodoData.map((item, idx) => (
-                        <RestValue
-                          item={item}
-                          userTodoData={userTodoData}
-                          setUserTodoData={setUserTodoData}
-                        />
-                      ))}
-                    </Grid.Row>
-                    {Array.from([
-                      "카오스던전",
-                      "가디언토벌",
-                      "에포나",
-                      "주간가디언",
-                    ]).map((item, idx) => (
-                      <DungeonAndEpona
-                        content={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                        viewByCheckBox={viewByCheckBox}
-                      />
-                    ))}
-
-                    {Array.from([
-                      "어비스6종",
-                      "낙원3종",
-                      "오레하2종",
-                      "아르고스",
-                      "발탄",
-                      "비아키스",
-                      "쿠크세이튼",
-                      "아브렐슈드",
-                    ]).map((item, idx) => (
-                      <WeeklyRaidContents
-                        content={item}
-                        userTodoData={userTodoData}
-                        setUserTodoData={setUserTodoData}
-                        viewByCheckBox={viewByCheckBox}
-                      />
-                    ))}
-
-                    {/* 원정대 주간 컨탠츠는 안 보이게 하기로 결정 */}
-                    {/* <Grid.Row className="eachRow">
+                ))}
+              </Grid.Row>
+              {Array.from([
+                "카오스던전",
+                "가디언토벌",
+                "에포나",
+                "주간가디언",
+              ]).map((item, idx) => (
+                <DungeonAndEpona
+                  content={item}
+                  userTodoData={userTodoData}
+                  setUserTodoData={setUserTodoData}
+                  viewByCheckBox={viewByCheckBox}
+                />
+              ))}
+              {Array.from([
+                "어비스6종",
+                "낙원3종",
+                "오레하2종",
+                "아르고스",
+                "발탄",
+                "비아키스",
+                "쿠크세이튼",
+                "아브렐슈드",
+              ]).map((item, idx) => (
+                <WeeklyRaidContents
+                  content={item}
+                  userTodoData={userTodoData}
+                  setUserTodoData={setUserTodoData}
+                  viewByCheckBox={viewByCheckBox}
+                />
+              ))}
+              {/* 원정대 주간 컨탠츠는 안 보이게 하기로 결정 */}
+              {/* <Grid.Row className="eachRow">
                     <Grid.Column className="contentColumn">
                       <div>
                         <Image
@@ -340,12 +321,9 @@ function CharacterToDoRow({ limit, type }) {
                       />
                     ))}
                   </Grid.Row> */}
-                  </Grid>
-                </Segment>
-              </Grid.Column>
-            </Container>
-          </Grid>
-        </Segment>
+            </Grid>
+          </Segment>
+        </>
       )}
 
       {addCharacterModal && (

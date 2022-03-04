@@ -178,35 +178,30 @@ function CharacterToDoRowMobile({ limit, type }) {
           </Dimmer>
         </Segment>
       ) : (
-        <Segment id="mobileMainPageSegment">
-          <PaginationComp
-            pagination={pagination}
-            activePage={activePage}
-            pageChange={pageChange}
-            deviceType="mobile"
-          />
-          <div
-            style={{
-              display: "flex",
-              marginTop: "20px",
-              justifyContent: "space-between",
-              marginBottom: "10px",
-            }}
-          >
-            <SettingChange
-              viewByCheckBox={viewByCheckBox}
-              changeUserCheckBoxConfigurationFunction={
-                changeUserCheckBoxConfigurationFunction
-              }
+        <>
+          <Segment id="mobileSettingsAndPagination">
+            <PaginationComp
+              pagination={pagination}
+              activePage={activePage}
+              pageChange={pageChange}
               deviceType="mobile"
             />
-            <AddAndChange
-              addCharacter={addCharacter}
-              applyChanges={applyChanges}
-              style={{ fontSize: "5px" }}
-            />
-          </div>
-          <Segment basic id="mobileSegmentGrid">
+            <div id="settingButtonPart">
+              <SettingChange
+                viewByCheckBox={viewByCheckBox}
+                changeUserCheckBoxConfigurationFunction={
+                  changeUserCheckBoxConfigurationFunction
+                }
+                deviceType="mobile"
+              />
+              <AddAndChange
+                addCharacter={addCharacter}
+                applyChanges={applyChanges}
+                style={{ fontSize: "5px" }}
+              />
+            </div>
+          </Segment>
+          <Segment id="mobileHomeworkSegment">
             <Grid columns={limit + 1}>
               <Grid.Row
                 style={{
@@ -273,7 +268,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                       />
                     }
                     content={showContentPopupValue("휴식게이지")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -291,7 +286,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("카오스던전")[0]}
                     content={showContentPopupValue("카오스던전")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -310,7 +305,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("가디언토벌")[0]}
                     content={showContentPopupValue("가디언토벌")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -329,7 +324,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("에포나")[0]}
                     content={showContentPopupValue("에포나")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -348,7 +343,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("주간가디언")[0]}
                     content={showContentPopupValue("주간가디언")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -367,7 +362,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("어비스던전")[0]}
                     content={showContentPopupValue("어비스던전")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -385,7 +380,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("아르고스")[0]}
                     content={showContentPopupValue("아르고스")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -403,7 +398,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("발탄")[0]}
                     content={showContentPopupValue("발탄")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -421,7 +416,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("비아키스")[0]}
                     content={showContentPopupValue("비아키스")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -439,7 +434,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("쿠크세이튼")[0]}
                     content={showContentPopupValue("쿠크세이튼")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -457,7 +452,7 @@ function CharacterToDoRowMobile({ limit, type }) {
                     pinned
                     trigger={showContentPopupValue("아브렐슈드")[0]}
                     content={showContentPopupValue("아브렐슈드")[1]}
-                    id="clickPopup"
+                    className="clickPopup"
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -470,7 +465,7 @@ function CharacterToDoRowMobile({ limit, type }) {
               </Grid.Row>
             </Grid>
           </Segment>
-        </Segment>
+        </>
       )}
 
       {addCharacterModal && (

@@ -1,50 +1,46 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap");
 
-.fullPage {
-  color: white;
-  height: 94vh;
+#settingsAndPagination {
+  display: flex;
+  justify-content: space-between;
+  width: 95%;
+  margin: 0 auto;
   background-color: #384862;
-  margin: 0 !important;
+  border: none;
+}
+
+#homeworkSegment {
+  width: 95%;
+  margin: 0 auto;
+  background-color: dimgray;
+  color: white;
+  border: none;
   font-family: "Noto Sans KR", sans-serif;
   font-weight: 500;
   padding-bottom: 20px !important;
 }
 
-#gridSegment {
-  padding: 0px;
-  background-color: #384862;
-  /* background-image: url("https://coolbackgrounds.io/images/backgrounds/black/black-trianglify-b6181ec2.jpg");
-  background-repeat: no-repeat;
-  background-size: cover; */
-  border: none;
-  margin-top: 0px;
+#homeworkSegment .characterListRow {
+  border-bottom: 0.05rem inset ivory;
 }
 
-@media screen and (min-width: 1500px) {
-  #gridSegment {
-    height: 94vh;
-  }
+#homeworkSegment .characterListNoteRow {
+  border-bottom: 0.05rem inset ivory;
+  padding-bottom: 7px;
 }
 
-#gridContainer {
-  width: 95%;
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-  border: none;
+#homeworkSegment .eachRow {
+  padding-top: 11px !important;
+  padding-bottom: 11px !important;
 }
 
-.headerValue > .header {
-  color: white;
+#homeworkSegment .eachRow:hover {
+  background-color: #148f77;
 }
 
-.contentHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.contentColumn {
-  width: 150px;
+.contentImage {
+  height: 24px !important;
+  width: 24px !important;
 }
 
 div.pagination {
@@ -60,55 +56,3 @@ div.pagination a.active {
   border-bottom-width: 2px !important;
   border-bottom-color: #ff695e !important;
 }
-
-div.eachRow {
-  padding-top: 11px !important;
-  padding-bottom: 11px !important;
-}
-
-div.eachRow:hover,
-.abrelRow:hover {
-  background-color: #148f77;
-}
-
-.contentImage {
-  height: 24px !important;
-  width: 24px !important;
-}
-
-.iconClass {
-  cursor: pointer;
-}
-
-div#clickPopup {
-  padding: 8px;
-  border: none;
-}
-
-#mobileMainPageSegment {
-  width: 100%;
-  margin: 0px;
-  text-align: center;
-  padding-top: 0px;
-  background-color: #384862;
-  height: 100%;
-  padding: 0px;
-}
-
-#mobileSegmentGrid {
-  background-color: dimgray;
-  margin-top: 0px;
-  font-size: 10px;
-  color: white;
-}
-
-/* .eachRow {
-  border-bottom: 1px inset ivory;
-} */
-
-/* .gridTable {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  dimgray
-  cadetblue
-} */

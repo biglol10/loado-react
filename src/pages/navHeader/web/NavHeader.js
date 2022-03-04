@@ -13,17 +13,12 @@ import {
 import cookie from "js-cookie";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import {
-  backendUrl,
-  axiosConfig,
-  axiosConfigAuth,
-} from "../../components/util/ConstVar";
+import { backendUrl, axiosConfigAuth } from "../../components/util/ConstVar";
 
 import HistoryModal from "../../components/updatehistory/HistoryModal";
 import ChangePosition from "../../components/characterRelated/ChangePosition";
 import ProfileModal from "../../components/util/ProfileModal";
 
-import "./NavHeader.css";
 import Style from "./NavHeader.module.scss";
 
 function NavHeader() {
@@ -49,17 +44,17 @@ function NavHeader() {
     history.push("/login");
   };
 
-  const restValueBatch = async () => {
-    let searchString = `${backendUrl}/loado/api/homeworks/loadoupdatepersonal`;
-    axios
-      .post(searchString, {}, axiosConfig)
-      .then((response) => {
-        window.location.reload();
-      })
-      .catch((err) => {
-        alert("휴식게이지를 반영하지 못했습니다");
-      });
-  };
+  // const restValueBatch = async () => {
+  //   let searchString = `${backendUrl}/loado/api/homeworks/loadoupdatepersonal`;
+  //   axios
+  //     .post(searchString, {}, axiosConfig)
+  //     .then((response) => {
+  //       window.location.reload();
+  //     })
+  //     .catch((err) => {
+  //       alert("휴식게이지를 반영하지 못했습니다");
+  //     });
+  // };
 
   const openChangeRowModal = () => {
     setOpen(false);
@@ -88,7 +83,7 @@ function NavHeader() {
 
   useEffect(() => {
     async function checkNewlyUpdate() {
-      const axiosResult = await axios
+      await axios
         .post(
           `${backendUrl}/loado/api/users/checkNotification`,
           {},
@@ -238,7 +233,6 @@ function NavHeader() {
             <Card>
               <Image
                 avatar
-                // style={{ height: '70px', width: '70px', objectFit: 'cover' }}
                 src={
                   accountUser?.profilePic
                     ? accountUser.profilePic

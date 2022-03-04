@@ -1,114 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500;700&display=swap");
 
-.fullPage {
-  color: white;
-  /* height: 93vh; */
-  /* background-color: #384862; */
-  margin: 0 !important;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 500;
-  padding-bottom: 20px !important;
-}
-
-#gridSegment {
-  padding: 0px;
-  /* background-color: #384862; */
-  background-image: url("https://coolbackgrounds.io/images/backgrounds/black/black-trianglify-b6181ec2.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  border: none;
-  margin-top: 0px;
-}
-
-@media screen and (min-width: 1500px) {
-  #gridSegment {
-    height: 94vh;
-  }
-}
-
-#gridContainer {
-  width: 95%;
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-  border: none;
-}
-
-.headerValue > .header {
-  color: white;
-}
-
-.contentHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.contentColumn {
-  width: 150px;
-}
-
-div.pagination {
-  border-bottom: none !important;
-}
-
-div.pagination a {
-  color: white !important;
-}
-
-div.pagination a.active {
-  color: #ff695e !important;
-  border-bottom-width: 2px !important;
-  border-bottom-color: #ff695e !important;
-}
-
-div.eachRow {
-  padding-top: 11px !important;
-  padding-bottom: 11px !important;
-}
-
-div.eachRow:hover,
-.abrelRow:hover {
-  background-color: #148f77;
-}
-
-.contentImage {
-  height: 24px !important;
-  width: 24px !important;
-}
-
-.iconClass {
-  cursor: pointer;
-}
-
-div#clickPopup {
-  padding: 8px;
-  border: none;
-}
-
-#mobileMainPageSegment {
+#mobileSettingsAndPagination {
   width: 100%;
   margin: 0px;
   text-align: center;
-  padding-top: 0px;
   background-color: #384862;
-  height: 100%;
   padding: 0px;
 }
 
-#mobileSegmentGrid {
+#settingButtonPart {
+  display: flex;
+  margin-top: 20px;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+#mobileHomeworkSegment {
   background-color: dimgray;
   margin-top: 0px;
   font-size: 10px;
   color: white;
+  text-align: center;
 }
 
-/* .eachRow {
-  border-bottom: 1px inset ivory;
-} */
+#mobileHomeworkSegment .eachRow {
+  padding-top: 11px !important;
+  padding-bottom: 11px !important;
+}
 
-/* .gridTable {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  dimgray
-  cadetblue
-} */
+#mobileHomeworkSegment .eachRow:hover {
+  background-color: #148f77;
+}

@@ -1,5 +1,5 @@
 #biggerThanTablet {
-  height: 100vh;
+  min-height: 100vh;
   background-color: #384862;
   padding: 0px;
   border: none;
