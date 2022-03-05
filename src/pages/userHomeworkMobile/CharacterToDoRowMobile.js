@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import "./userHomeworkMobile.css";
-import AddCharacterMobile from "../components/characterRelated/AddCharacterMobile";
+import React, { useState, useEffect } from 'react';
+import './userHomeworkMobile.css';
+import AddCharacterMobile from '../components/characterRelated/AddCharacterMobile';
 
-import { Segment, Grid, Icon, Dimmer, Loader, Popup } from "semantic-ui-react";
-import RestValueMobile from "../components/userHomework/RestValueMobile";
-import CharacterAvatar from "../components/characterRelated/CharacterAvatar";
+import { Segment, Grid, Icon, Dimmer, Loader, Popup } from 'semantic-ui-react';
+import RestValueMobile from '../components/userHomework/RestValueMobile';
+import CharacterAvatar from '../components/characterRelated/CharacterAvatar';
 import {
   ChaosDunValue,
   GuardianDunValue,
   EponaValue,
   WeeklyGuardian,
-} from "../components/userHomework/DungeonAndEponaUtil";
+} from '../components/userHomework/DungeonAndEponaUtil';
 import {
   AbyssDun2,
   ArgosRaid,
@@ -18,14 +18,14 @@ import {
   BiakissRaid,
   KukseitnRaid,
   AbrelRaid,
-} from "../components/userHomework/AbyssAndRaid";
-import axios from "axios";
-import cookie from "js-cookie";
+} from '../components/userHomework/AbyssAndRaid';
+import axios from 'axios';
+import cookie from 'js-cookie';
 
-import { ToastContainer } from "react-toastify";
-import { useHistory } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 
-import { backendUrl, axiosConfigAuth } from "../components/util/ConstVar";
+import { backendUrl, axiosConfigAuth } from '../components/util/ConstVar';
 import {
   viewDataMain,
   applyChangesUtil,
@@ -33,13 +33,13 @@ import {
   toastMessage,
   getUserCheckBoxConfiguration,
   changeUserCheckBoxConfiguration,
-} from "../components/util/ViewDataUtil";
-import AddAndChange from "../components/userHomework/AddAndChange";
-import PaginationComp from "../components/userHomework/PaginationComp";
-import SettingChange from "../components/userHomework/SettingChange";
-import AlarmAndNoteMobile from "../components/userHomework/AlarmAndNoteMobile";
-import { showContentPopupValue } from "../components/util/ContentDefinition";
-import PerIdNote from "../components/userHomework/PerIdNote";
+} from '../components/util/ViewDataUtil';
+import AddAndChange from '../components/userHomework/AddAndChange';
+import PaginationComp from '../components/userHomework/PaginationComp';
+import SettingChange from '../components/userHomework/SettingChange';
+import AlarmAndNoteMobile from '../components/userHomework/AlarmAndNoteMobile';
+import { showContentPopupValue } from '../components/util/ContentDefinition';
+import PerIdNote from '../components/userHomework/PerIdNote';
 
 function CharacterToDoRowMobile({ limit, type }) {
   const [userTodoData, setUserTodoData] = useState([]);
@@ -64,7 +64,7 @@ function CharacterToDoRowMobile({ limit, type }) {
     setAddCharacterModal(false);
   };
 
-  const viewPage = async (theActivePage = "") => {
+  const viewPage = async (theActivePage = '') => {
     setLoading(true);
     setUserTodoData([]);
 
@@ -72,14 +72,14 @@ function CharacterToDoRowMobile({ limit, type }) {
       limit,
       theActivePage ? theActivePage : activePage,
       setActivePage,
-      cookie.get("loadoUserToken")
+      cookie.get('loadoUserToken')
     );
 
     if (resultData.success) {
       setUserTodoData(resultData.viewData.data);
       setPagination(resultData.setPage);
     } else {
-      toastMessage("데이터를 불러오지 못했습니다", "error", "mobile");
+      toastMessage('데이터를 불러오지 못했습니다', 'error', 'mobile');
     }
     setLoading(false);
   };
@@ -93,12 +93,12 @@ function CharacterToDoRowMobile({ limit, type }) {
 
     const applyResult = await applyChangesUtil(
       submitData,
-      cookie.get("loadoUserToken")
+      cookie.get('loadoUserToken')
     );
 
     setLoading(false);
     if (applyResult) {
-      toastMessage("일부 변경사항이 제대로 반영되지 않았습니다", "error");
+      toastMessage('일부 변경사항이 제대로 반영되지 않았습니다', 'error');
     }
     viewPage();
   };
@@ -114,14 +114,14 @@ function CharacterToDoRowMobile({ limit, type }) {
     await axios
       .get(
         `${backendUrl}/loado/api/homeworks?limit=${limit}&page=${data.activePage}`,
-        axiosConfigAuth(cookie.get("loadoUserToken"))
+        axiosConfigAuth(cookie.get('loadoUserToken'))
       )
       .then((response) => {
         setUserTodoData(response.data.data);
         setLoading(false);
       })
       .catch((err) => {
-        toastMessage("데이터를 불러오지 못했습니다", "error");
+        toastMessage('데이터를 불러오지 못했습니다', 'error');
         setLoading(false);
       });
   };
@@ -129,7 +129,7 @@ function CharacterToDoRowMobile({ limit, type }) {
   const changeUserCheckBoxConfigurationFunction = async (viewByCheckBox) => {
     const result = await changeUserCheckBoxConfiguration(
       viewByCheckBox,
-      cookie.get("loadoUserToken")
+      cookie.get('loadoUserToken')
     );
     if (result) {
       setViewByCheckBox(viewByCheckBox);
@@ -150,8 +150,8 @@ function CharacterToDoRowMobile({ limit, type }) {
 
   // if no user cookie then redirect to login page
   useEffect(() => {
-    let loginCookie = cookie.get("loadoUserToken");
-    !loginCookie && history.push("/login");
+    let loginCookie = cookie.get('loadoUserToken');
+    !loginCookie && history.push('/login');
   }, []);
 
   useEffect(() => {
@@ -159,7 +159,7 @@ function CharacterToDoRowMobile({ limit, type }) {
 
     async function callUsersCheckBoxValue() {
       const resultData = await getUserCheckBoxConfiguration(
-        cookie.get("loadoUserToken")
+        cookie.get('loadoUserToken')
       );
       setViewByCheckBox(resultData);
     }
@@ -170,45 +170,41 @@ function CharacterToDoRowMobile({ limit, type }) {
     <>
       {loading ? (
         <Segment
-          className="fullPage"
-          style={{ height: "94vh", border: "none" }}
+          className='fullPage'
+          style={{ height: '94vh', border: 'none' }}
         >
           <Dimmer active>
-            <Loader size="big">로딩중</Loader>
+            <Loader size='big'>로딩중</Loader>
           </Dimmer>
         </Segment>
       ) : (
         <>
-          <Segment id="mobileSettingsAndPagination">
+          <Segment id='mobileSettingsAndPagination'>
             <PaginationComp
               pagination={pagination}
               activePage={activePage}
               pageChange={pageChange}
-              deviceType="mobile"
+              deviceType='mobile'
             />
-            <div id="settingButtonPart">
+            <div id='settingButtonPart'>
               <SettingChange
                 viewByCheckBox={viewByCheckBox}
                 changeUserCheckBoxConfigurationFunction={
                   changeUserCheckBoxConfigurationFunction
                 }
-                deviceType="mobile"
+                deviceType='mobile'
               />
               <AddAndChange
                 addCharacter={addCharacter}
                 applyChanges={applyChanges}
-                style={{ fontSize: "5px" }}
+                style={{ fontSize: '5px' }}
               />
             </div>
           </Segment>
-          <Segment id="mobileHomeworkSegment">
+          <Segment id='mobileHomeworkSegment'>
             <Grid columns={limit + 1}>
-              <Grid.Row
-                style={{
-                  borderBottom: !showNote && "0.05rem inset ivory",
-                }}
-              >
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='mobileCharacterListRow'>
+                <Grid.Column className='contentColumn'>
                   <AlarmAndNoteMobile
                     alarmTrue={alarmTrue}
                     alarmRestValue={alarmRestValue}
@@ -231,44 +227,39 @@ function CharacterToDoRowMobile({ limit, type }) {
                     dontChange={item.dontChange}
                     userTodoData={userTodoData}
                     setUserTodoData={setUserTodoData}
-                    deviceType="mobile"
+                    deviceType='mobile'
                     activePage={activePage}
                     setActivePage={setActivePage}
                   />
                 ))}
               </Grid.Row>
               {showNote && (
-                <Grid.Row
-                  style={{
-                    padding: 0,
-                    borderBottom: "0.05rem inset ivory",
-                    paddingBottom: "7px",
-                  }}
-                >
+                <Grid.Row className='characterListNoteRow'>
                   <Grid.Column />
                   {userTodoData.map((item, idx) => (
                     <PerIdNote
                       item={item}
                       userTodoData={userTodoData}
                       setUserTodoData={setUserTodoData}
-                      deviceType="mobile"
+                      deviceType='mobile'
                     />
                   ))}
                 </Grid.Row>
               )}
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
                     trigger={
                       <Icon
-                        name="calendar check outline"
-                        style={{ fontSize: "21px" }}
+                        name='calendar check outline'
+                        style={{ fontSize: '21px' }}
                       />
                     }
-                    content={showContentPopupValue("휴식게이지")[1]}
-                    className="clickPopup"
+                    content={showContentPopupValue('휴식게이지')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -279,14 +270,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("카오스던전")[0]}
-                    content={showContentPopupValue("카오스던전")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('카오스던전')[0]}
+                    content={showContentPopupValue('카오스던전')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -298,14 +290,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("가디언토벌")[0]}
-                    content={showContentPopupValue("가디언토벌")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('가디언토벌')[0]}
+                    content={showContentPopupValue('가디언토벌')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -317,14 +310,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("에포나")[0]}
-                    content={showContentPopupValue("에포나")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('에포나')[0]}
+                    content={showContentPopupValue('에포나')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -336,14 +330,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("주간가디언")[0]}
-                    content={showContentPopupValue("주간가디언")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('주간가디언')[0]}
+                    content={showContentPopupValue('주간가디언')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -355,14 +350,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("어비스던전")[0]}
-                    content={showContentPopupValue("어비스던전")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('어비스던전')[0]}
+                    content={showContentPopupValue('어비스던전')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -373,14 +369,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("아르고스")[0]}
-                    content={showContentPopupValue("아르고스")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('아르고스')[0]}
+                    content={showContentPopupValue('아르고스')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -391,14 +388,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow baltanRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("발탄")[0]}
-                    content={showContentPopupValue("발탄")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('발탄')[0]}
+                    content={showContentPopupValue('발탄')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -409,14 +407,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("비아키스")[0]}
-                    content={showContentPopupValue("비아키스")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('비아키스')[0]}
+                    content={showContentPopupValue('비아키스')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -427,14 +426,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="eachRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("쿠크세이튼")[0]}
-                    content={showContentPopupValue("쿠크세이튼")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('쿠크세이튼')[0]}
+                    content={showContentPopupValue('쿠크세이튼')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
@@ -445,14 +445,15 @@ function CharacterToDoRowMobile({ limit, type }) {
                   />
                 ))}
               </Grid.Row>
-              <Grid.Row className="abrelRow">
-                <Grid.Column className="contentColumn">
+              <Grid.Row className='eachRow'>
+                <Grid.Column className='contentColumn'>
                   <Popup
-                    on="click"
+                    on='click'
                     pinned
-                    trigger={showContentPopupValue("아브렐슈드")[0]}
-                    content={showContentPopupValue("아브렐슈드")[1]}
-                    className="clickPopup"
+                    trigger={showContentPopupValue('아브렐슈드')[0]}
+                    content={showContentPopupValue('아브렐슈드')[1]}
+                    className='clickPopup'
+                    style={{ padding: '5px' }}
                   />
                 </Grid.Column>
                 {userTodoData.map((item, idx) => (
