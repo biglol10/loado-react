@@ -2,3 +2,45 @@
   border-left: 1px solid rgba(34, 36, 38, 0.1) !important;
   padding: 11px !important;
 }
+
+#modalContent {
+  background-color: #d5f5e3;
+  min-height: 100vh;
+}
+
+#modalContent .summaryHeader {
+  border-bottom: 1px solid red;
+}
+
+#modalContent .goldSpan {
+  color: "#F1C40F";
+  margin-left: "2px";
+}
+
+#mobileSummary {
+  display: flex;
+  justify-content: space-around;
+}
+
+#mobileSummary .mobileSummaryHeaderSegment {
+  background-color: white;
+  padding: 14px;
+  border-radius: 5px;
+}
+
+#mobileSummary .mobileSummaryHeaderSegment .summaryHeader {
+  border-bottom: 1px solid red;
+}
+
+#mobileSummary .mobileSummaryHeaderSegment .goldSpan {
+  color: "#F1C40F";
+  margin-left: "2px";
+}
+
+#mobileTableDiv {
+  margin-top: 35px;
+}
+
+#mobileTableDivTrendTable {
+  background-color: "#d5f5e3";
+}
